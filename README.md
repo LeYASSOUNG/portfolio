@@ -144,7 +144,7 @@ PORTFOLIO/
 
 ## 📞 Contact
 
-- **GitHub** : [diarrass2003](https://github.com/LeYASSOUNG)
+- **GitHub** : [LeYASSOUNG](https://github.com/LeYASSOUNG)
 - **LinkedIn** : [Yassoungo Youssouf Diarrassouba](https://www.linkedin.com/in/yassoungo-youssouf-diarrassouba-0b7037306)
 - **Twitter** : [@YassoungoD](https://x.com/YassoungoD)
 - **Instagram** : [@diarr_assoubayassoungo](https://www.instagram.com/diarr_assoubayassoungo)
