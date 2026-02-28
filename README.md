@@ -157,4 +157,4 @@ Ce projet est sous licence libre. Vous pouvez l'utiliser et le modifier selon vo
 
 **Développé avec ❤️ par Diarrassouba**
 
-*Dernière mise à jour : Octobre 2024*
+*Dernière mise à jour : 28 fevrier 2026*
