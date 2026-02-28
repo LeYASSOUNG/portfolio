@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Portfolio professionnel de Diarrassouba, Développeur Full Stack avec expertise en React, Node.js et UI/UX">
+    <meta name="keywords" content="développeur, portfolio, fullstack, react, nodejs, javascript">
+    <meta name="author" content="Diarrassouba">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍💻</text></svg>">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="Assets/css/all.min.css">
+    <link rel="stylesheet" href="Assets/css/style.css">
+
+    <title>Diarrassouba | Développeur Full Stack</title>
+</head>
+
+<body>
+    <!-- Scroll Progress -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Animated Background -->
+    <div id="mesh-gradient">
+        <div class="mesh-ball" style="width:520px;height:520px;background:rgba(59,130,246,.18);top:-80px;left:-80px">
+        </div>
+        <div class="mesh-ball"
+            style="width:600px;height:600px;background:rgba(139,92,246,.15);top:48%;right:-100px;animation-delay:-5s">
+        </div>
+        <div class="mesh-ball"
+            style="width:420px;height:420px;background:rgba(236,72,153,.12);bottom:20%;left:22%;animation-delay:-10s">
+        </div>
+    </div>
+
+    <!-- Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+
+    <!-- ── NAVBAR ── -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="#home" class="navbar-brand gradient-text">Diarrassouba Yassoungo Y.</a>
+
+            <div class="navbar-links">
+                <a href="#home" class="nav-link active">Accueil</a>
+                <a href="#about" class="nav-link">À propos</a>
+                <a href="#skills" class="nav-link">Compétences</a>
+                <a href="#projects" class="nav-link">Projets</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <button class="dark-toggle" id="darkToggle" title="Mode sombre">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#home" class="nav-link">Accueil</a>
+            <a href="#about" class="nav-link">À propos</a>
+            <a href="#skills" class="nav-link">Compétences</a>
+            <a href="#projects" class="nav-link">Projets</a>
+            <a href="#contact" class="nav-link">Contact</a>
+            <button class="dark-toggle" id="darkToggleMobile" style="align-self:flex-start;margin-top:.5rem"
+                title="Mode sombre">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <section id="home">
+        <div class="hero-grid">
+            <!-- Left -->
+            <div>
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    Disponible pour de nouveaux projets
+                </div>
+
+                <h1 class="hero-title">
+                    Bonjour, je suis<br>
+                    <span class="gradient-text">Diarrassouba Yassoungo Y.</span>
+                    <span class="wave-emoji">👋</span>
+                </h1>
+
+                <p class="hero-subtitle">Développeur Full Stack</p>
+
+                <p class="hero-desc">
+                    Je crée des expériences digitales exceptionnelles, rapides, accessibles et visuellement attrayantes.
+                    Créons quelque chose d'incroyable ensemble !
+                </p>
+
+                <div class="hero-cta">
+                    <a href="#contact" class="btn-primary">
+                        <i class="fas fa-paper-plane"></i> Contactez-moi
+                    </a>
+                    <a href="#projects" class="btn-outline">
+                        <i class="fas fa-code"></i> Mes projets
+                    </a>
+                </div>
+
+                <div class="hero-socials">
+                    <a href="https://github.com/LeYASSOUNG" target="_blank" rel="noopener" class="social-btn"
+                        style="background:linear-gradient(135deg,#24292e,#444d56);box-shadow:0 4px 15px rgba(36,41,46,.35)"
+                        title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/yassoungo-youssouf-diarrassouba-0b7037306" target="_blank"
+                        rel="noopener" class="social-btn"
+                        style="background:linear-gradient(135deg,#0077b5,#0a66c2);box-shadow:0 4px 15px rgba(0,119,181,.4)"
+                        title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://x.com/YassoungoD" target="_blank" rel="noopener" class="social-btn"
+                        style="background:linear-gradient(135deg,#111,#333);box-shadow:0 4px 15px rgba(0,0,0,.3)"
+                        title="X/Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/diarr_assoubayassoungo" target="_blank" rel="noopener"
+                        class="social-btn"
+                        style="background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 4px 15px rgba(220,39,67,.4)"
+                        title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="0">0+</div>
+                        <div class="stat-label">Ans d'exp.</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="8">0+</div>
+                        <div class="stat-label">Projets</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="3">0+</div>
+                        <div class="stat-label">Services</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right (photo) -->
+            <div class="hero-image-wrap">
+                <div class="hero-img-ring">
+                    <img src="Assets/images/image cv portfolio.jpeg" alt="Photo de Diarrassouba">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── ABOUT ── -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2><i class="fas fa-user-circle"></i> À propos de moi</h2>
+                <p>Découvrez qui je suis, ce que je fais et mes expériences</p>
+            </div>
+
+            <div class="about-grid">
+                <!-- Profile image -->
+                <div class="about-img-wrap reveal">
+                    <div class="ring">
+                        <img src="Assets/images/image cv portfolio.jpeg" alt="Profil Diarrassouba">
+                    </div>
+                </div>
+
+                <!-- Text -->
+                <div class="about-content reveal">
+                    <h3>Qui suis-je ?</h3>
+                    <p>
+                        Je suis un développeur Full Stack passionné avec moins d'un an d'expérience dans la création
+                        d'applications web modernes. Je me spécialise dans les technologies JavaScript (React.js,
+                        Node.js, Java HTML/CSS, MySQL) et j'aime créer des solutions innovantes qui résolvent des
+                        problèmes
+                        concrets.
+                    </p>
+
+                    <div class="about-cards">
+                        <div class="about-card">
+                            <div class="card-icon" style="background:rgba(59,130,246,.1);color:#3b82f6"><i
+                                    class="fas fa-code"></i></div>
+                            <div>
+                                <h4>Développement Web</h4>
+                                <p>Sites web réactifs avec les dernières technologies.</p>
+                            </div>
+                        </div>
+                        <div class="about-card">
+                            <div class="card-icon" style="background:rgba(139,92,246,.1);color:#8b5cf6"><i
+                                    class="fas fa-mobile-alt"></i></div>
+                            <div>
+                                <h4>Applications Mobile</h4>
+                                <p>Apps cross-platform avec Flutter.</p>
+                            </div>
+                        </div>
+                        <div class="about-card">
+                            <div class="card-icon" style="background:rgba(34,197,94,.1);color:#22c55e"><i
+                                    class="fas fa-server"></i></div>
+                            <div>
+                                <h4>Backend & API</h4>
+                                <p>APIs robustes et logiques serveur performantes.</p>
+                            </div>
+                        </div>
+                        <div class="about-card">
+                            <div class="card-icon" style="background:rgba(245,158,11,.1);color:#f59e0b"><i
+                                    class="fas fa-paint-brush"></i></div>
+                            <div>
+                                <h4>UI/UX Design</h4>
+                                <p>Interfaces intuitives et expériences optimisées.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-cta">
+                        <a href="cv/CV_Diarrassouba.pdf" download class="btn-primary"><i class="fas fa-download"></i>
+                            Télécharger CV</a>
+                        <a href="#contact" class="btn-outline"><i class="fas fa-paper-plane"></i> Me contacter</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <h3 class="timeline-title reveal">Mon Parcours</h3>
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-left">
+                        <div class="timeline-dot"><i class="fas fa-briefcase"></i></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-body">
+                        <div class="timeline-top">
+                            <h4>Développeur Full Stack</h4>
+                            <span class="tag">2026 – Présent</span>
+                        </div>
+                        <p class="org">Tech Solutions Inc.</p>
+                        <p>Développement et maintenance d'applications web complètes avec React, Node.js et MySQL.
+                            Collaboration en équipe avec méthodologie agile.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-left">
+                        <div class="timeline-dot"><i class="fas fa-laptop-code"></i></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-body">
+                        <div class="timeline-top">
+                            <h4>Développeur Frontend</h4>
+                            <span class="tag">2025 – Présent</span>
+                        </div>
+                        <p class="org">Digital Creations</p>
+                        <p>Implémentation d'interfaces utilisateur réactives avec React. Optimisation des
+                            performances et de l'accessibilité.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-left">
+                        <div class="timeline-dot"><i class="fas fa-graduation-cap"></i></div>
+                        <div class="timeline-line" style="display:none"></div>
+                    </div>
+                    <div class="timeline-body">
+                        <div class="timeline-top">
+                            <h4>Diplôme en Informatique</h4>
+                            <span class="tag">2023 – 2026</span>
+                        </div>
+                        <p class="org">Université Polytechnique de Bingerville</p>
+                        <p>Spécialisation en développement web et bases de données. Projets académiques en développement
+                            d'applications.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── SKILLS ── -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2><i class="fas fa-tools"></i> Mes Compétences</h2>
+                <p>Un aperçu de mes compétences techniques et professionnelles</p>
+            </div>
+
+            <div class="skills-grid">
+                <!-- Technical skills -->
+                <div class="reveal">
+                    <h3>Compétences Techniques</h3>
+                    <div class="skill-bars">
+                        <div class="skill-row">
+                            <div class="skill-row-top"><span>HTML / CSS</span><span class="pct">95%</span></div>
+                            <div class="bar-track">
+                                <div class="bar-fill"
+                                    style="width:95%;background:linear-gradient(90deg,#3b82f6,#60a5fa)"></div>
+                            </div>
+                        </div>
+                        <div class="skill-row">
+                            <div class="skill-row-top"><span>JavaScript</span><span class="pct">60%</span></div>
+                            <div class="bar-track">
+                                <div class="bar-fill"
+                                    style="width:60%;background:linear-gradient(90deg,#8b5cf6,#a78bfa)"></div>
+                            </div>
+                        </div>
+                        <div class="skill-row">
+                            <div class="skill-row-top"><span>React.js</span><span class="pct">50%</span></div>
+                            <div class="bar-track">
+                                <div class="bar-fill"
+                                    style="width:50%;background:linear-gradient(90deg,#06b6d4,#22d3ee)"></div>
+                            </div>
+                        </div>
+                        <div class="skill-row">
+                            <div class="skill-row-top"><span>Node.js</span><span class="pct">50%</span></div>
+                            <div class="bar-track">
+                                <div class="bar-fill"
+                                    style="width:50%;background:linear-gradient(90deg,#22c55e,#4ade80)"></div>
+                            </div>
+                        </div>
+                        <div class="skill-row">
+                            <div class="skill-row-top"><span>SQL /MySQL</span><span class="pct">75%</span></div>
+                            <div class="bar-track">
+                                <div class="bar-fill"
+                                    style="width:75%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div>
+                            </div>
+                        </div>
+                        <div class="skill-row">
+                            <div class="skill-row-top"><span>Flutter</span><span class="pct">45%</span></div>
+                            <div class="bar-track">
+                                <div class="bar-fill"
+                                    style="width:45%;background:linear-gradient(90deg,#ec4899,#f472b6)"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soft skills -->
+                <div class="reveal">
+                    <h3>Compétences Professionnelles</h3>
+                    <div class="soft-grid">
+                        <div class="soft-card">
+                            <div class="card-icon" style="background:rgba(59,130,246,.1);color:#3b82f6"><i
+                                    class="fas fa-users"></i></div>
+                            <div>
+                                <h4>Travail d'équipe</h4>
+                                <p>Collaboration efficace pour atteindre des objectifs communs.</p>
+                            </div>
+                        </div>
+                        <div class="soft-card">
+                            <div class="card-icon" style="background:rgba(139,92,246,.1);color:#8b5cf6"><i
+                                    class="fas fa-lightbulb"></i></div>
+                            <div>
+                                <h4>Créativité</h4>
+                                <p>Solutions innovantes pour des problèmes complexes.</p>
+                            </div>
+                        </div>
+                        <div class="soft-card">
+                            <div class="card-icon" style="background:rgba(34,197,94,.1);color:#22c55e"><i
+                                    class="fas fa-comments"></i></div>
+                            <div>
+                                <h4>Communication</h4>
+                                <p>Communication claire avec les clients et collègues.</p>
+                            </div>
+                        </div>
+                        <div class="soft-card">
+                            <div class="card-icon" style="background:rgba(245,158,11,.1);color:#f59e0b"><i
+                                    class="fas fa-tasks"></i></div>
+                            <div>
+                                <h4>Gestion de projet</h4>
+                                <p>Méthodologie agile du début à la fin.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technologies -->
+            <h3 class="tech-title reveal">Technologies que j'utilise</h3>
+            <div class="tech-grid reveal">
+                <div class="tech-item">
+                    <div class="tech-icon"
+                        style="background:linear-gradient(135deg,#fff3e0,#ffe0b2);border-color:#E44D26">
+                        <i class="fab fa-html5" style="color:#E44D26"></i>
+                    </div>
+                    <span>HTML5</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon"
+                        style="background:linear-gradient(135deg,#e3f2fd,#bbdefb);border-color:#264DE4">
+                        <i class="fab fa-css3-alt" style="color:#264DE4"></i>
+                    </div>
+                    <span>CSS3</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon"
+                        style="background:linear-gradient(135deg,#fffde7,#fff9c4);border-color:#F7DF1E">
+                        <i class="fab fa-js-square" style="color:#937A00"></i>
+                    </div>
+                    <span>JavaScript</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon"
+                        style="background:linear-gradient(135deg,#e0f7fa,#b2ebf2);border-color:#61DAFB">
+                        <i class="fab fa-react" style="color:#0ea5e9"></i>
+                    </div>
+                    <span>React</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon"
+                        style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-color:#339933">
+                        <i class="fab fa-node-js" style="color:#339933"></i>
+                    </div>
+                    <span>Node.js</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon"
+                        style="background:linear-gradient(135deg,#fff3e0,#ffccbc);border-color:#F05032">
+                        <i class="fab fa-git-alt" style="color:#F05032"></i>
+                    </div>
+                    <span>Git</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon"
+                        style="background:linear-gradient(135deg,#ede7f6,#d1c4e9);border-color:#A259FF">
+                        <i class="fas fa-palette" style="color:#A259FF"></i>
+                    </div>
+                    <span>Figma</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon"
+                        style="background:linear-gradient(135deg,#e3f2fd,#90caf9);border-color:#1565C0">
+                        <i class="fas fa-database" style="color:#1565C0"></i>
+                    </div>
+                    <span>SQL</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── PROJECTS ── -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2><i class="fas fa-project-diagram"></i> Mes Projets</h2>
+                <p>Quelques-uns de mes projets récents construits avec différentes technologies.</p>
+            </div>
+
+            <div class="projects-grid">
+                <div class="project-card reveal">
+                    <div class="project-img">
+                        <img src="Assets/images/resvation hotel img.avif"
+                            alt="Plateforme de Réservation d'Hébergements Touristiques" loading="lazy">
+                        <div class="project-img-overlay"></div>
+                        <h3 class="project-img-title">Plateforme de Réservation d'Hébergements Touristiques</h3>
+                    </div>
+                    <div class="project-body">
+                        <p>Plateforme complète permettant a des personnes de reserver des hebergements touristiques ou
+                            hotelier et un hotelier de gerer ses hebergements, reservation et traitement des paiements
+                            sécurisé.</p>
+                        <div class="project-tags">
+                            <span class="project-tag" style="background:rgba(59,130,246,.1);color:#3b82f6">React</span>
+                            <span class="project-tag"
+                                style="background:rgba(139,92,246,.1);color:#8b5cf6">Nexte.js</span>
+                            <span class="project-tag" style="background:rgba(34,197,94,.1);color:#53570f">Spring
+                                Boot</span>
+                            <span class="project-tag" style="background:rgba(34,197,94,.1);color:#0d6932">Java</span>
+                            <span class="project-tag" style="background:rgba(34,197,94,.1);color:#22c55e">MySQL</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/LeYASSOUNG" class="project-link" target="_blank"><i
+                                    class="fab fa-github"></i> Code</a>
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Live</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card reveal">
+                    <div class="project-img">
+                        <img src="Assets/images/photo-1522542550221-31fd19575a2d.avif" alt="Gestion de Stock"
+                            loading="lazy">
+                        <div class="project-img-overlay"></div>
+                        <h3 class="project-img-title">Gestion de Stock</h3>
+                    </div>
+                    <div class="project-body">
+                        <p>Application de productivité avec glisser-déposer et collaboration d'équipe en temps réel.</p>
+                        <div class="project-tags">
+                            <span class="project-tag" style="background:rgba(245,158,11,.1);color:#f59e0b">Java</span>
+                            <span class="project-tag"
+                                style="background:rgba(59,130,246,.1);color:#3b82f6">Next.js</span>
+                            <span class="project-tag" style="background:rgba(245,158,11,.1);color:#f59e0b">Spring
+                                Boot</span>
+                            <span class="project-tag" style="background:rgba(6,182,212,.1);color:#06b6d4">MySQL</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/LeYASSOUNG/gestion-stock" class="project-link"
+                                target="_blank"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Live</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card reveal">
+                    <div class="project-img">
+                        <img src="Assets/images/photo-1467232004584-a241de8bcf5d.avif" alt="Portfolio" loading="lazy">
+                        <div class="project-img-overlay"></div>
+                        <h3 class="project-img-title">Portfolio</h3>
+                    </div>
+                    <div class="project-body">
+                        <p>Site web pour présenter mes compétences et mes projets.</p>
+                        <div class="project-tags">
+                            <span class="project-tag" style="background:rgba(59,130,246,.1);color:#3b82f6">HTML</span>
+                            <span class="project-tag" style="background:rgba(239,68,68,.1);color:#ef4444">CSS</span>
+                            <span class="project-tag"
+                                style="background:rgba(34,197,94,.1);color:#22c55e">JAVASCRIPT</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/LeYASSOUNG/portfolio" class="project-link" target="_blank"><i
+                                    class="fab fa-github"></i> Code</a>
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Live</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="projects-cta reveal">
+                <a href="https://github.com/LeYASSOUNG" target="_blank" class="btn-primary">
+                    Voir Tous Mes Projets <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CONTACT ── -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2><i class="fas fa-envelope-open-text"></i> Contactez-moi</h2>
+                <p>Un projet ? Une opportunité ? N'hésitez pas à me contacter !</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Form -->
+                <div class="reveal">
+                    <form id="contactForm">
+                        <div id="formMessage" class="form-message"></div>
+
+                        <div class="form-group">
+                            <label for="name">Votre nom *</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="Jean Dupont"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Adresse email *</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="jean@gmail.com"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Sujet *</label>
+                            <input type="text" id="subject" name="subject" class="form-input"
+                                placeholder="Proposition de projet" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" class="form-input" rows="5"
+                                placeholder="Décrivez votre projet ou question..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit" id="submitBtn">
+                            <span>Envoyer le message</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Info Card -->
+                <div class="contact-card reveal">
+                    <h3>Informations de Contact</h3>
+                    <div class="contact-items">
+                        <div class="contact-item">
+                            <div class="contact-item-icon" style="background:rgba(59,130,246,.1);color:#3b82f6">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-item-body">
+                                <h4>Localisation</h4>
+                                <p>Tiassalé, Côte d'Ivoire</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-item-icon" style="background:rgba(139,92,246,.1);color:#8b5cf6">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-item-body">
+                                <h4>Email</h4>
+                                <p>
+                                    diarrassoubayassoungo33@gmail.com
+                                    <button class="copy-btn"
+                                        onclick="copyText('diarrassoubayassoungo33@gmail.com', this)" title="Copier"><i
+                                            class="far fa-copy"></i></button>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-item-icon" style="background:rgba(34,197,94,.1);color:#22c55e">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-item-body">
+                                <h4>Téléphone</h4>
+                                <p>
+                                    +225 07 49 67 90 02
+                                    <button class="copy-btn" onclick="copyText('+22507496790 02', this)"
+                                        title="Copier"><i class="far fa-copy"></i></button>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-item-icon" style="background:rgba(245,158,11,.1);color:#f59e0b">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-item-body">
+                                <h4>Heures de travail</h4>
+                                <p>Lun – Ven : 9h00 – 17h00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-socials">
+                        <h4>Suivez-moi</h4>
+                        <div class="contact-socials-list">
+                            <a href="https://github.com/LeYASSOUNG" target="_blank" class="social-chip"
+                                title="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/yassoungo-youssouf-diarrassouba-0b7037306"
+                                target="_blank" class="social-chip" title="LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                            <a href="https://x.com/YassoungoD" target="_blank" class="social-chip" title="Twitter"><i
+                                    class="fab fa-twitter"></i></a>
+                            <a href="https://www.instagram.com/diarr_assoubayassoungo" target="_blank"
+                                class="social-chip" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <span class="brand-name">Diarrassouba</span>
+                    <p>Création d'expériences digitales rapides, accessibles et visuellement attrayantes.</p>
+                    <div class="footer-social-list">
+                        <a href="https://github.com/LeYASSOUNG" class="footer-social" target="_blank" title="GitHub"><i
+                                class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/yassoungo-youssouf-diarrassouba-0b7037306"
+                            class="footer-social" target="_blank" title="LinkedIn"><i
+                                class="fab fa-linkedin-in"></i></a>
+                        <a href="https://x.com/YassoungoD" class="footer-social" target="_blank" title="Twitter"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/diarr_assoubayassoungo" class="footer-social" target="_blank"
+                            title="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links-grid">
+                    <div class="footer-col">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><a href="#home">Accueil</a></li>
+                            <li><a href="#about">À propos</a></li>
+                            <li><a href="#skills">Compétences</a></li>
+                            <li><a href="#projects">Projets</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><span>Développement Web</span></li>
+                            <li><span>Applications Mobile</span></li>
+                            <li><span>UI/UX Design</span></li>
+                            <li><span>Consultation</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Newsletter</h3>
+                        <p style="font-size:.85rem;color:#94a3b8;margin-bottom:.75rem">Recevez mes dernières mises à
+                            jour.</p>
+                        <form class="newsletter-form" onsubmit="return false">
+                            <input type="email" class="newsletter-input" placeholder="Votre email">
+                            <button type="submit" class="newsletter-btn"><i class="fas fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Diarrassouba. Tous droits réservés.</p>
+                <div class="footer-legal-links">
+                    <a href="politique_de_confidentialite.html">Confidentialité</a>
+                    <a href="condition_d_utilisation.html">Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="backToTop" aria-label="Retour en haut">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ── JS ── -->
+    <script>
+        (function () {
+            // ── Dark Mode ──────────────────────────────────────────────
+            const html = document.documentElement;
+
+            function applyTheme(dark) {
+                dark ? html.classList.add('dark') : html.classList.remove('dark');
+            }
+
+            const saved = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            applyTheme(saved === 'dark' || (!saved && prefersDark));
+
+            function toggleTheme() {
+                const isDark = html.classList.contains('dark');
+                applyTheme(!isDark);
+                localStorage.setItem('theme', isDark ? 'light' : 'dark');
+            }
+
+            document.getElementById('darkToggle')?.addEventListener('click', toggleTheme);
+            document.getElementById('darkToggleMobile')?.addEventListener('click', toggleTheme);
+
+            // ── Mobile Menu ────────────────────────────────────────────
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            let isOpen = false;
+
+            hamburger?.addEventListener('click', () => {
+                isOpen = !isOpen;
+                mobileMenu.classList.toggle('open', isOpen);
+                const bars = hamburger.querySelectorAll('span');
+                if (isOpen) {
+                    bars[0].style.cssText = 'transform:rotate(45deg) translate(5px,5px)';
+                    bars[1].style.cssText = 'opacity:0';
+                    bars[2].style.cssText = 'transform:rotate(-45deg) translate(5px,-5px)';
+                } else {
+                    bars.forEach(b => b.style.cssText = '');
+                }
+            });
+
+            mobileMenu?.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    isOpen = false;
+                    mobileMenu.classList.remove('open');
+                    hamburger.querySelectorAll('span').forEach(b => b.style.cssText = '');
+                });
+            });
+
+            // ── Scroll Progress ────────────────────────────────────────
+            const indicator = document.getElementById('scrollIndicator');
+            const backBtn = document.getElementById('backToTop');
+
+            window.addEventListener('scroll', () => {
+                const total = document.body.scrollHeight - window.innerHeight;
+                if (indicator && total > 0) indicator.style.transform = `scaleX(${window.scrollY / total})`;
+                if (backBtn) backBtn.classList.toggle('visible', window.scrollY > 500);
+            }, { passive: true });
+
+            backBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            // ── Custom Cursor ──────────────────────────────────────────
+            const cur = document.getElementById('cursor');
+            const dot = document.getElementById('cursorDot');
+            let mx = 0, my = 0, cx = 0, cy = 0;
+
+            window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+            function steps() {
+                cx += (mx - cx) * 0.1;
+                cy += (my - cy) * 0.1;
+                if (cur) { cur.style.left = cx + 'px'; cur.style.top = cy + 'px'; }
+                if (dot) { dot.style.left = mx + 'px'; dot.style.top = my + 'px'; }
+                requestAnimationFrame(steps);
+            }
+            requestAnimationFrame(steps);
+
+            document.querySelectorAll('a, button').forEach(el => {
+                el.addEventListener('mouseenter', () => cur?.classList.add('hovered'));
+                el.addEventListener('mouseleave', () => cur?.classList.remove('hovered'));
+            });
+
+            // ── Scroll Reveal ──────────────────────────────────────────
+            document.body.classList.add('js-ready');
+
+            const revealObs = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+                        revealObs.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.08 });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    el.classList.add('visible');
+                } else {
+                    revealObs.observe(el);
+                }
+            });
+
+            // ── Stats Counter ──────────────────────────────────────────
+            const statsSection = document.querySelector('.hero-stats');
+            if (statsSection) {
+                const statsObs = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) return;
+                        entry.target.querySelectorAll('.stat-number').forEach(el => {
+                            const target = parseInt(el.dataset.target, 10);
+                            let n = 0;
+                            const step = Math.max(1, Math.ceil(target / 40));
+                            const timer = setInterval(() => {
+                                n = Math.min(n + step, target);
+                                el.textContent = n + '+';
+                                if (n >= target) clearInterval(timer);
+                            }, 45);
+                        });
+                        statsObs.unobserve(entry.target);
+                    });
+                }, { threshold: 0.5 });
+                statsObs.observe(statsSection);
+            }
+
+            // ── Active Nav on Scroll ───────────────────────────────────
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.navbar-links .nav-link');
+
+            const navObs = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (!e.isIntersecting) return;
+                    navLinks.forEach(l => {
+                        l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id);
+                    });
+                });
+            }, { threshold: 0.4, rootMargin: '-10% 0px -40% 0px' });
+
+            sections.forEach(s => navObs.observe(s));
+
+            // ── Contact Form ───────────────────────────────────────────
+            const form = document.getElementById('contactForm');
+            const formMsg = document.getElementById('formMessage');
+            const submit = document.getElementById('submitBtn');
+
+            form?.addEventListener('submit', async e => {
+                e.preventDefault();
+                submit.disabled = true;
+                submit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+
+                try {
+                    // Replace YOUR_FORM_ID with your Formspree ID
+                    const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                        body: JSON.stringify(Object.fromEntries(new FormData(form)))
+                    });
+
+                    if (res.ok) {
+                        formMsg.className = 'form-message success';
+                        formMsg.textContent = '✅ Message envoyé avec succès ! Je vous répondrai très bientôt.';
+                        form.reset();
+                    } else {
+                        throw new Error('Server error');
+                    }
+                } catch {
+                    formMsg.className = 'form-message error';
+                    formMsg.textContent = '❌ Une erreur est survenue. Veuillez réessayer ou me contacter directement par email.';
+                } finally {
+                    submit.disabled = false;
+                    submit.innerHTML = '<span>Envoyer le message</span><i class="fas fa-paper-plane"></i>';
+                }
+            });
+
+        })();
+
+        // ── Copy to clipboard ──────────────────────────────────────────
+        function copyText(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                const orig = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check" style="color:#22c55e"></i>';
+                setTimeout(() => { btn.innerHTML = orig; }, 1600);
+            });
+        }
+    </script>
+
+</body>
+
+</html>

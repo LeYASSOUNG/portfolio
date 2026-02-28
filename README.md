@@ -35,7 +35,7 @@ Portfolio professionnel de **Diarrassouba**, développeur Full Stack passionné 
 
 ```
 PORTFOLIO/
-├── Portfolio.html              # Page principale du portfolio
+├── index.html              # Page principale du portfolio
 ├── condition_d_utilisation.html # Conditions d'utilisation
 ├── politique_de_confidentialite.html # Politique de confidentialité
 ├── README.md                   # Documentation du projet
@@ -56,7 +56,7 @@ PORTFOLIO/
    ```
 
 2. **Ouvrir le portfolio**
-   - Double-cliquer sur `Portfolio.html`
+   - Double-cliquer sur `index.html`
    - Ou ouvrir avec un serveur local pour de meilleures performances
 
 3. **Navigation**
@@ -113,7 +113,7 @@ PORTFOLIO/
 ## 🔧 Personnalisation
 
 ### Modifier les informations personnelles
-1. Éditer `Portfolio.html`
+1. Éditer `index.html`
 2. Remplacer les informations dans les sections correspondantes
 3. Mettre à jour les liens vers les réseaux sociaux
 
