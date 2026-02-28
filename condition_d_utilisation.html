@@ -1,331 +1,280 @@
 <!DOCTYPE html>
-<html lang="fr" class="dark">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conditions d'Utilisation - Diarrassouba</title>
+    <meta name="description"
+        content="Conditions d'Utilisation du portfolio professionnel de Diarrassouba, Développeur Full Stack.">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍💻</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="Assets/css/all.min.css">
-    <style>
-        @import url('Assets/fonts/css2.css?family=Poppins:wght@300;400;500;600;700&display=swap');
-        body {
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
-            background-color: #f9fafb;
-            color: #111827;
-        }
-        .dark body {
-            background-color: #111827;
-            color: #f3f4f6;
-        }
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background: #3b82f6;
-            color: #fff;
-            border-bottom: 2px solid #2563eb;
-        }
-        .navbar .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-        .navbar .logo i {
-            margin-right: 0.5rem;
-        }
-        .navbar nav a {
-            color: #fff;
-            margin-left: 1.5rem;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        .navbar nav a:hover, .navbar nav a.active {
-            color: #dbeafe;
-            text-decoration: underline;
-        }
-        .dark .navbar {
-            background: #1e293b;
-            border-bottom: 2px solid #3b82f6;
-        }
-        .dark .navbar nav a {
-            color: #93c5fd;
-        }
-        .dark .navbar nav a:hover, .dark .navbar nav a.active {
-            color: #60a5fa;
-        }
-        .toggle-dark {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 1.3rem;
-            cursor: pointer;
-            margin-left: 1.5rem;
-            transition: color 0.3s;
-        }
-        .toggle-dark:focus {
-            outline: 2px solid #2563eb;
-        }
-        .dark .toggle-dark {
-            color: #93c5fd;
-        }
-        .container {
-            max-width: 800px;
-            margin: 2rem auto 0 auto;
-            padding: 2rem;
-            background: #fff;
-            border-radius: 1rem;
-            box-shadow: 0 4px 24px rgba(59,130,246,0.07);
-        }
-        .dark .container {
-            background: #1e293b;
-            box-shadow: 0 4px 24px rgba(30,41,59,0.2);
-        }
-        h1 {
-            color: #3b82f6;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid #3b82f6;
-            padding-bottom: 0.5rem;
-        }
-        h2 {
-            color: #3b82f6;
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-        p, li {
-            color: #6b7280;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-        .dark p, .dark li {
-            color: #d1d5db;
-        }
-        ul {
-            list-style-type: disc;
-            padding-left: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        a {
-            color: #3b82f6;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        a:hover {
-            color: #2563eb;
-            text-decoration: underline;
-        }
-        .dark a {
-            color: #93c5fd;
-        }
-        .dark a:hover {
-            color: #60a5fa;
-        }
-        .last-updated {
-            font-style: italic;
-            color: #9ca3af;
-            margin-bottom: 2rem;
-        }
-        .dark .last-updated {
-            color: #6b7280;
-        }
-        .card {
-            background: #e5e7eb;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-        .dark .card {
-            background: #334155;
-        }
-        .toc {
-            background: #f1f5f9;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-bottom: 2rem;
-        }
-        .dark .toc {
-            background: #1e293b;
-        }
-        .toc ul {
-            list-style: none;
-            padding-left: 0;
-            margin: 0;
-        }
-        .toc li {
-            margin-bottom: 0.5rem;
-        }
-        .toc a {
-            color: #2563eb;
-            font-weight: 500;
-        }
-        .dark .toc a {
-            color: #60a5fa;
-        }
-        .back-to-top {
-            display: inline-block;
-            margin-top: 2rem;
-            background: #3b82f6;
-            color: #fff;
-            padding: 0.5rem 1.2rem;
-            border-radius: 2rem;
-            text-decoration: none;
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(59,130,246,0.08);
-            transition: background 0.3s;
-        }
-        .back-to-top:hover {
-            background: #2563eb;
-        }
-        .dark .back-to-top {
-            background: #2563eb;
-        }
-        .dark .back-to-top:hover {
-            background: #3b82f6;
-        }
-        .contact-list i {
-            margin-right: 0.5rem;
-            color: #3b82f6;
-        }
-        .dark .contact-list i {
-            color: #60a5fa;
-        }
-        @media (max-width: 600px) {
-            .container {
-                padding: 1rem;
-            }
-            .navbar {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 1rem;
-            }
-            .navbar nav {
-                margin-top: 0.5rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="Assets/css/style.css">
+    <title>Conditions d'Utilisation | Diarrassouba</title>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-    <header class="navbar" role="navigation" aria-label="Navigation principale">
-        <div class="logo"><i class="fas fa-shield-alt"></i> Diarrassouba</div>
-        <nav>
-            <a href="index.html">Accueil</a>
-            <a href="condition_d_utilisation.html" class="active">Conditions d'Utilisation</a>
-            <a href="politique_de_confidentialite.html">Confidentialité</a>
-            <button class="toggle-dark" id="toggleDark" aria-label="Basculer mode sombre/clair"><i class="fas fa-moon"></i></button>
-        </nav>
-    </header>
-    <div class="container">
-        <h1 id="top" class="gradient-text">Conditions d'Utilisation</h1>
-        <p class="last-updated">Dernière mise à jour : 21 octobre 2024</p>
-        <nav class="toc" aria-label="Sommaire">
-            <strong>Sommaire</strong>
-            <ul>
-                <li><a href="#definitions">1. Définitions</a></li>
-                <li><a href="#acceptation">2. Acceptation des conditions</a></li>
-                <li><a href="#acces">3. Accès au Site</a></li>
-                <li><a href="#propriete">4. Propriété intellectuelle</a></li>
-                <li><a href="#responsabilites">5. Responsabilités</a></li>
-                <li><a href="#limitation">6. Limitation de responsabilité</a></li>
-                <li><a href="#liens">7. Liens externes</a></li>
-                <li><a href="#modifications">8. Modifications</a></li>
-                <li><a href="#loi">9. Loi applicable</a></li>
-                <li><a href="#contact">10. Contact</a></li>
-            </ul>
-        </nav>
-        <div class="card" id="definitions">
-            <h2>1. Définitions</h2>
-            <p><strong>"Site"</strong> : Le portfolio accessible à l'adresse [votre URL].</p>
-            <p><strong>"Utilisateur"</strong> : Toute personne accédant ou utilisant le Site.</p>
-            <p><strong>"Contenu"</strong> : Tous les éléments présents sur le Site (textes, images, vidéos, code, etc.).</p>
+
+<body>
+    <!-- Scroll Progress -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Animated Background -->
+    <div id="mesh-gradient">
+        <div class="mesh-ball" style="width:520px;height:520px;background:rgba(59,130,246,.15);top:-80px;left:-80px">
         </div>
-        <div class="card" id="acceptation">
-            <h2>2. Acceptation des conditions</h2>
-            <p>L'utilisation du Site implique l'acceptation pleine et entière des présentes conditions. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser ce Site.</p>
+        <div class="mesh-ball"
+            style="width:600px;height:600px;background:rgba(139,92,246,.12);top:40%;right:-100px;animation-delay:-5s">
         </div>
-        <div class="card" id="acces">
-            <h2>3. Accès au Site</h2>
-            <p>Le Site est accessible gratuitement à tout utilisateur disposant d'un accès à Internet. Je me réserve le droit de retirer ou modifier le Site sans préavis.</p>
-        </div>
-        <div class="card" id="propriete">
-            <h2>4. Propriété intellectuelle</h2>
-            <p>Tous les éléments du Site (marques, logos, contenus, code source) sont ma propriété exclusive ou celle de mes concédants de licence. Toute reproduction ou utilisation non autorisée est strictement interdite.</p>
-        </div>
-        <div class="card" id="responsabilites">
-            <h2>5. Responsabilités</h2>
-            <p>En tant qu'utilisateur, vous vous engagez à :</p>
-            <ul>
-                <li>Ne pas utiliser le Site à des fins illégales ou préjudiciables</li>
-                <li>Ne pas tenter d'altérer le fonctionnement du Site</li>
-                <li>Ne pas utiliser les informations de contact à des fins commerciales non sollicitées</li>
-            </ul>
-        </div>
-        <div class="card" id="limitation">
-            <h2>6. Limitation de responsabilité</h2>
-            <p>Le Site est fourni "tel quel". Je ne garantis pas :</p>
-            <ul>
-                <li>L'absence d'interruptions ou d'erreurs</li>
-                <li>L'exactitude ou l'exhaustivité des informations</li>
-                <li>La disponibilité permanente du Site</li>
-            </ul>
-            <p>Ma responsabilité ne pourra être engagée pour tout dommage indirect résultant de l'utilisation du Site.</p>
-        </div>
-        <div class="card" id="liens">
-            <h2>7. Liens externes</h2>
-            <p>Le Site peut contenir des liens vers d'autres sites. Je n'ai aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu.</p>
-        </div>
-        <div class="card" id="modifications">
-            <h2>8. Modifications</h2>
-            <p>Je me réserve le droit de modifier à tout moment les présentes conditions. Les utilisateurs seront informés des modifications importantes.</p>
-        </div>
-        <div class="card" id="loi">
-            <h2>9. Loi applicable</h2>
-            <p>Les présentes conditions sont régies par le droit ivoirien. Tout litige relèvera des tribunaux compétents de Tiassalé, Côte d'Ivoire.</p>
-        </div>
-        <div class="card" id="contact">
-            <h2>10. Contact</h2>
-            <ul class="contact-list">
-                <li><i class="fas fa-envelope"></i> Email : <a href="mailto:contact@diarrassouba.com">contact@diarrassouba.com</a></li>
-                <li><i class="fas fa-phone"></i> Téléphone : <a href="tel:+2250749679002">+225 07 49 67 90 02</a></li>
-                <li><i class="fas fa-map-marker-alt"></i> Adresse : Tiassalé, Côte d'Ivoire</li>
-            </ul>
-        </div>
-        <a href="#top" class="back-to-top" aria-label="Retour en haut"><i class="fas fa-arrow-up"></i> Haut de page</a>
     </div>
-    <script src="Assets/fontawesome/fontawesome-free-6.7.2-web/js/all.min.js"></script>
+
+    <!-- Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+
+    <!-- ── NAVBAR ── -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="navbar-brand gradient-text">Diarrassouba Yassoungo Y.</a>
+
+            <div class="navbar-links">
+                <a href="index.html#home" class="nav-link">Accueil</a>
+                <a href="index.html#about" class="nav-link">À propos</a>
+                <a href="index.html#skills" class="nav-link">Compétences</a>
+                <a href="index.html#projects" class="nav-link">Projets</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+                <a href="condition_d_utilisation.html" class="nav-link active">Conditions</a>
+                <a href="politique_de_confidentialite.html" class="nav-link">Confidentialité</a>
+                <button class="dark-toggle" id="darkToggle" title="Mode sombre">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html#home" class="nav-link">Accueil</a>
+            <a href="index.html#about" class="nav-link">À propos</a>
+            <a href="index.html#skills" class="nav-link">Compétences</a>
+            <a href="index.html#projects" class="nav-link">Projets</a>
+            <a href="index.html#contact" class="nav-link">Contact</a>
+            <a href="condition_d_utilisation.html" class="nav-link active">Conditions</a>
+            <a href="politique_de_confidentialite.html" class="nav-link">Confidentialité</a>
+            <button class="dark-toggle" id="darkToggleMobile" style="align-self:flex-start;margin-top:.5rem"
+                title="Mode sombre">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <div class="legal-hero">
+        <div class="legal-hero-badge"><i class="fas fa-file-contract"></i> Document légal</div>
+        <h1>Conditions d'<span class="gradient-text">Utilisation</span></h1>
+        <p>Veuillez lire attentivement ces conditions avant d'utiliser ce portfolio. Dernière mise à jour : <strong>25
+                Février 2025</strong></p>
+    </div>
+
+    <!-- ── CONTENT ── -->
+    <main class="legal-content">
+
+        <div class="legal-section">
+            <h2><i class="fas fa-info-circle"></i> 1. Présentation du site</h2>
+            <p>Le présent site web est le portfolio professionnel de <strong>Diarrassouba Yassoungo Youssouf</strong>,
+                développeur Full Stack basé à Tiassalé, Côte d'Ivoire. Ce site a pour but de présenter ses compétences,
+                ses projets et ses coordonnées professionnelles.</p>
+            <p>En accédant à ce site, vous acceptez pleinement et sans réserve les présentes conditions d'utilisation.
+            </p>
+        </div>
+
+        <div class="legal-section">
+            <h2><i class="fas fa-eye"></i> 2. Utilisation du site</h2>
+            <p>Ce site est destiné à un usage exclusivement informatif et professionnel. En visitant ce site, vous vous
+                engagez à :</p>
+            <ul>
+                <li>Utiliser ce site uniquement à des fins légales et professionnelles</li>
+                <li>Ne pas tenter de nuire au bon fonctionnement du site</li>
+                <li>Ne pas reproduire, copier ou distribuer le contenu sans autorisation préalable</li>
+                <li>Ne pas utiliser le site à des fins de harcèlement, diffamation ou toute autre activité illicite</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2><i class="fas fa-copyright"></i> 3. Propriété intellectuelle</h2>
+            <p>L'ensemble des contenus présents sur ce site (textes, images, code source, design, logos, etc.) sont la
+                propriété exclusive de Diarrassouba, sauf mentions contraires.</p>
+            <p>Toute reproduction, distribution, modification ou utilisation des contenus sans autorisation écrite
+                préalable de l'auteur est strictement interdite et constitue une violation des droits de propriété
+                intellectuelle.</p>
+            <p>Les noms et logos des technologies mentionnées (React, Node.js, etc.) appartiennent à leurs propriétaires
+                respectifs.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2><i class="fas fa-link"></i> 4. Liens externes</h2>
+            <p>Ce site peut contenir des liens vers des sites web tiers (GitHub, LinkedIn, etc.). Ces liens sont fournis
+                à titre informatif uniquement.</p>
+            <p>Diarrassouba n'a aucun contrôle sur le contenu de ces sites externes et décline toute responsabilité
+                quant à leur contenu, leurs pratiques de confidentialité ou leur disponibilité.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2><i class="fas fa-shield-alt"></i> 5. Limitation de responsabilité</h2>
+            <p>Diarrassouba met tout en œuvre pour que les informations présentées sur ce site soient exactes et à jour.
+                Cependant, il ne peut garantir :</p>
+            <ul>
+                <li>L'exactitude, l'exhaustivité ou l'actualité de toutes les informations</li>
+                <li>La disponibilité continue et sans interruption du site</li>
+                <li>L'absence de virus ou d'autres éléments nuisibles</li>
+            </ul>
+            <p>He décline toute responsabilité pour les dommages directs ou indirects résultant de l'utilisation de ce
+                site.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2><i class="fas fa-envelope"></i> 6. Formulaire de contact</h2>
+            <p>Le formulaire de contact est destiné à permettre aux visiteurs de prendre contact à des fins
+                professionnelles. Les informations soumises via ce formulaire sont traitées par le service Formspree et
+                sont utilisées uniquement pour répondre à vos demandes.</p>
+            <p>Toute utilisation du formulaire de contact à des fins de spam ou de sollicitation non désirée est
+                strictement interdite.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2><i class="fas fa-sync-alt"></i> 7. Modifications des conditions</h2>
+            <p>Diarrassouba se réserve le droit de modifier ces conditions d'utilisation à tout moment et sans préavis.
+                Les modifications prennent effet dès leur publication sur cette page.</p>
+            <p>Il vous appartient de consulter régulièrement cette page pour prendre connaissance des éventuelles
+                modifications.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2><i class="fas fa-gavel"></i> 8. Droit applicable</h2>
+            <p>Les présentes conditions d'utilisation sont régies par le droit ivoirien. Tout litige relatif à
+                l'utilisation de ce site sera soumis à la compétence exclusive des tribunaux compétents de Côte
+                d'Ivoire.</p>
+        </div>
+
+        <div class="legal-contact-cta">
+            <h3>Des questions sur ces conditions ?</h3>
+            <p>N'hésitez pas à me contacter pour toute question ou clarification.</p>
+            <a href="index.html#contact" class="btn-primary">
+                <i class="fas fa-paper-plane"></i> Contactez-moi
+            </a>
+        </div>
+
+    </main>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <span class="brand-name">Diarrassouba</span>
+                    <p>Création d'expériences digitales rapides, accessibles et visuellement attrayantes.</p>
+                    <div class="footer-social-list">
+                        <a href="https://github.com/diarrass2003" class="footer-social" target="_blank"
+                            title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/yassoungo-youssouf-diarrassouba-0b7037306"
+                            class="footer-social" target="_blank" title="LinkedIn"><i
+                                class="fab fa-linkedin-in"></i></a>
+                        <a href="https://x.com/YassoungoD" class="footer-social" target="_blank" title="Twitter"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/diarr_assoubayassoungo" class="footer-social" target="_blank"
+                            title="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links-grid">
+                    <div class="footer-col">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><a href="index.html#home">Accueil</a></li>
+                            <li><a href="index.html#about">À propos</a></li>
+                            <li><a href="index.html#skills">Compétences</a></li>
+                            <li><a href="index.html#projects">Projets</a></li>
+                            <li><a href="index.html#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="condition_d_utilisation.html">Conditions</a></li>
+                            <li><a href="politique_de_confidentialite.html">Confidentialité</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Contact</h3>
+                        <ul>
+                            <li><span>Tiassalé, Côte d'Ivoire</span></li>
+                            <li><span>+225 07 49 67 90 02</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Diarrassouba. Tous droits réservés.</p>
+                <div class="footer-legal-links">
+                    <a href="politique_de_confidentialite.html">Confidentialité</a>
+                    <a href="condition_d_utilisation.html">Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button id="backToTop" aria-label="Retour en haut"><i class="fas fa-arrow-up"></i></button>
+
     <script>
-        // Dark mode toggle
-        const toggleBtn = document.getElementById('toggleDark');
-        const html = document.documentElement;
-        function setDarkMode(on) {
-            if (on) {
-                html.classList.add('dark');
-                localStorage.setItem('darkMode', 'true');
-                toggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
-            } else {
-                html.classList.remove('dark');
-                localStorage.setItem('darkMode', 'false');
-                toggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+        (function () {
+            const html = document.documentElement;
+            const saved = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (saved === 'dark' || (!saved && prefersDark)) html.classList.add('dark');
+
+            function toggleTheme() {
+                const isDark = html.classList.contains('dark');
+                isDark ? html.classList.remove('dark') : html.classList.add('dark');
+                localStorage.setItem('theme', isDark ? 'light' : 'dark');
             }
-        }
-        // Initial state
-        if (localStorage.getItem('darkMode') === 'true' || 
-            (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            setDarkMode(true);
-        } else {
-            setDarkMode(false);
-        }
-        toggleBtn.addEventListener('click', () => {
-            setDarkMode(!html.classList.contains('dark'));
-        });
+
+            document.getElementById('darkToggle')?.addEventListener('click', toggleTheme);
+            document.getElementById('darkToggleMobile')?.addEventListener('click', toggleTheme);
+
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            let open = false;
+            hamburger?.addEventListener('click', () => {
+                open = !open;
+                mobileMenu.classList.toggle('open', open);
+                const bars = hamburger.querySelectorAll('span');
+                if (open) { bars[0].style.cssText = 'transform:rotate(45deg) translate(5px,5px)'; bars[1].style.opacity = '0'; bars[2].style.cssText = 'transform:rotate(-45deg) translate(5px,-5px)'; }
+                else bars.forEach(b => b.style.cssText = '');
+            });
+
+            const indicator = document.getElementById('scrollIndicator');
+            const backBtn = document.getElementById('backToTop');
+            window.addEventListener('scroll', () => {
+                const total = document.body.scrollHeight - window.innerHeight;
+                if (indicator && total > 0) indicator.style.transform = `scaleX(${window.scrollY / total})`;
+                if (backBtn) backBtn.classList.toggle('visible', window.scrollY > 300);
+            }, { passive: true });
+            backBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            const cur = document.getElementById('cursor');
+            const dot = document.getElementById('cursorDot');
+            let mx = 0, my = 0, cx = 0, cy = 0;
+            window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+            function step() { cx += (mx - cx) * .1; cy += (my - cy) * .1; if (cur) { cur.style.left = cx + 'px'; cur.style.top = cy + 'px'; } if (dot) { dot.style.left = mx + 'px'; dot.style.top = my + 'px'; } requestAnimationFrame(step); }
+            requestAnimationFrame(step);
+            document.querySelectorAll('a,button').forEach(el => { el.addEventListener('mouseenter', () => cur?.classList.add('hovered')); el.addEventListener('mouseleave', () => cur?.classList.remove('hovered')); });
+        })();
     </script>
 </body>
+
 </html>
