@@ -38,7 +38,7 @@ PORTFOLIO/
 ├── index.html              # Page principale du portfolio
 ├── condition_d_utilisation.html # Conditions d'utilisation
 ├── politique_de_confidentialite.html # Politique de confidentialité
-├── cv/                  # CV_Diarrassouba.pdf
+├── cv/                         # CV_Diarrassouba.pdf
 ├── README.md                   # Documentation du projet
 └── Assets/
     ├── css/                    # Styles CSS   
