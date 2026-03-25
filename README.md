@@ -39,6 +39,11 @@ PORTFOLIO/
 ├── condition_d_utilisation.html # Conditions d'utilisation
 ├── politique_de_confidentialite.html # Politique de confidentialité
 ├── cv/                         # CV_Diarrassouba.pdf
+├── CV/
+    ├── cv.html                 # Page principale du  cv
+    ├── image cv portfolio.jpeg # Image profil
+    ├── style_cv                # CSS 
+    ├── Profile Diarra.jpg      # Images et photos 
 ├── README.md                   # Documentation du projet
 └── Assets/
     ├── css/                    # Styles CSS   
@@ -158,4 +163,4 @@ Ce projet est sous licence libre. Vous pouvez l'utiliser et le modifier selon vo
 
 **Développé avec ❤️ par Diarrassouba**
 
-*Dernière mise à jour : 28 fevrier 2026*
+*Dernière mise à jour : 25 MARS 2026*
