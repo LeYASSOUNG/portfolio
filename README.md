@@ -38,9 +38,10 @@ PORTFOLIO/
 ├── index.html              # Page principale du portfolio
 ├── condition_d_utilisation.html # Conditions d'utilisation
 ├── politique_de_confidentialite.html # Politique de confidentialité
+├── cv/                         # CV_Diarrassouba.pdf
 ├── README.md                   # Documentation du projet
 └── Assets/
-    ├── css/                    # Styles CSS
+    ├── css/                    # Styles CSS   
     ├── fontawesome/            # Icônes Font Awesome
     ├── fonts/                  # Polices personnalisées
     ├── images/                 # Images et photos
@@ -144,7 +145,7 @@ PORTFOLIO/
 
 ## 📞 Contact
 
-- **GitHub** : [diarrass2003](https://github.com/diarrass2003)
+- **GitHub** : [LeYASSOUNG](https://github.com/LeYASSOUNG)
 - **LinkedIn** : [Yassoungo Youssouf Diarrassouba](https://www.linkedin.com/in/yassoungo-youssouf-diarrassouba-0b7037306)
 - **Twitter** : [@YassoungoD](https://x.com/YassoungoD)
 - **Instagram** : [@diarr_assoubayassoungo](https://www.instagram.com/diarr_assoubayassoungo)
@@ -157,4 +158,4 @@ Ce projet est sous licence libre. Vous pouvez l'utiliser et le modifier selon vo
 
 **Développé avec ❤️ par Diarrassouba**
 
-*Dernière mise à jour : Octobre 2024*
+*Dernière mise à jour : 28 fevrier 2026*
