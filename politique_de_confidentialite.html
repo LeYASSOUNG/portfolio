@@ -236,11 +236,12 @@
                         </ul>
                     </div>
                     <div class="footer-col">
-                        <h3>Contact</h3>
-                        <ul>
-                            <li><span>Tiassalé, Côte d'Ivoire</span></li>
-                            <li><span>+225 07 49 67 90 02</span></li>
-                        </ul>
+                        <h3>Newsletter</h3>
+                        <p class="newsletter-desc-legal">Recevez mes dernières mises à jour.</p>
+                        <form class="newsletter-form" onsubmit="return false">
+                            <input type="email" name="email" class="newsletter-input-legal" placeholder="Votre email" required>
+                            <button type="submit" class="newsletter-btn-legal" title="S'abonner" aria-label="S'abonner à la newsletter"><i class="fas fa-paper-plane"></i></button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -300,6 +301,31 @@
             function step() { cx += (mx - cx) * .1; cy += (my - cy) * .1; if (cur) { cur.style.left = cx + 'px'; cur.style.top = cy + 'px'; } if (dot) { dot.style.left = mx + 'px'; dot.style.top = my + 'px'; } requestAnimationFrame(step); }
             requestAnimationFrame(step);
             document.querySelectorAll('a,button').forEach(el => { el.addEventListener('mouseenter', () => cur?.classList.add('hovered')); el.addEventListener('mouseleave', () => cur?.classList.remove('hovered')); });
+
+            newsletterForm?.addEventListener('submit', async e => {
+                e.preventDefault();
+                const input = newsletterForm.querySelector('.newsletter-input-legal');
+                const btn = newsletterForm.querySelector('.newsletter-btn-legal');
+                const email = input.value;
+                if (!email) return;
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                try {
+                    const res = await fetch('https://formspree.io/f/xdapoaww', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                        body: JSON.stringify({ email: email, subject: 'Inscription Newsletter' })
+                    });
+                    if (res.ok) {
+                        input.value = '';
+                        input.placeholder = 'Merci !';
+                        btn.innerHTML = '<i class="fas fa-check"></i>';
+                    } else throw new Error();
+                } catch {
+                    btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+                    setTimeout(() => { btn.innerHTML = '<i class="fas fa-paper-plane"></i>'; btn.disabled = false; }, 3000);
+                }
+            });
         })();
     </script>
 </body>
