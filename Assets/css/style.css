@@ -143,8 +143,8 @@ body {
     left: 0;
     z-index: 100;
     background: var(--nav-bg);
-    backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--border);
     transition: background 0.3s ease, border-color 0.3s ease;
 }
@@ -206,6 +206,71 @@ body {
 .nav-link.active::after {
     width: 100%;
 }
+
+/* ── UI Utilities (Replacing Inline Styles) ──────────────────── */
+
+/* Mesh balls specific positions/colors */
+.mesh-ball-1 { width: 520px; height: 520px; background: rgba(59, 130, 246, .18); top: -80px; left: -80px; }
+.mesh-ball-2 { width: 600px; height: 600px; background: rgba(139, 92, 246, .15); top: 48%; right: -100px; animation-delay: -5s; }
+.mesh-ball-3 { width: 420px; height: 420px; background: rgba(236, 72, 153, .12); bottom: 20%; left: 22%; animation-delay: -10s; }
+
+/* Social Buttons */
+.social-github { background: linear-gradient(135deg, #24292e, #444d56); box-shadow: 0 4px 15px rgba(36, 41, 46, .35); }
+.social-linkedin { background: linear-gradient(135deg, #0077b5, #0a66c2); box-shadow: 0 4px 15px rgba(0, 119, 181, .4); }
+.social-twitter { background: linear-gradient(135deg, #111, #333); box-shadow: 0 4px 15px rgba(0, 0, 0, .3); }
+.social-instagram { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); box-shadow: 0 4px 15px rgba(220, 39, 67, .4); }
+
+/* Color-coded Icon Boxes */
+.icon-box-blue { background: rgba(59, 130, 246, 0.1); color: var(--blue); }
+.icon-box-purple { background: rgba(139, 92, 246, 0.1); color: var(--purple); }
+.icon-box-green { background: rgba(34, 197, 94, 0.1); color: var(--green); }
+.icon-box-yellow { background: rgba(245, 158, 11, 0.1); color: var(--yellow); }
+.icon-box-red { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+.icon-box-cyan { background: rgba(6, 182, 212, 0.1); color: #06b6d4; }
+.icon-box-dark-green { background: rgba(34, 197, 94, 0.1); color: #0d6932; }
+.icon-box-olive { background: rgba(34, 197, 94, 0.1); color: #53570f; }
+
+/* Skill Bar Fills */
+.skill-fill-blue { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+.skill-fill-purple { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+.skill-fill-cyan { background: linear-gradient(90deg, #06b6d4, #22d3ee); }
+.skill-fill-green { background: linear-gradient(90deg, #22c55e, #4ade80); }
+.skill-fill-yellow { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.skill-fill-pink { background: linear-gradient(90deg, #ec4899, #f472b6); }
+
+/* Tech Icons */
+.tech-html { background: linear-gradient(135deg, #fff3e0, #ffe0b2); border-color: #E44D26; color: #E44D26; }
+.tech-css { background: linear-gradient(135deg, #e3f2fd, #bbdefb); border-color: #264DE4; color: #264DE4; }
+.tech-js { background: linear-gradient(135deg, #fffde7, #fff9c4); border-color: #F7DF1E; color: #937A00; }
+.tech-react { background: linear-gradient(135deg, #e0f7fa, #b2ebf2); border-color: #61DAFB; color: #0ea5e9; }
+.tech-node { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border-color: #339933; color: #339933; }
+.tech-git { background: linear-gradient(135deg, #fff3e0, #ffccbc); border-color: #F05032; color: #F05032; }
+.tech-figma { background: linear-gradient(135deg, #ede7f6, #d1c4e9); border-color: #A259FF; color: #A259FF; }
+.tech-sql { background: linear-gradient(135deg, #e3f2fd, #90caf9); border-color: #1565C0; color: #1565C0; }
+
+/* Project Tags */
+.project-tag-blue { background: rgba(59, 130, 246, 0.1); color: var(--blue); }
+.project-tag-purple { background: rgba(139, 92, 246, 0.1); color: var(--purple); }
+.project-tag-olive { background: rgba(34, 197, 94, 0.1); color: #53570f; }
+.project-tag-dark-green { background: rgba(34, 197, 94, 0.1); color: #0d6932; }
+.project-tag-green { background: rgba(34, 197, 94, 0.1); color: var(--green); }
+.project-tag-yellow { background: rgba(245, 158, 11, 0.1); color: var(--yellow); }
+.project-tag-cyan { background: rgba(6, 182, 212, 0.1); color: #06b6d4; }
+.project-tag-red { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+
+/* Contact Icons */
+.contact-item-blue { background: rgba(59, 130, 246, 0.1); color: var(--blue); }
+.contact-item-purple { background: rgba(139, 92, 246, 0.1); color: var(--purple); }
+.contact-item-green { background: rgba(34, 197, 94, 0.1); color: var(--green); }
+.contact-item-yellow { background: rgba(245, 158, 11, 0.1); color: var(--yellow); }
+
+/* Newsletter Styling */
+.newsletter-desc { font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.75rem; }
+
+/* Utilities */
+.d-none { display: none; }
+.self-start { align-self: flex-start; }
+.mt-2 { margin-top: 0.5rem; }
 
 /* Dark toggle button */
 .dark-toggle {
@@ -813,7 +878,7 @@ section {
     gap: 1.25rem;
 }
 
-.skill-row {}
+
 
 .skill-row-top {
     display: flex;
@@ -842,11 +907,17 @@ section {
 
 .bar-fill {
     height: 100%;
-    border-radius: 9999px;
+    border-radius: 4px;
     position: relative;
-    transition: width 1.2s var(--ease);
+    transition: width 1.5s var(--ease);
     overflow: hidden;
 }
+
+.w-95 { width: 95%; }
+.w-75 { width: 75%; }
+.w-60 { width: 60%; }
+.w-50 { width: 50%; }
+.w-45 { width: 45%; }
 
 .bar-fill::after {
     content: '';

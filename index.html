@@ -30,14 +30,9 @@
 
     <!-- Animated Background -->
     <div id="mesh-gradient">
-        <div class="mesh-ball" style="width:520px;height:520px;background:rgba(59,130,246,.18);top:-80px;left:-80px">
-        </div>
-        <div class="mesh-ball"
-            style="width:600px;height:600px;background:rgba(139,92,246,.15);top:48%;right:-100px;animation-delay:-5s">
-        </div>
-        <div class="mesh-ball"
-            style="width:420px;height:420px;background:rgba(236,72,153,.12);bottom:20%;left:22%;animation-delay:-10s">
-        </div>
+        <div class="mesh-ball mesh-ball-1"></div>
+        <div class="mesh-ball mesh-ball-2"></div>
+        <div class="mesh-ball mesh-ball-1 mesh-ball-3"></div>
     </div>
 
     <!-- Cursor -->
@@ -71,8 +66,7 @@
             <a href="#skills" class="nav-link">Compétences</a>
             <a href="#projects" class="nav-link">Projets</a>
             <a href="#contact" class="nav-link">Contact</a>
-            <button class="dark-toggle" id="darkToggleMobile" style="align-self:flex-start;margin-top:.5rem"
-                title="Mode sombre">
+            <button class="dark-toggle self-start mt-2" id="darkToggleMobile" title="Mode sombre">
                 <i class="fas fa-moon"></i>
             </button>
         </div>
@@ -111,26 +105,18 @@
                 </div>
 
                 <div class="hero-socials">
-                    <a href="https://github.com/LeYASSOUNG" target="_blank" rel="noopener" class="social-btn"
-                        style="background:linear-gradient(135deg,#24292e,#444d56);box-shadow:0 4px 15px rgba(36,41,46,.35)"
-                        title="GitHub">
+                    <a href="https://github.com/LeYASSOUNG" target="_blank" rel="noopener noreferrer" class="social-btn social-github" title="GitHub">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="www.linkedin.com/in/yassoungo-youssouf-diarrassouba-0b7037306" target="_blank"
-                        rel="noopener" class="social-btn"
-                        style="background:linear-gradient(135deg,#0077b5,#0a66c2);box-shadow:0 4px 15px rgba(0,119,181,.4)"
-                        title="LinkedIn">
+                    <a href="https://www.linkedin.com/in/yassoungo-youssouf-diarrassouba-0b7037306" target="_blank"
+                        rel="noopener noreferrer" class="social-btn social-linkedin" title="LinkedIn">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
-                    <a href="https://x.com/YassoungoD" target="_blank" rel="noopener" class="social-btn"
-                        style="background:linear-gradient(135deg,#111,#333);box-shadow:0 4px 15px rgba(0,0,0,.3)"
-                        title="X/Twitter">
+                    <a href="https://x.com/YassoungoD" target="_blank" rel="noopener noreferrer" class="social-btn social-twitter" title="X/Twitter">
                         <i class="fab fa-twitter"></i>
                     </a>
-                    <a href="https://www.instagram.com/diarr_assoubayassoungo" target="_blank" rel="noopener"
-                        class="social-btn"
-                        style="background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 4px 15px rgba(220,39,67,.4)"
-                        title="Instagram">
+                    <a href="https://www.instagram.com/diarr_assoubayassoungo" target="_blank" rel="noopener noreferrer"
+                        class="social-btn social-instagram" title="Instagram">
                         <i class="fab fa-instagram"></i>
                     </a>
                 </div>
@@ -182,39 +168,33 @@
                     <p>
                         Je suis un développeur Full Stack passionné avec moins d'un an d'expérience dans la création
                         d'applications web modernes. Je me spécialise dans les technologies JavaScript (React.js,
-                        Node.js, Java HTML/CSS, MySQL) et j'aime créer des solutions innovantes qui résolvent des
-                        problèmes
-                        concrets.
+                        Node.js, Java HTML/CSS, MySQL) et j'aime créer des solutions                        concrets.
                     </p>
 
                     <div class="about-cards">
                         <div class="about-card">
-                            <div class="card-icon" style="background:rgba(59,130,246,.1);color:#3b82f6"><i
-                                    class="fas fa-code"></i></div>
+                            <div class="card-icon icon-box-blue"><i class="fas fa-code"></i></div>
                             <div>
                                 <h4>Développement Web</h4>
                                 <p>Sites web réactifs avec les dernières technologies.</p>
                             </div>
                         </div>
                         <div class="about-card">
-                            <div class="card-icon" style="background:rgba(139,92,246,.1);color:#8b5cf6"><i
-                                    class="fas fa-mobile-alt"></i></div>
+                            <div class="card-icon icon-box-purple"><i class="fas fa-mobile-alt"></i></div>
                             <div>
                                 <h4>Applications Mobile</h4>
                                 <p>Apps cross-platform avec Flutter.</p>
                             </div>
                         </div>
                         <div class="about-card">
-                            <div class="card-icon" style="background:rgba(34,197,94,.1);color:#22c55e"><i
-                                    class="fas fa-server"></i></div>
+                            <div class="card-icon icon-box-green"><i class="fas fa-server"></i></div>
                             <div>
                                 <h4>Backend & API</h4>
                                 <p>APIs robustes et logiques serveur performantes.</p>
                             </div>
                         </div>
                         <div class="about-card">
-                            <div class="card-icon" style="background:rgba(245,158,11,.1);color:#f59e0b"><i
-                                    class="fas fa-paint-brush"></i></div>
+                            <div class="card-icon icon-box-yellow"><i class="fas fa-paint-brush"></i></div>
                             <div>
                                 <h4>UI/UX Design</h4>
                                 <p>Interfaces intuitives et expériences optimisées.</p>
@@ -223,8 +203,10 @@
                     </div>
 
                     <div class="about-cta">
-                        <a href="cv/CV_Diarrassouba.pdf" download class="btn-primary"><i class="fas fa-download"></i>
-                            Télécharger CV</a>
+                        <a href="CV de DIARRASSOUBA/CV.html" class="btn-primary"><i class="fas fa-eye"></i>
+                            Voir le CV en ligne</a>
+                        <a href="cv/CV_Diarrassouba.pdf" download class="btn-outline"><i class="fas fa-download"></i>
+                            Télécharger PDF</a>
                         <a href="#contact" class="btn-outline"><i class="fas fa-paper-plane"></i> Me contacter</a>
                     </div>
                 </div>
@@ -268,7 +250,7 @@
                 <div class="timeline-item reveal">
                     <div class="timeline-left">
                         <div class="timeline-dot"><i class="fas fa-graduation-cap"></i></div>
-                        <div class="timeline-line" style="display:none"></div>
+                        <div class="timeline-line d-none"></div>
                     </div>
                     <div class="timeline-body">
                         <div class="timeline-top">
@@ -300,43 +282,37 @@
                         <div class="skill-row">
                             <div class="skill-row-top"><span>HTML / CSS</span><span class="pct">95%</span></div>
                             <div class="bar-track">
-                                <div class="bar-fill"
-                                    style="width:95%;background:linear-gradient(90deg,#3b82f6,#60a5fa)"></div>
+                                <div class="bar-fill skill-fill-blue w-95"></div>
                             </div>
                         </div>
                         <div class="skill-row">
                             <div class="skill-row-top"><span>JavaScript</span><span class="pct">60%</span></div>
                             <div class="bar-track">
-                                <div class="bar-fill"
-                                    style="width:60%;background:linear-gradient(90deg,#8b5cf6,#a78bfa)"></div>
+                                <div class="bar-fill skill-fill-purple w-60"></div>
                             </div>
                         </div>
                         <div class="skill-row">
                             <div class="skill-row-top"><span>React.js</span><span class="pct">50%</span></div>
                             <div class="bar-track">
-                                <div class="bar-fill"
-                                    style="width:50%;background:linear-gradient(90deg,#06b6d4,#22d3ee)"></div>
+                                <div class="bar-fill skill-fill-cyan w-50"></div>
                             </div>
                         </div>
                         <div class="skill-row">
                             <div class="skill-row-top"><span>Node.js</span><span class="pct">50%</span></div>
                             <div class="bar-track">
-                                <div class="bar-fill"
-                                    style="width:50%;background:linear-gradient(90deg,#22c55e,#4ade80)"></div>
+                                <div class="bar-fill skill-fill-green w-50"></div>
                             </div>
                         </div>
                         <div class="skill-row">
                             <div class="skill-row-top"><span>SQL /MySQL</span><span class="pct">75%</span></div>
                             <div class="bar-track">
-                                <div class="bar-fill"
-                                    style="width:75%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div>
+                                <div class="bar-fill skill-fill-yellow w-75"></div>
                             </div>
                         </div>
                         <div class="skill-row">
                             <div class="skill-row-top"><span>Flutter</span><span class="pct">45%</span></div>
                             <div class="bar-track">
-                                <div class="bar-fill"
-                                    style="width:45%;background:linear-gradient(90deg,#ec4899,#f472b6)"></div>
+                                <div class="bar-fill skill-fill-pink w-45"></div>
                             </div>
                         </div>
                     </div>
@@ -347,32 +323,28 @@
                     <h3>Compétences Professionnelles</h3>
                     <div class="soft-grid">
                         <div class="soft-card">
-                            <div class="card-icon" style="background:rgba(59,130,246,.1);color:#3b82f6"><i
-                                    class="fas fa-users"></i></div>
+                            <div class="card-icon icon-box-blue"><i class="fas fa-users"></i></div>
                             <div>
                                 <h4>Travail d'équipe</h4>
                                 <p>Collaboration efficace pour atteindre des objectifs communs.</p>
                             </div>
                         </div>
                         <div class="soft-card">
-                            <div class="card-icon" style="background:rgba(139,92,246,.1);color:#8b5cf6"><i
-                                    class="fas fa-lightbulb"></i></div>
+                            <div class="card-icon icon-box-purple"><i class="fas fa-lightbulb"></i></div>
                             <div>
                                 <h4>Créativité</h4>
                                 <p>Solutions innovantes pour des problèmes complexes.</p>
                             </div>
                         </div>
                         <div class="soft-card">
-                            <div class="card-icon" style="background:rgba(34,197,94,.1);color:#22c55e"><i
-                                    class="fas fa-comments"></i></div>
+                            <div class="card-icon icon-box-green"><i class="fas fa-comments"></i></div>
                             <div>
                                 <h4>Communication</h4>
                                 <p>Communication claire avec les clients et collègues.</p>
                             </div>
                         </div>
                         <div class="soft-card">
-                            <div class="card-icon" style="background:rgba(245,158,11,.1);color:#f59e0b"><i
-                                    class="fas fa-tasks"></i></div>
+                            <div class="card-icon icon-box-yellow"><i class="fas fa-tasks"></i></div>
                             <div>
                                 <h4>Gestion de projet</h4>
                                 <p>Méthodologie agile du début à la fin.</p>
@@ -386,58 +358,50 @@
             <h3 class="tech-title reveal">Technologies que j'utilise</h3>
             <div class="tech-grid reveal">
                 <div class="tech-item">
-                    <div class="tech-icon"
-                        style="background:linear-gradient(135deg,#fff3e0,#ffe0b2);border-color:#E44D26">
-                        <i class="fab fa-html5" style="color:#E44D26"></i>
+                    <div class="tech-icon tech-html">
+                        <i class="fab fa-html5"></i>
                     </div>
                     <span>HTML5</span>
                 </div>
                 <div class="tech-item">
-                    <div class="tech-icon"
-                        style="background:linear-gradient(135deg,#e3f2fd,#bbdefb);border-color:#264DE4">
-                        <i class="fab fa-css3-alt" style="color:#264DE4"></i>
+                    <div class="tech-icon tech-css">
+                        <i class="fab fa-css3-alt"></i>
                     </div>
                     <span>CSS3</span>
                 </div>
                 <div class="tech-item">
-                    <div class="tech-icon"
-                        style="background:linear-gradient(135deg,#fffde7,#fff9c4);border-color:#F7DF1E">
-                        <i class="fab fa-js-square" style="color:#937A00"></i>
+                    <div class="tech-icon tech-js">
+                        <i class="fab fa-js-square"></i>
                     </div>
                     <span>JavaScript</span>
                 </div>
                 <div class="tech-item">
-                    <div class="tech-icon"
-                        style="background:linear-gradient(135deg,#e0f7fa,#b2ebf2);border-color:#61DAFB">
-                        <i class="fab fa-react" style="color:#0ea5e9"></i>
+                    <div class="tech-icon tech-react">
+                        <i class="fab fa-react"></i>
                     </div>
                     <span>React</span>
                 </div>
                 <div class="tech-item">
-                    <div class="tech-icon"
-                        style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-color:#339933">
-                        <i class="fab fa-node-js" style="color:#339933"></i>
+                    <div class="tech-icon tech-node">
+                        <i class="fab fa-node-js"></i>
                     </div>
                     <span>Node.js</span>
                 </div>
                 <div class="tech-item">
-                    <div class="tech-icon"
-                        style="background:linear-gradient(135deg,#fff3e0,#ffccbc);border-color:#F05032">
-                        <i class="fab fa-git-alt" style="color:#F05032"></i>
+                    <div class="tech-icon tech-git">
+                        <i class="fab fa-git-alt"></i>
                     </div>
                     <span>Git</span>
                 </div>
                 <div class="tech-item">
-                    <div class="tech-icon"
-                        style="background:linear-gradient(135deg,#ede7f6,#d1c4e9);border-color:#A259FF">
-                        <i class="fas fa-palette" style="color:#A259FF"></i>
+                    <div class="tech-icon tech-figma">
+                        <i class="fas fa-palette"></i>
                     </div>
                     <span>Figma</span>
                 </div>
                 <div class="tech-item">
-                    <div class="tech-icon"
-                        style="background:linear-gradient(135deg,#e3f2fd,#90caf9);border-color:#1565C0">
-                        <i class="fas fa-database" style="color:#1565C0"></i>
+                    <div class="tech-icon tech-sql">
+                        <i class="fas fa-database"></i>
                     </div>
                     <span>SQL</span>
                 </div>
@@ -466,16 +430,14 @@
                             hotelier et un hotelier de gerer ses hebergements, reservation et traitement des paiements
                             sécurisé.</p>
                         <div class="project-tags">
-                            <span class="project-tag" style="background:rgba(59,130,246,.1);color:#3b82f6">React</span>
-                            <span class="project-tag"
-                                style="background:rgba(139,92,246,.1);color:#8b5cf6">Nexte.js</span>
-                            <span class="project-tag" style="background:rgba(34,197,94,.1);color:#53570f">Spring
-                                Boot</span>
-                            <span class="project-tag" style="background:rgba(34,197,94,.1);color:#0d6932">Java</span>
-                            <span class="project-tag" style="background:rgba(34,197,94,.1);color:#22c55e">MySQL</span>
+                            <span class="project-tag project-tag-blue">React</span>
+                            <span class="project-tag project-tag-purple">Nexte.js</span>
+                            <span class="project-tag project-tag-olive">Spring Boot</span>
+                            <span class="project-tag project-tag-dark-green">Java</span>
+                            <span class="project-tag project-tag-green">MySQL</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://github.com/LeYASSOUNG" class="project-link" target="_blank"><i
+                            <a href="https://github.com/LeYASSOUNG" class="project-link" target="_blank" rel="noopener noreferrer"><i
                                     class="fab fa-github"></i> Code</a>
                             <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Live</a>
                         </div>
@@ -492,16 +454,14 @@
                     <div class="project-body">
                         <p>Application de productivité avec glisser-déposer et collaboration d'équipe en temps réel.</p>
                         <div class="project-tags">
-                            <span class="project-tag" style="background:rgba(245,158,11,.1);color:#f59e0b">Java</span>
-                            <span class="project-tag"
-                                style="background:rgba(59,130,246,.1);color:#3b82f6">Next.js</span>
-                            <span class="project-tag" style="background:rgba(245,158,11,.1);color:#f59e0b">Spring
-                                Boot</span>
-                            <span class="project-tag" style="background:rgba(6,182,212,.1);color:#06b6d4">MySQL</span>
+                            <span class="project-tag project-tag-yellow">Java</span>
+                            <span class="project-tag project-tag-blue">Next.js</span>
+                            <span class="project-tag project-tag-yellow">Spring Boot</span>
+                            <span class="project-tag project-tag-cyan">MySQL</span>
                         </div>
                         <div class="project-links">
                             <a href="https://github.com/LeYASSOUNG/gestion-stock" class="project-link"
-                                target="_blank"><i class="fab fa-github"></i> Code</a>
+                                target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> Code</a>
                             <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Live</a>
                         </div>
                     </div>
@@ -516,13 +476,12 @@
                     <div class="project-body">
                         <p>Site web pour présenter mes compétences et mes projets.</p>
                         <div class="project-tags">
-                            <span class="project-tag" style="background:rgba(59,130,246,.1);color:#3b82f6">HTML</span>
-                            <span class="project-tag" style="background:rgba(239,68,68,.1);color:#ef4444">CSS</span>
-                            <span class="project-tag"
-                                style="background:rgba(34,197,94,.1);color:#22c55e">JAVASCRIPT</span>
+                            <span class="project-tag project-tag-blue">HTML</span>
+                            <span class="project-tag project-tag-red">CSS</span>
+                            <span class="project-tag project-tag-green">JAVASCRIPT</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://github.com/LeYASSOUNG/portfolio" class="project-link" target="_blank"><i
+                            <a href="https://github.com/LeYASSOUNG/portfolio" class="project-link" target="_blank" rel="noopener noreferrer"><i
                                     class="fab fa-github"></i> Code</a>
                             <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Live</a>
                         </div>
@@ -531,7 +490,7 @@
             </div>
 
             <div class="projects-cta reveal">
-                <a href="https://github.com/LeYASSOUNG" target="_blank" class="btn-primary">
+                <a href="https://github.com/LeYASSOUNG" target="_blank" rel="noopener noreferrer" class="btn-primary">
                     Voir Tous Mes Projets <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -585,7 +544,7 @@
                     <h3>Informations de Contact</h3>
                     <div class="contact-items">
                         <div class="contact-item">
-                            <div class="contact-item-icon" style="background:rgba(59,130,246,.1);color:#3b82f6">
+                            <div class="contact-item-icon contact-item-blue">
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <div class="contact-item-body">
@@ -594,7 +553,7 @@
                             </div>
                         </div>
                         <div class="contact-item">
-                            <div class="contact-item-icon" style="background:rgba(139,92,246,.1);color:#8b5cf6">
+                            <div class="contact-item-icon contact-item-purple">
                                 <i class="fas fa-envelope"></i>
                             </div>
                             <div class="contact-item-body">
@@ -608,7 +567,7 @@
                             </div>
                         </div>
                         <div class="contact-item">
-                            <div class="contact-item-icon" style="background:rgba(34,197,94,.1);color:#22c55e">
+                            <div class="contact-item-icon contact-item-green">
                                 <i class="fas fa-phone-alt"></i>
                             </div>
                             <div class="contact-item-body">
@@ -621,7 +580,7 @@
                             </div>
                         </div>
                         <div class="contact-item">
-                            <div class="contact-item-icon" style="background:rgba(245,158,11,.1);color:#f59e0b">
+                            <div class="contact-item-icon contact-item-yellow">
                                 <i class="fas fa-clock"></i>
                             </div>
                             <div class="contact-item-body">
@@ -634,14 +593,14 @@
                     <div class="contact-socials">
                         <h4>Suivez-moi</h4>
                         <div class="contact-socials-list">
-                            <a href="https://github.com/LeYASSOUNG" target="_blank" class="social-chip"
+                            <a href="https://github.com/LeYASSOUNG" target="_blank" rel="noopener noreferrer" class="social-chip"
                                 title="GitHub"><i class="fab fa-github"></i></a>
                             <a href="https://www.linkedin.com/in/yassoungo-youssouf-diarrassouba-0b7037306"
-                                target="_blank" class="social-chip" title="LinkedIn"><i
+                                target="_blank" rel="noopener noreferrer" class="social-chip" title="LinkedIn"><i
                                     class="fab fa-linkedin-in"></i></a>
-                            <a href="https://x.com/YassoungoD" target="_blank" class="social-chip" title="Twitter"><i
+                            <a href="https://x.com/YassoungoD" target="_blank" rel="noopener noreferrer" class="social-chip" title="Twitter"><i
                                     class="fab fa-twitter"></i></a>
-                            <a href="https://www.instagram.com/diarr_assoubayassoungo" target="_blank"
+                            <a href="https://www.instagram.com/diarr_assoubayassoungo" target="_blank" rel="noopener noreferrer"
                                 class="social-chip" title="Instagram"><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
@@ -658,14 +617,14 @@
                     <span class="brand-name">Diarrassouba</span>
                     <p>Création d'expériences digitales rapides, accessibles et visuellement attrayantes.</p>
                     <div class="footer-social-list">
-                        <a href="https://github.com/LeYASSOUNG" class="footer-social" target="_blank" title="GitHub"><i
+                        <a href="https://github.com/LeYASSOUNG" class="footer-social" target="_blank" rel="noopener noreferrer" title="GitHub"><i
                                 class="fab fa-github"></i></a>
                         <a href="https://www.linkedin.com/in/yassoungo-youssouf-diarrassouba-0b7037306"
-                            class="footer-social" target="_blank" title="LinkedIn"><i
+                            class="footer-social" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i
                                 class="fab fa-linkedin-in"></i></a>
-                        <a href="https://x.com/YassoungoD" class="footer-social" target="_blank" title="Twitter"><i
+                        <a href="https://x.com/YassoungoD" class="footer-social" target="_blank" rel="noopener noreferrer" title="Twitter"><i
                                 class="fab fa-twitter"></i></a>
-                        <a href="https://www.instagram.com/diarr_assoubayassoungo" class="footer-social" target="_blank"
+                        <a href="https://www.instagram.com/diarr_assoubayassoungo" class="footer-social" target="_blank" rel="noopener noreferrer"
                             title="Instagram"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
@@ -677,8 +636,9 @@
                             <li><a href="#home">Accueil</a></li>
                             <li><a href="#about">À propos</a></li>
                             <li><a href="#skills">Compétences</a></li>
-                            <li><a href="#projects">Projets</a></li>
-                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="index.html#projects">Projets</a></li>
+                            <li><a href="CV de DIARRASSOUBA/CV.html">Mon CV en ligne</a></li>
+                            <li><a href="index.html#contact">Contact</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
@@ -692,11 +652,11 @@
                     </div>
                     <div class="footer-col">
                         <h3>Newsletter</h3>
-                        <p style="font-size:.85rem;color:#94a3b8;margin-bottom:.75rem">Recevez mes dernières mises à
+                        <p class="newsletter-desc">Recevez mes dernières mises à
                             jour.</p>
                         <form class="newsletter-form" onsubmit="return false">
                             <input type="email" class="newsletter-input" placeholder="Votre email">
-                            <button type="submit" class="newsletter-btn"><i class="fas fa-paper-plane"></i></button>
+                            <button type="submit" class="newsletter-btn" title="S'abonner" aria-label="S'abonner à la newsletter"><i class="fas fa-paper-plane"></i></button>
                         </form>
                     </div>
                 </div>
