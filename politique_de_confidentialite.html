@@ -238,8 +238,8 @@
                     <div class="footer-col">
                         <h3>Newsletter</h3>
                         <p class="newsletter-desc-legal">Recevez mes dernières mises à jour.</p>
-                        <form class="newsletter-form" onsubmit="return false" class="newsletter-form-legal">
-                            <input type="email" class="newsletter-input-legal" placeholder="Votre email">
+                        <form class="newsletter-form" onsubmit="return false">
+                            <input type="email" name="email" class="newsletter-input-legal" placeholder="Votre email" required>
                             <button type="submit" class="newsletter-btn-legal" title="S'abonner" aria-label="S'abonner à la newsletter"><i class="fas fa-paper-plane"></i></button>
                         </form>
                     </div>
@@ -302,18 +302,16 @@
             requestAnimationFrame(step);
             document.querySelectorAll('a,button').forEach(el => { el.addEventListener('mouseenter', () => cur?.classList.add('hovered')); el.addEventListener('mouseleave', () => cur?.classList.remove('hovered')); });
 
-            // ── Newsletter Form ──────────────────────────────────────────
-            const newsletterForm = document.querySelector('.newsletter-form');
             newsletterForm?.addEventListener('submit', async e => {
                 e.preventDefault();
-                const input = newsletterForm.querySelector('.newsletter-input');
-                const btn = newsletterForm.querySelector('.newsletter-btn');
+                const input = newsletterForm.querySelector('.newsletter-input-legal');
+                const btn = newsletterForm.querySelector('.newsletter-btn-legal');
                 const email = input.value;
                 if (!email) return;
                 btn.disabled = true;
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
                 try {
-                    const res = await fetch('https://formspree.io/f/diarrassoubayassoungo33@gmail.com', {
+                    const res = await fetch('https://formspree.io/f/xdapoaww', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                         body: JSON.stringify({ email: email, subject: 'Inscription Newsletter' })
@@ -322,15 +320,10 @@
                         input.value = '';
                         input.placeholder = 'Merci !';
                         btn.innerHTML = '<i class="fas fa-check"></i>';
-                    } else { throw new Error('Error'); }
+                    } else throw new Error();
                 } catch {
                     btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
-                } finally {
-                    setTimeout(() => {
-                        btn.disabled = false;
-                        btn.innerHTML = '<i class="fas fa-paper-plane"></i>';
-                        input.placeholder = 'Votre email';
-                    }, 3000);
+                    setTimeout(() => { btn.innerHTML = '<i class="fas fa-paper-plane"></i>'; btn.disabled = false; }, 3000);
                 }
             });
         })();
