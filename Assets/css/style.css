@@ -1869,3 +1869,37 @@ footer::after {
     font-size: 0.9rem;
     margin-bottom: 1.25rem;
 }
+
+.newsletter-desc-legal {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 1rem;
+}
+
+.newsletter-form-legal {
+    display: flex;
+    gap: 5px;
+}
+
+.newsletter-input-legal {
+    flex: 1;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.newsletter-btn-legal {
+    background: var(--blue);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.newsletter-btn-legal:hover {
+    background: var(--blue-dark);
+}

@@ -828,8 +828,7 @@
                 submit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
 
                 try {
-                    // Replace YOUR_FORM_ID with your Formspree ID
-                    const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+                    const res = await fetch('https://formspree.io/f/diarrassoubayassoungo33@gmail.com', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                         body: JSON.stringify(Object.fromEntries(new FormData(form)))
@@ -848,6 +847,44 @@
                 } finally {
                     submit.disabled = false;
                     submit.innerHTML = '<span>Envoyer le message</span><i class="fas fa-paper-plane"></i>';
+                }
+            });
+
+            // ── Newsletter Form ──────────────────────────────────────────
+            const newsletterForm = document.querySelector('.newsletter-form');
+            newsletterForm?.addEventListener('submit', async e => {
+                e.preventDefault();
+                const input = newsletterForm.querySelector('.newsletter-input');
+                const btn = newsletterForm.querySelector('.newsletter-btn');
+                const email = input.value;
+
+                if (!email) return;
+
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+                try {
+                    const res = await fetch('https://formspree.io/f/diarrassoubayassoungo33@gmail.com', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                        body: JSON.stringify({ email: email, subject: 'Inscription Newsletter' })
+                    });
+
+                    if (res.ok) {
+                        input.value = '';
+                        input.placeholder = 'Merci !';
+                        btn.innerHTML = '<i class="fas fa-check"></i>';
+                    } else {
+                        throw new Error('Error');
+                    }
+                } catch {
+                    btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+                } finally {
+                    setTimeout(() => {
+                        btn.disabled = false;
+                        btn.innerHTML = '<i class="fas fa-paper-plane"></i>';
+                        input.placeholder = 'Votre email';
+                    }, 3000);
                 }
             });
 
