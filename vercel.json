@@ -1,0 +1,11 @@
+{
+  "installCommand": "npm install --prefix portfolio-angular",
+  "buildCommand": "npm run build --prefix portfolio-angular",
+  "outputDirectory": "portfolio-angular/dist/portfolio-angular/browser",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
