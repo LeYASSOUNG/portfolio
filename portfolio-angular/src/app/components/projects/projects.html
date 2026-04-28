@@ -1,0 +1,112 @@
+<section id="projects" class="projects-section">
+  <div class="container">
+      <div class="section-header reveal">
+          <span class="section-badge"><i class="fas fa-code"></i> {{ translation.translate('projects.featured') }}</span>
+          <h2 class="gradient-text"><i class="fas fa-project-diagram"></i> {{ translation.translate('projects.title') }}</h2>
+          <p>{{ translation.translate('projects.subtitle') }}</p>
+      </div>
+
+      <!-- Global Swiper for Projects -->
+      <div class="swiper projects-global-swiper reveal">
+          <div class="swiper-wrapper">
+              
+              @for (project of projects(); track project.id; let idx = $index) {
+                <div class="swiper-slide project-slide">
+                    <div class="project-glass-card glass-card magnetic" [class.project-featured]="idx === 0">
+
+                        <!-- Featured badge -->
+                        @if (idx === 0) {
+                          <div class="project-featured-badge">
+                            <i class="fas fa-star"></i> {{ translation.translate('projects.featured') }}
+                          </div>
+                        }
+
+                        <!-- Project Number -->
+                        <div class="project-number">{{ (idx + 1).toString().padStart(2, '0') }}</div>
+
+                        <div class="project-img-container shimmer-wrapper">
+                            <!-- Inner Swiper for Project Images -->
+                            <div class="swiper project-inner-swiper">
+                                <div class="swiper-wrapper">
+                                    @for (img of project.images; track img) {
+                                      <div class="swiper-slide"><img [src]="img" [alt]="translation.translate('projects.' + project.id + '_title')" title="Project Image" [title]="translation.translate('projects.' + project.id + '_title')" class="project-image"></div>
+                                    }
+                                </div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                                <div class="project-img-pagination"></div>
+                            </div>
+                            
+                            <div class="project-overlay">
+                                <div class="overlay-content">
+                                    <a [href]="project.githubUrl" target="_blank" rel="noopener noreferrer" class="overlay-link magnetic" [title]="translation.translate('projects.code')">
+                                        <i class="fab fa-github"></i>
+                                        <span>{{ translation.translate('projects.code') }}</span>
+                                    </a>
+                                    @if (project.demoUrl !== '#') {
+                                      <a [href]="project.demoUrl" target="_blank" rel="noopener noreferrer" class="overlay-link magnetic" [title]="translation.translate('projects.live')">
+                                          <i class="fas fa-external-link-alt"></i>
+                                          <span>{{ translation.translate('projects.live') }}</span>
+                                      </a>
+                                    }
+                                </div>
+                            </div>
+
+                            <!-- GitHub Stats Badge -->
+                            @if (project.stats) {
+                              <div class="github-stats-badge">
+                                <span class="stat-item"><i class="fas fa-star"></i> {{ project.stats.stars }}</span>
+                                <span class="stat-item"><i class="fas fa-code-branch"></i> {{ project.stats.forks }}</span>
+                              </div>
+                            }
+                        </div>
+
+                        <div class="project-content">
+                            <h3 class="project-title">{{ translation.translate('projects.' + project.id + '_title') }}</h3>
+                            <p class="project-desc">{{ translation.translate('projects.' + project.id + '_desc') }}</p>
+                            <div class="project-tags">
+                                @for (tag of project.tags; track tag) {
+                                  <span class="tag-pill" [ngClass]="{
+                                    'tag-blue': tag === 'Angular' || tag === 'CSS Architecture',
+                                    'tag-purple': tag === 'Java' || tag === 'Next.js' || tag === 'PWA',
+                                    'tag-cyan': tag === 'PostgreSQL' || tag === 'UI/UX',
+                                    'tag-green': tag === 'Node.js',
+                                    'tag-yellow': tag === 'Spring Boot'
+                                  }">{{ tag }}</span>
+                                }
+                            </div>
+                            <!-- Inline action buttons (always visible, not just on hover) -->
+                            <div class="project-actions">
+                                <a [href]="project.githubUrl" target="_blank" rel="noopener noreferrer" class="project-action-btn">
+                                    <i class="fab fa-github"></i> {{ translation.translate('projects.code') }}
+                                </a>
+                                @if (project.demoUrl !== '#') {
+                                  <a [href]="project.demoUrl" target="_blank" rel="noopener noreferrer" class="project-action-btn project-action-btn--demo">
+                                      <i class="fas fa-external-link-alt"></i> {{ translation.translate('projects.live') }}
+                                  </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              }
+
+          </div>
+          
+          <!-- Global Navigation Buttons (Hidden on Desktop) -->
+          <div class="global-nav-wrap">
+              <div class="swiper-button-prev global-prev"></div>
+              <div class="swiper-button-next global-next"></div>
+          </div>
+
+          <!-- Global Pagination Dots -->
+          <div class="swiper-pagination projects-pagination"></div>
+      </div>
+
+      <div class="projects-cta-wrap reveal">
+          <a href="https://github.com/diarrass2003" target="_blank" rel="noopener noreferrer" class="btn-primary magnetic">
+              {{ translation.translate('projects.view_github') }} <i class="fas fa-arrow-right"></i>
+          </a>
+      </div>
+  </div>
+</section>

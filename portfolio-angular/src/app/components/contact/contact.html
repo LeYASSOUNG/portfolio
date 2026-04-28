@@ -1,0 +1,93 @@
+<section id="contact" class="contact-section">
+  <div class="container">
+      <div class="section-header reveal">
+          <h2 class="gradient-text"><i class="fas fa-envelope-open-text"></i> {{ translation.translate('contact.title') }}</h2>
+          <p>{{ translation.translate('contact.subtitle') }}</p>
+      </div>
+
+      <div class="contact-grid">
+          <!-- Form -->
+          <div class="contact-form-area reveal">
+              <form id="contactForm" (submit)="onSubmitContact($event)" class="glass-card premium-form">
+                  <div id="formMessage" class="form-message" [ngClass]="formMessageClass">{{ formMessageText }}</div>
+
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="name">{{ translation.translate('contact.name') }}</label>
+                          <input type="text" id="name" name="name" class="glass-input" [placeholder]="translation.translate('contact.name')" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="email">{{ translation.translate('contact.email') }}</label>
+                          <input type="email" id="email" name="email" class="glass-input" placeholder="votre@email.com" required>
+                      </div>
+                  </div>
+                  
+                  <div class="form-group">
+                      <label for="subject">{{ translation.translate('contact.subject') }}</label>
+                      <input type="text" id="subject" name="subject" class="glass-input" [placeholder]="translation.translate('contact.subject')" required>
+                  </div>
+                  
+                  <div class="form-group">
+                      <label for="message">{{ translation.translate('contact.message') }}</label>
+                      <textarea id="message" name="message" class="glass-input" rows="6" [placeholder]="translation.translate('contact.message')" required></textarea>
+                  </div>
+
+                  <button type="submit" class="btn-primary magnetic w-full" id="submitBtn" [disabled]="isSubmitting">
+                      <span>{{ isSubmitting ? translation.translate('contact.sending') : translation.translate('contact.send') }}</span>
+                      <i class="fas" [class.fa-paper-plane]="!isSubmitting" [class.fa-spinner]="isSubmitting" [class.fa-spin]="isSubmitting"></i>
+                  </button>
+              </form>
+          </div>
+
+          <!-- Info Card -->
+          <div class="contact-card area reveal">
+              <div class="glass-card contact-info-inner">
+                  <h3 class="contact-subtitle">{{ translation.currentLang() === 'fr' ? 'Détails de Contact' : 'Contact Details' }}</h3>
+                  <div class="contact-items-list">
+                      <div class="contact-pill magnetic">
+                          <div class="pill-icon icon-blue">
+                              <i class="fas fa-map-marker-alt"></i>
+                          </div>
+                          <div class="pill-body">
+                              <h4>Localisation</h4>
+                              <p>Tiassalé, Côte d'Ivoire</p>
+                          </div>
+                      </div>
+                      <div class="contact-pill magnetic">
+                          <div class="pill-icon icon-purple">
+                              <i class="fas fa-envelope"></i>
+                          </div>
+                          <div class="pill-body">
+                              <h4>Email</h4>
+                              <p>
+                                  diarrassoubayassoungo33&#64;gmail.com
+                                  <button class="copy-btn-mini" (click)="copyText('diarrassoubayassoungo33@gmail.com', emailCopyBtn)" #emailCopyBtn title="Copier l'email">
+                                      <i class="far fa-copy"></i>
+                                  </button>
+                              </p>
+                          </div>
+                      </div>
+                      <div class="contact-pill magnetic">
+                          <div class="pill-icon icon-green">
+                              <i class="fas fa-phone-alt"></i>
+                          </div>
+                          <div class="pill-body">
+                              <h4>Téléphone</h4>
+                              <p>+225 07 49 67 90 02</p>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="contact-social-footer">
+                      <h4>{{ translation.currentLang() === 'fr' ? 'Réseaux Sociaux' : 'Social Networks' }}</h4>
+                      <div class="social-grid">
+                          <a href="https://github.com/LeYASSOUNG" target="_blank" rel="noopener noreferrer" class="social-circle blue-glow magnetic" title="Lien vers GitHub"><i class="fab fa-github"></i></a>
+                          <a href="https://www.linkedin.com/in/yassoungo-youssouf-diarrassouba-0b7037306" target="_blank" rel="noopener noreferrer" class="social-circle purple-glow magnetic" title="Lien vers LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                          <a href="https://x.com/YassoungoD" target="_blank" rel="noopener noreferrer" class="social-circle cyan-glow magnetic" title="Lien vers Twitter"><i class="fab fa-twitter"></i></a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

@@ -1,0 +1,69 @@
+<nav class="navbar" [class.scrolled]="isScrolled">
+  <div class="navbar-inner">
+      <a href="#home" class="navbar-brand">
+          <span class="brand-text">Diarrassouba</span>
+      </a>
+
+      <div class="navbar-links">
+          <a href="#home" class="nav-link" [class.active]="activeSection === 'home'" (click)="setActive('home')">{{ translation.translate('nav.home') }}</a>
+          <a href="#about" class="nav-link" [class.active]="activeSection === 'about'" (click)="setActive('about')">{{ translation.translate('nav.about') }}</a>
+          <a href="#skills" class="nav-link" [class.active]="activeSection === 'skills'" (click)="setActive('skills')">{{ translation.translate('nav.skills') }}</a>
+          <a href="#projects" class="nav-link" [class.active]="activeSection === 'projects'" (click)="setActive('projects')">{{ translation.translate('nav.projects') }}</a>
+          <a href="#contact" class="nav-link" [class.active]="activeSection === 'contact'" (click)="setActive('contact')">{{ translation.translate('nav.contact') }}</a>
+          
+          <button class="lang-toggle interactive" (click)="$event.stopPropagation(); toggleLanguage()" 
+                  [title]="translation.currentLang() === 'fr' ? 'Switch to English' : 'Passer en Français'"
+                  [aria-label]="translation.currentLang() === 'fr' ? 'Switch to English' : 'Passer en Français'">
+            <span class="lang-icon">{{ translation.currentLang() === 'fr' ? '🇫🇷' : '🇬🇧' }}</span>
+          </button>
+
+          @if (pwaInstall.canInstall()) {
+            <button class="install-btn magnetic" (click)="pwaInstall.install()" 
+                    title="Install" [title]="translation.translate('pwa.install')" 
+                    [aria-label]="translation.translate('pwa.install')">
+              <i class="fas fa-download"></i>
+            </button>
+          }
+
+          <button class="dark-toggle magnetic" (click)="toggleTheme()" [title]="isDarkTheme ? 'Mode clair' : 'Mode sombre'" aria-label="Changer le thème">
+              <i class="fas" [class.fa-sun]="isDarkTheme" [class.fa-moon]="!isDarkTheme"></i>
+          </button>
+      </div>
+
+      <button class="hamburger magnetic" [class.open]="isMenuOpen" (click)="toggleMenu()" aria-label="Menu" title="Menu">
+          <div class="hamburger-box">
+              <div class="hamburger-inner"></div>
+          </div>
+      </button>
+  </div>
+
+  <!-- Fullscreen Mobile Menu Overlay -->
+  <div class="mobile-overlay" [class.open]="isMenuOpen">
+      <div class="mobile-menu-inner">
+          <div class="mobile-links">
+              <a href="#home" class="mobile-link" (click)="setActive('home')">{{ translation.translate('nav.home') }}</a>
+              <a href="#about" class="mobile-link" (click)="setActive('about')">{{ translation.translate('nav.about') }}</a>
+              <a href="#skills" class="mobile-link" (click)="setActive('skills')">{{ translation.translate('nav.skills') }}</a>
+              <a href="#projects" class="mobile-link" (click)="setActive('projects')">{{ translation.translate('nav.projects') }}</a>
+              <a href="#contact" class="mobile-link" (click)="setActive('contact')">{{ translation.translate('nav.contact') }}</a>
+          </div>
+          <div class="mobile-footer">
+              @if (pwaInstall.canInstall()) {
+                <button class="lang-toggle-large pwa-mobile-btn" (click)="pwaInstall.install()">
+                  <i class="fas fa-download"></i>
+                  <span>{{ translation.translate('pwa.install') }}</span>
+                </button>
+              }
+
+              <button class="lang-toggle-large" (click)="toggleLanguage()">
+                <span>{{ translation.currentLang() === 'fr' ? '🇫🇷 Français' : '🇬🇧 English' }}</span>
+              </button>
+
+              <button class="dark-toggle-large" (click)="toggleTheme()" [title]="isDarkTheme ? 'Passer au clair' : 'Passer au sombre'">
+                  <i class="fas" [class.fa-sun]="isDarkTheme" [class.fa-moon]="!isDarkTheme"></i>
+                  <span>{{ isDarkTheme ? (translation.currentLang() === 'fr' ? 'Passer au clair' : 'Switch to Light') : (translation.currentLang() === 'fr' ? 'Passer au sombre' : 'Switch to Dark') }}</span>
+              </button>
+          </div>
+      </div>
+  </div>
+</nav>
