@@ -724,6 +724,18 @@
     padding: 2rem 1.5rem;
   }
 
+  .cv-topbar {
+    padding: 0.8rem 1rem;
+    gap: 0.7rem;
+  }
+
+  .cv-back-btn,
+  .cv-download-btn {
+    min-height: 42px;
+    padding: 0.5rem 0.9rem;
+    border-radius: 12px;
+  }
+
   .cv-timeline-header {
     flex-direction: column;
     gap: 0.3rem;
@@ -732,9 +744,9 @@
 
 @media (max-width: 480px) {
   .cv-topbar {
-    padding: 1rem 1.5rem;
+    padding: 0.65rem 0.75rem;
     flex-direction: row;
-    gap: 1rem;
+    gap: 0.45rem;
   }
 
   /* Masque le texte des boutons pour ne garder que les icônes sur très petit écran */
@@ -743,19 +755,70 @@
     display: none;
   }
 
+  .cv-download-btn,
+  .cv-back-btn {
+    width: 42px;
+    height: 42px;
+    min-height: 42px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 12px;
+  }
+
+  .cv-wrapper {
+    padding-top: 72px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .cv-main {
+    border-radius: 16px;
+  }
+
+  .cv-sidebar {
+    padding: 1.2rem 0.9rem;
+  }
+
+  .cv-content {
+    padding: 1.2rem 0.9rem;
+    gap: 1.4rem;
+  }
+
   /* Rééquilibrage de la timeline pour gagner de l'espace de lecture */
   .cv-timeline {
-    padding-left: 1.5rem;
+    padding-left: 1.1rem;
+    gap: 1rem;
   }
   
   .cv-timeline-marker {
-    left: -1.5rem;
-    width: 12px;
-    height: 12px;
+    left: -1.25rem;
+    width: 10px;
+    height: 10px;
   }
   
   .cv-timeline-body {
-    padding: 1rem 1rem;
+    padding: 0.8rem;
+  }
+
+  .cv-section-header {
+    gap: 0.6rem;
+  }
+
+  .cv-section-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 0.9rem;
+  }
+
+  .cv-section-header h2 {
+    font-size: 1rem;
+  }
+
+  .cv-exp-list li,
+  .cv-timeline-desc,
+  .cv-section-text {
+    font-size: 0.82rem;
+    line-height: 1.55;
   }
 }
 

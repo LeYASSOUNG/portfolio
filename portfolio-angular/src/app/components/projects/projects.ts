@@ -3,7 +3,7 @@ import { CommonModule, isPlatformBrowser, NgClass } from '@angular/common';
 import { TranslationService } from '../../services/translation.service';
 import { GithubService, RepoStats } from '../../services/github';
 import { Swiper } from 'swiper';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 
 interface Project {
   id: string;
@@ -78,15 +78,22 @@ export class Projects implements AfterViewInit {
     setTimeout(() => {
       // 1. Carrousel global
       new Swiper('.projects-global-swiper', {
-        modules: [Navigation, Pagination],
+        modules: [Navigation, Pagination, Autoplay],
         slidesPerView: 1,
         spaceBetween: 30,
+        loop: true,
+        speed: 850,
         grabCursor: true,
+        autoplay: {
+          delay: 3200,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true
+        },
         pagination: { el: '.projects-pagination', clickable: true, dynamicBullets: true },
         navigation: { nextEl: '.global-next', prevEl: '.global-prev' },
         breakpoints: {
           768: { slidesPerView: 2, enabled: true },
-          1100: { slidesPerView: 3, enabled: false }
+          1100: { slidesPerView: 3, enabled: true }
         }
       });
 

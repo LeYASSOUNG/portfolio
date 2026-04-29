@@ -234,9 +234,9 @@ body::after {
 }
 
 .navbar-inner {
-    max-width: 1300px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -405,7 +405,26 @@ body::after {
 
 @media (max-width: 992px) {
     .navbar-links { display: none; }
-    .hamburger { display: block; }
+    .navbar-inner {
+        gap: 0.2rem;
+        justify-content: flex-start;
+    }
+
+    .navbar-brand {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .hamburger {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        margin-left: auto;
+        margin-right: -4px;
+    }
     .mobile-overlay {
         padding: 88px 1rem 1.5rem;
         align-items: flex-start;
@@ -416,6 +435,46 @@ body::after {
         margin: 0 auto;
         display: grid;
         gap: 1.75rem;
+    }
+
+    .mobile-links {
+        gap: 1rem;
+    }
+
+    .mobile-link {
+        font-size: clamp(1.35rem, 6vw, 1.9rem);
+        padding: 0.45rem 0.75rem;
+        margin-bottom: 0;
+        border-radius: 12px;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-footer {
+        gap: 0.85rem;
+        padding: 0;
+        margin-top: 0.5rem;
+    }
+
+    .mobile-footer .lang-toggle-large,
+    .mobile-footer .dark-toggle-large {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 0;
+        min-height: 46px;
+        padding: 0.72rem 1rem;
+        border-radius: 14px;
+        font-size: 0.95rem;
+    }
+
+    .mobile-footer .dark-toggle-large {
+        gap: 0.55rem;
+    }
+
+    .mobile-footer .pwa-mobile-btn {
+        margin-bottom: 0;
     }
 }
 
@@ -664,6 +723,24 @@ body::after {
     background: var(--grad-aurora);
 }
 
+@media (max-width: 1200px) {
+    .navbar-inner {
+        padding: 0 1.25rem;
+    }
+
+    .navbar-links {
+        gap: 1rem;
+    }
+
+    .nav-link {
+        font-size: 0.88rem;
+    }
+
+    .lang-toggle {
+        padding: 6px 10px;
+    }
+}
+
 /* Removed duplicated hamburger CSS */
 
 /* Mobile menu */
@@ -877,6 +954,16 @@ section {
     background: var(--accent-blue);
     color: white;
     transform: translateY(-5px);
+}
+
+/* Touch target baseline for interactive buttons */
+.btn-primary,
+.btn-outline,
+.dark-toggle-large,
+.lang-toggle-large,
+.newsletter-submit,
+.install-btn {
+    min-height: 44px;
 }
 
 .hero-socials {
@@ -2040,7 +2127,7 @@ section {
 #backToTop {
     position: fixed;
     bottom: 2rem;
-    right: 2rem;
+    left: 50%;
     width: 52px;
     height: 52px;
     border-radius: 50%;
@@ -2055,6 +2142,7 @@ section {
     z-index: 90;
     opacity: 0;
     pointer-events: none;
+    transform: translateX(-50%);
     transition: opacity 0.3s ease, transform 0.3s ease;
     box-shadow: 0 4px 20px rgba(59, 130, 246, .4);
 }
@@ -2062,10 +2150,11 @@ section {
 #backToTop.visible {
     opacity: 1;
     pointer-events: auto;
+    transform: translateX(-50%);
 }
 
 #backToTop:hover {
-    transform: translateY(-3px) scale(1.08);
+    transform: translateX(-50%) translateY(-3px) scale(1.08);
 }
 
 /* ── Responsive ──────────────────────────────────────────────── */
@@ -2184,6 +2273,21 @@ section {
         padding: 1.25rem !important;
     }
 
+    .projects-cta-wrap .btn-primary,
+    .contact-form-area .btn-primary,
+    .premium-newsletter .newsletter-submit {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .premium-newsletter .newsletter-input-wrap {
+        flex-direction: column;
+    }
+
+    .premium-newsletter .glass-input {
+        width: 100%;
+    }
+
     .contact-pill {
         align-items: flex-start;
         gap: 0.85rem;
@@ -2200,7 +2304,7 @@ section {
         width: 38px;
         height: 38px;
         bottom: 1rem;
-        right: 1rem;
+        left: 50%;
         font-size: 0.8rem;
     }
 }
@@ -2247,6 +2351,17 @@ section {
         font-size: clamp(1.6rem, 10vw, 2.5rem);
     }
 
+    .btn-primary,
+    .btn-outline {
+        width: 100%;
+        padding: 0.82rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .contact-form-area .btn-primary i {
+        font-size: 0.9rem;
+    }
+
     .hero-subtitle {
         font-size: 1.1rem;
     }
@@ -2263,6 +2378,48 @@ section {
 
     .section-header p {
         font-size: 0.94rem;
+    }
+
+    .section-header h2 {
+        line-height: 1.2;
+    }
+
+    .contact-pill {
+        padding: 0.75rem;
+        gap: 0.7rem;
+    }
+
+    .pill-body p {
+        font-size: 0.82rem;
+        line-height: 1.45;
+    }
+
+    .social-grid {
+        gap: 0.65rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .container {
+        padding: 0 0.75rem;
+    }
+
+    .brand-text {
+        font-size: 1.06rem;
+    }
+
+    .hero-title {
+        font-size: clamp(1.35rem, 11vw, 2rem);
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .hero-desc,
+    .project-desc,
+    .cv-section-text {
+        font-size: 0.86rem;
     }
 }
 
