@@ -9,6 +9,7 @@
           <a href="#about" class="nav-link" [class.active]="activeSection === 'about'" (click)="setActive('about')">{{ translation.translate('nav.about') }}</a>
           <a href="#skills" class="nav-link" [class.active]="activeSection === 'skills'" (click)="setActive('skills')">{{ translation.translate('nav.skills') }}</a>
           <a href="#projects" class="nav-link" [class.active]="activeSection === 'projects'" (click)="setActive('projects')">{{ translation.translate('nav.projects') }}</a>
+          <a href="#game" class="nav-link" [class.active]="activeSection === 'game'" (click)="setActive('game')">{{ translation.translate('nav.game') }}</a>
           <a href="#contact" class="nav-link" [class.active]="activeSection === 'contact'" (click)="setActive('contact')">{{ translation.translate('nav.contact') }}</a>
           
           <button class="lang-toggle interactive" (click)="$event.stopPropagation(); toggleLanguage()" 
@@ -32,7 +33,7 @@
 
       <button class="hamburger magnetic" [class.open]="isMenuOpen" (click)="toggleMenu()" aria-label="Menu" title="Menu">
           <div class="hamburger-box">
-              <div class="hamburger-inner"></div>
+              <div class="hamburger-inner"></div> 
           </div>
       </button>
   </div>
@@ -45,6 +46,7 @@
               <a href="#about" class="mobile-link" (click)="setActive('about')">{{ translation.translate('nav.about') }}</a>
               <a href="#skills" class="mobile-link" (click)="setActive('skills')">{{ translation.translate('nav.skills') }}</a>
               <a href="#projects" class="mobile-link" (click)="setActive('projects')">{{ translation.translate('nav.projects') }}</a>
+              <a href="#game" class="mobile-link" (click)="setActive('game')">{{ translation.translate('nav.game') }}</a>
               <a href="#contact" class="mobile-link" (click)="setActive('contact')">{{ translation.translate('nav.contact') }}</a>
           </div>
           <div class="mobile-footer">

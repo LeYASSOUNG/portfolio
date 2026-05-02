@@ -13,7 +13,7 @@ export class TranslationService {
     fr: {
       nav: {
         home: 'Accueil', about: 'À propos', skills: 'Compétences',
-        projects: 'Projets', contact: 'Contact', cv: 'Mon CV'
+        projects: 'Projets', game: 'Puzzle', contact: 'Contact', cv: 'Mon CV'
       },
       hero: {
         badge: 'Disponible pour de nouveaux projets',
@@ -43,6 +43,20 @@ export class TranslationService {
       },
       skills: {
         title: 'Compétences', subtitle: 'Mon arsenal technologique pour bâtir le futur.'
+      },
+      game: {
+        title: 'Puzzle des langages',
+        subtitle: 'Trouve les langages de programmation caches dans la grille.',
+        progress: 'Progression',
+        clear: 'Effacer',
+        new: 'Nouvelle grille',
+        hint: 'Clique une lettre de depart puis une lettre d arrivee en ligne droite.',
+        ready: 'Selectionne le debut d un mot.',
+        pick_end: 'Choisis maintenant la lettre de fin.',
+        invalid_line: 'Selection invalide: reste sur une ligne droite.',
+        not_word: 'Ce mot ne fait pas partie de la liste.',
+        word_found: 'Bien joue ! {word} trouve.',
+        completed: 'Bravo ! Tous les langages ont ete trouves.'
       },
       projects: {
         title: 'Mes Projets', subtitle: 'Une sélection de mes réalisations techniques les plus significatives.',
@@ -107,7 +121,7 @@ export class TranslationService {
     en: {
       nav: {
         home: 'Home', about: 'About', skills: 'Skills',
-        projects: 'Projects', contact: 'Contact', cv: 'My Resume'
+        projects: 'Projects', game: 'Puzzle', contact: 'Contact', cv: 'My Resume'
       },
       hero: {
         badge: 'Available for new projects',
@@ -137,6 +151,20 @@ export class TranslationService {
       },
       skills: {
         title: 'Skills', subtitle: 'My technological arsenal to build the future.'
+      },
+      game: {
+        title: 'Language puzzle',
+        subtitle: 'Find the hidden programming languages in the grid.',
+        progress: 'Progress',
+        clear: 'Clear',
+        new: 'New grid',
+        hint: 'Click a start letter, then an end letter in a straight line.',
+        ready: 'Select the first letter of a word.',
+        pick_end: 'Now choose the ending letter.',
+        invalid_line: 'Invalid selection: stay on a straight line.',
+        not_word: 'This word is not in the list.',
+        word_found: 'Nice! {word} found.',
+        completed: 'Great job! You found every language.'
       },
       projects: {
         title: 'Projects', subtitle: 'Concrete achievements that speak for themselves.',

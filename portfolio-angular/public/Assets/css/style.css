@@ -16,6 +16,7 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    width: 100%;
 }
 
 img {
@@ -76,7 +77,7 @@ ul {
 
     /* Layout */
     --page-max: 1200px;
-    --page-pad: 1.5rem;
+    --page-pad: clamp(1.1rem, 2.2vw, 1.9rem);
 }
 
 /* Dark Mode (Midnight Aurora) */
@@ -118,7 +119,10 @@ body {
     color: var(--text);
     transition: background-color 0.4s var(--ease), color 0.4s var(--ease);
     line-height: 1.6;
+    width: 100%;
+    min-height: 100vh;
     overflow-x: hidden;
+    overflow-x: clip;
     position: relative;
 }
 
@@ -240,7 +244,10 @@ body::after {
 .navbar-inner {
     max-width: var(--page-max);
     margin: 0 auto;
-    padding: 0 var(--page-pad);
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: max(var(--page-pad), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--page-pad), env(safe-area-inset-right, 0px));
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -410,14 +417,22 @@ body::after {
 @media (max-width: 992px) {
     .navbar-links { display: none; }
     .navbar-inner {
-        gap: 0 !important;
-        justify-content: space-between;
-        padding: 0 var(--page-pad) !important;
+        gap: 0.25rem !important;
+        justify-content: flex-start;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        padding-left: max(0.75rem, env(safe-area-inset-left, 0px)) !important;
+        padding-right: max(0.75rem, env(safe-area-inset-right, 0px)) !important;
     }
 
     .navbar-brand {
         display: inline-flex;
         align-items: center;
+        min-width: 0;
+    }
+
+    .brand-text {
+        font-size: clamp(1.1rem, 3.2vw, 1.3rem);
     }
 
     .hamburger {
@@ -427,11 +442,16 @@ body::after {
         width: 44px;
         height: 44px;
         border-radius: 12px;
-        margin-left: 0 !important;
+        margin-left: 0.15rem !important;
         margin-right: 0 !important;
+        background: rgba(99, 102, 241, 0.08);
+        border: 1px solid var(--glass-border);
     }
     .mobile-overlay {
-        padding: 6px 1rem 1.5rem;
+        padding-top: max(88px, calc(0.6rem + env(safe-area-inset-top, 0px)));
+        padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
+        padding-bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
+        padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
         align-items: flex-start;
         overflow-y: auto;
     }
@@ -455,6 +475,8 @@ body::after {
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        letter-spacing: 0.01em;
+        color: #fff;
     }
 
     .mobile-footer {
@@ -2184,6 +2206,20 @@ section {
 
 /* Tablettes et petits écrans d'ordinateur */
 @media (max-width: 992px) {
+    :root { --page-pad: 1rem; }
+
+    .navbar {
+        min-height: 64px;
+    }
+
+    .navbar-inner {
+        height: 64px;
+    }
+
+    .navbar.scrolled .navbar-inner {
+        height: 58px;
+    }
+
     .hero-grid {
         grid-template-columns: 1fr; /* Passage en une seule colonne pour éviter l'écrasement */
     }
@@ -2196,7 +2232,17 @@ section {
 
 /* Smartphones larges et format paysage (640px) */
 @media (max-width: 640px) {
-    :root { --page-pad: 1rem; }
+    :root { --page-pad: 0.9rem; }
+
+    .navbar-inner {
+        padding-left: max(0.6rem, env(safe-area-inset-left, 0px)) !important;
+        padding-right: max(0.6rem, env(safe-area-inset-right, 0px)) !important;
+        height: 60px;
+    }
+
+    .navbar.scrolled .navbar-inner {
+        height: 54px;
+    }
 
     section {
         scroll-margin-top: 72px;
@@ -2417,7 +2463,7 @@ section {
 }
 
 @media (max-width: 360px) {
-    :root { --page-pad: 0.75rem; }
+    :root { --page-pad: 0.8rem; }
 
     .brand-text {
         font-size: 1.06rem;
