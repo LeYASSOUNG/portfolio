@@ -26,7 +26,11 @@ export class GithubService {
     }
 
     try {
-      const response = await fetch(`${this.API_URL}${repoPath}`);
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
+
+      const response = await fetch(`${this.API_URL}${repoPath}`, { signal: controller.signal });
+      clearTimeout(timeoutId);
       
       // Si le dépôt n'est pas trouvé (ou est privé), on retourne 0 sans erreur bloquante
       if (response.status === 404) {
@@ -58,8 +62,12 @@ export class GithubService {
       }));
 
       return stats;
-    } catch (error) {
-      console.warn(`Could not fetch live GitHub stats for ${repoPath}. Using fallback.`);
+    } catch (error: any) {
+      if (error.name === 'AbortError') {
+        console.warn(`GitHub API request timed out for ${repoPath}.`);
+      } else {
+        console.warn(`Could not fetch live GitHub stats for ${repoPath}. Error: ${error.message}`);
+      }
       if (cached) return JSON.parse(cached).data;
       return { stars: 0, forks: 0 };
     }
