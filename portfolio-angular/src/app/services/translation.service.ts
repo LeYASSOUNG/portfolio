@@ -5,15 +5,22 @@ export type Language = 'fr' | 'en';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Service Internationalisation (i18n)
+ * Gère le changement de langue (FR/EN) de manière réactive via les Angular Signals.
+ */
 export class TranslationService {
-  // Signal pour la langue actuelle (réactif)
+  // Signal réactif stockant la langue actuelle. 
+  // Tout composant utilisant ce signal se mettra à jour automatiquement lors d'un changement.
   currentLang = signal<Language>('fr');
 
   private translations: any = {
     fr: {
       nav: {
         home: 'Accueil', about: 'À propos', skills: 'Compétences',
-        projects: 'Projets', game: 'Puzzle', contact: 'Contact', cv: 'Mon CV'
+        projects: 'Projets', game: 'Puzzle', contact: 'Contact', cv: 'Mon CV',
+        present: 'Présent', location: 'Localisation', phone: 'Téléphone', email: 'Email',
+        socials: 'Réseaux Sociaux'
       },
       hero: {
         badge: 'Disponible pour de nouveaux projets',
@@ -42,7 +49,12 @@ export class TranslationService {
         tl3_desc: 'Licence MIAGE — Méthodes Informatiques Appliquées à la Gestion des Entreprises.'
       },
       skills: {
-        title: 'Compétences', subtitle: 'Mon arsenal technologique pour bâtir le futur.'
+        title: 'Compétences', subtitle: 'Mon arsenal technologique pour bâtir le futur.',
+        tech_title: 'Expertise Technique', soft_title: 'Compétences Professionnelles',
+        team: 'Team Leadership', team_sub: 'Agilité et synergie de groupe.',
+        problem: 'Problem Solving', problem_sub: 'Pensée critique et solutions innovantes.',
+        design: 'Design Thinking', design_sub: 'Centré sur l\'expérience utilisateur.',
+        devops: 'Cloud & DevOps', devops_sub: 'Déploiement et scalabilité.'
       },
       game: {
         title: 'Puzzle des langages',
@@ -71,13 +83,17 @@ export class TranslationService {
         subtitle: 'Une idée ? Un projet ? Parlons-en.',
         name: 'Votre nom', email: 'Votre email', subject: 'Sujet', message: 'Votre message',
         send: 'Envoyer', sending: 'Envoi...', success: 'Message envoyé !', error: 'Erreur, réessayez.',
-        copy: 'Copier l\'email'
+        copy: 'Copier l\'email',
+        details: 'Détails de Contact',
+        address: 'Tiassalé, Côte d\'Ivoire'
       },
       footer: {
         rights: 'Tous droits réservés.',
         newsletter_title: 'Restez informé',
         newsletter_desc: 'Recevez mes dernières réalisations.',
-        subscribe: 'S\'abonner', scroll_top: 'Haut de page'
+        subscribe: 'S\'abonner', scroll_top: 'Haut de page',
+        brand_desc: 'Architecte d\'expériences digitales immersives, alliant esthétique premium et performance technique.',
+        nav_title: 'Navigation'
       },
       pwa: {
         install: 'Installer l\'application'
@@ -112,16 +128,21 @@ export class TranslationService {
         p2_item1: 'Design system glassmorphism & animations CSS avancées',
         p2_item2: 'Angular 21 Zoneless avec animations micro-interactions',
         p2_item3: 'Accessibilité WCAG et performances optimisées',
-        p3_title: 'Projets Académiques MIAGE',
         p3_item1: 'Conception et implémentation de bases de données MySQL',
         p3_item2: 'Modélisation UML (use cases, diagrammes de classes)',
-        p3_item3: 'Développement d\'applications web en PHP/JavaScript'
+        p3_item3: 'Développement d\'applications web en PHP/JavaScript',
+        p_personal: 'Projet Personnel', p_academic: 'Projet Académique & Personnel',
+        hobbies: {
+          gym: 'Musculation', football: 'Football', music: 'Musique', travel: 'Voyage'
+        }
       }
     },
     en: {
       nav: {
         home: 'Home', about: 'About', skills: 'Skills',
-        projects: 'Projects', game: 'Puzzle', contact: 'Contact', cv: 'My Resume'
+        projects: 'Projects', game: 'Puzzle', contact: 'Contact', cv: 'My Resume',
+        present: 'Present', location: 'Location', phone: 'Phone', email: 'Email',
+        socials: 'Social Networks'
       },
       hero: {
         badge: 'Available for new projects',
@@ -150,7 +171,12 @@ export class TranslationService {
         tl3_desc: 'MIAGE License — Computer Methods Applied to Business Management.'
       },
       skills: {
-        title: 'Skills', subtitle: 'My technological arsenal to build the future.'
+        title: 'Skills', subtitle: 'My technological arsenal to build the future.',
+        tech_title: 'Technical Expertise', soft_title: 'Professional Skills',
+        team: 'Team Leadership', team_sub: 'Team agility and synergy.',
+        problem: 'Problem Solving', problem_sub: 'Critical thinking and innovative solutions.',
+        design: 'Design Thinking', design_sub: 'User-centered design.',
+        devops: 'Cloud & DevOps', devops_sub: 'Deployment and scalability.'
       },
       game: {
         title: 'Language puzzle',
@@ -179,13 +205,17 @@ export class TranslationService {
         subtitle: 'An idea? A project? Let\'s talk.',
         name: 'Your name', email: 'Your email', subject: 'Subject', message: 'Your message',
         send: 'Send', sending: 'Sending...', success: 'Message sent!', error: 'Error, please retry.',
-        copy: 'Copy email'
+        copy: 'Copy email',
+        details: 'Contact Details',
+        address: 'Tiassalé, Ivory Coast'
       },
       footer: {
         rights: 'All rights reserved.',
         newsletter_title: 'Stay informed',
         newsletter_desc: 'Receive my latest work.',
-        subscribe: 'Subscribe', scroll_top: 'Back to top'
+        subscribe: 'Subscribe', scroll_top: 'Back to top',
+        brand_desc: 'Architect of immersive digital experiences, combining premium aesthetics and technical performance.',
+        nav_title: 'Navigation'
       },
       pwa: {
         install: 'Install the app'
@@ -220,15 +250,19 @@ export class TranslationService {
         p2_item1: 'Glassmorphism design system & advanced CSS animations',
         p2_item2: 'Angular 21 Zoneless with micro-interaction animations',
         p2_item3: 'WCAG accessibility and optimized performance',
-        p3_title: 'MIAGE Academic Projects',
         p3_item1: 'Design and implementation of MySQL databases',
         p3_item2: 'UML modeling (use cases, class diagrams)',
-        p3_item3: 'Development of web applications in PHP/JavaScript'
+        p3_item3: 'Development of web applications in PHP/JavaScript',
+        p_personal: 'Personal Project', p_academic: 'Personal & Academic Project',
+        hobbies: {
+          gym: 'Bodybuilding', football: 'Soccer', music: 'Music', travel: 'Travel'
+        }
       }
     }
   };
 
   constructor() {
+    // Initialisation : on récupère la langue sauvegardée par l'utilisateur
     if (typeof window !== 'undefined') {
       const savedLang = localStorage.getItem('lang') as Language;
       if (savedLang) {
@@ -237,6 +271,9 @@ export class TranslationService {
     }
   }
 
+  /**
+   * Change la langue active et la sauvegarde localement.
+   */
   setLanguage(lang: Language) {
     this.currentLang.set(lang);
     if (typeof window !== 'undefined') {
@@ -244,6 +281,10 @@ export class TranslationService {
     }
   }
 
+  /**
+   * Récupère une chaîne traduite basée sur une clé pointée (ex: "nav.home").
+   * Si la clé n'existe pas, retourne la clé elle-même par défaut.
+   */
   translate(key: string): string {
     const keys = key.split('.');
     let result = this.translations[this.currentLang()];

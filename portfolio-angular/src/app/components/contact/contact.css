@@ -1,8 +1,8 @@
 /* Premium Form & Contact Info Enhancements */
 .contact-form-area .premium-form,
 .contact-card .contact-info-inner {
-    background: linear-gradient(135deg, var(--glass-bg), rgba(15, 23, 42, 0.2));
-    border: 1px solid var(--glass-border);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
 }
 
 .contact-card .contact-info-inner:hover,

@@ -62,7 +62,7 @@
           </a>
           <div class="cv-contact-item">
             <div class="cv-contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-            <span>Tiassalé, Côte d'Ivoire</span>
+            <span>{{ translation.translate('contact.address') }}</span>
           </div>
         </div>
       </div>
@@ -76,42 +76,42 @@
               <span class="cv-skill-name">HTML / CSS</span>
               <span class="cv-skill-pct">90%</span>
             </div>
-            <div class="cv-skill-bar"><div class="cv-skill-fill skill-w-90"></div></div>
+            <div class="cv-skill-bar"><div class="cv-skill-fill skill-w-90" data-width="90%"></div></div>
           </div>
           <div class="cv-skill-row">
             <div class="cv-skill-info">
               <span class="cv-skill-name">Angular / TypeScript</span>
               <span class="cv-skill-pct">75%</span>
             </div>
-            <div class="cv-skill-bar"><div class="cv-skill-fill skill-w-75"></div></div>
+            <div class="cv-skill-bar"><div class="cv-skill-fill skill-w-75" data-width="75%"></div></div>
           </div>
           <div class="cv-skill-row">
             <div class="cv-skill-info">
               <span class="cv-skill-name">Java / PHP</span>
               <span class="cv-skill-pct">65%</span>
             </div>
-            <div class="cv-skill-bar"><div class="cv-skill-fill skill-w-65"></div></div>
+            <div class="cv-skill-bar"><div class="cv-skill-fill skill-w-65" data-width="65%"></div></div>
           </div>
           <div class="cv-skill-row">
             <div class="cv-skill-info">
               <span class="cv-skill-name">MySQL</span>
               <span class="cv-skill-pct">70%</span>
             </div>
-            <div class="cv-skill-bar"><div class="cv-skill-fill skill-w-70"></div></div>
+            <div class="cv-skill-bar"><div class="cv-skill-fill skill-w-70" data-width="70%"></div></div>
           </div>
           <div class="cv-skill-row">
             <div class="cv-skill-info">
               <span class="cv-skill-name">UI/UX &amp; Figma</span>
               <span class="cv-skill-pct">80%</span>
             </div>
-            <div class="cv-skill-bar"><div class="cv-skill-fill skill-w-80"></div></div>
+            <div class="cv-skill-bar"><div class="cv-skill-fill skill-w-80" data-width="80%"></div></div>
           </div>
           <div class="cv-skill-row">
             <div class="cv-skill-info">
               <span class="cv-skill-name">Modélisation UML</span>
               <span class="cv-skill-pct">70%</span>
             </div>
-            <div class="cv-skill-bar"><div class="cv-skill-fill skill-w-70"></div></div>
+            <div class="cv-skill-bar"><div class="cv-skill-fill skill-w-70" data-width="70%"></div></div>
           </div>
         </div>
       </div>
@@ -135,10 +135,10 @@
       <div class="cv-sidebar-block">
         <h3 class="cv-sidebar-heading"><i class="fas fa-star"></i> {{ translation.translate('cv.interests') }}</h3>
         <div class="cv-hobbies">
-          <span class="cv-hobby"><i class="fas fa-dumbbell"></i> {{ translation.currentLang() === 'fr' ? 'Musculation' : 'Bodybuilding' }}</span>
-          <span class="cv-hobby"><i class="fas fa-futbol"></i> {{ translation.currentLang() === 'fr' ? 'Football' : 'Soccer' }}</span>
-          <span class="cv-hobby"><i class="fas fa-music"></i> {{ translation.currentLang() === 'fr' ? 'Musique' : 'Music' }}</span>
-          <span class="cv-hobby"><i class="fas fa-plane"></i> {{ translation.currentLang() === 'fr' ? 'Voyage' : 'Travel' }}</span>
+          <span class="cv-hobby"><i class="fas fa-dumbbell"></i> {{ translation.translate('cv.hobbies.gym') }}</span>
+          <span class="cv-hobby"><i class="fas fa-futbol"></i> {{ translation.translate('cv.hobbies.football') }}</span>
+          <span class="cv-hobby"><i class="fas fa-music"></i> {{ translation.translate('cv.hobbies.music') }}</span>
+          <span class="cv-hobby"><i class="fas fa-plane"></i> {{ translation.translate('cv.hobbies.travel') }}</span>
           <span class="cv-hobby"><i class="fas fa-gamepad"></i> Gaming</span>
         </div>
       </div>
@@ -167,7 +167,7 @@
         <p class="cv-role-title">{{ translation.translate('cv.role') }}</p>
         <div class="cv-header-tag-row">
           <span class="cv-tag"><i class="fas fa-university"></i> UPB — Bingerville</span>
-          <span class="cv-tag"><i class="fas fa-calendar-alt"></i> 2023 – {{ translation.currentLang() === 'fr' ? 'Présent' : 'Present' }}</span>
+          <span class="cv-tag"><i class="fas fa-calendar-alt"></i> 2023 – {{ translation.translate('nav.present') }}</span>
           <span class="cv-tag"><i class="fas fa-map-marker-alt"></i> Côte d'Ivoire</span>
         </div>
       </div>
@@ -198,7 +198,7 @@
             <div class="cv-timeline-body">
               <div class="cv-timeline-header">
                 <strong>{{ translation.translate('cv.miage') }}</strong>
-                <span class="cv-badge-date">2023 — {{ translation.currentLang() === 'fr' ? 'Présent' : 'Present' }}</span>
+                <span class="cv-badge-date">2023 — {{ translation.translate('nav.present') }}</span>
               </div>
               <p class="cv-timeline-org"><i class="fas fa-university"></i> Université Polytechnique de Bingerville</p>
               <p class="cv-timeline-desc">{{ translation.translate('cv.miage_desc') }}</p>
@@ -242,7 +242,7 @@
                 <strong>{{ translation.translate('cv.p1_title') }}</strong>
                 <span class="cv-badge-date cv-badge-featured">Featured</span>
               </div>
-              <p class="cv-timeline-org"><i class="fas fa-code"></i> {{ translation.currentLang() === 'fr' ? 'Projet Personnel & Académique' : 'Personal & Academic Project' }}</p>
+              <p class="cv-timeline-org"><i class="fas fa-code"></i> {{ translation.translate('cv.p_academic') }}</p>
               <ul class="cv-exp-list">
                 <li><i class="fas fa-check-circle"></i> {{ translation.translate('cv.p1_item1') }}</li>
                 <li><i class="fas fa-check-circle"></i> {{ translation.translate('cv.p1_item2') }}</li>
@@ -261,7 +261,7 @@
                 <strong>{{ translation.translate('cv.p2_title') }}</strong>
                 <span class="cv-badge-date">2024</span>
               </div>
-              <p class="cv-timeline-org"><i class="fas fa-palette"></i> {{ translation.currentLang() === 'fr' ? 'Projet Personnel' : 'Personal Project' }}</p>
+              <p class="cv-timeline-org"><i class="fas fa-palette"></i> {{ translation.translate('cv.p_personal') }}</p>
               <ul class="cv-exp-list">
                 <li><i class="fas fa-check-circle"></i> {{ translation.translate('cv.p2_item1') }}</li>
                 <li><i class="fas fa-check-circle"></i> {{ translation.translate('cv.p2_item2') }}</li>

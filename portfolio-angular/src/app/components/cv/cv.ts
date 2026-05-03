@@ -17,16 +17,24 @@ import { TranslationService } from '../../services/translation.service';
 export class Cv implements OnInit, AfterViewInit {
   constructor(public translation: TranslationService) {}
   
+  /**
+   * À l'initialisation, on remonte en haut de page.
+   * Important car Angular conserve la position de scroll entre les routes.
+   */
   ngOnInit() {
     if (typeof window !== 'undefined') {
       window.scrollTo(0, 0);
     }
   }
 
+  /**
+   * Après le rendu de la vue, on initialise les animations spécifiques au CV.
+   */
   ngAfterViewInit() {
     if (typeof window === 'undefined') return;
 
-    // Reveal on scroll using IntersectionObserver
+    // --- ANIMATIONS D'APPARITION (REVEAL) ---
+    // On observe les éléments avec la classe .reveal pour ajouter .visible au scroll
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
@@ -40,7 +48,8 @@ export class Cv implements OnInit, AfterViewInit {
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Animate skill bars up on first view
+    // --- ANIMATIONS DES BARRES DE COMPÉTENCES ---
+    // Les barres s'animent de 0 à X% uniquement lorsqu'elles entrent dans l'écran
     const skillObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
@@ -48,12 +57,17 @@ export class Cv implements OnInit, AfterViewInit {
             const fills = entry.target.querySelectorAll('.cv-skill-fill');
             fills.forEach((fill: Element) => {
               const el = fill as HTMLElement;
-              const targetWidth = el.style.width;
+              // On récupère la largeur cible via l'attribut data-width (ex: "90%")
+              const targetWidth = el.dataset['width'] || '0%'; 
+              
+              // On force le passage par 0 pour déclencher la transition CSS
               el.style.width = '0';
               requestAnimationFrame(() => {
-                setTimeout(() => { el.style.width = targetWidth; }, 50);
+                // Petit délai pour assurer que le navigateur détecte le changement de style
+                setTimeout(() => { el.style.width = targetWidth; }, 100);
               });
             });
+            // Une fois animé, on arrête d'observer pour optimiser les performances
             skillObserver.unobserve(entry.target);
           }
         });

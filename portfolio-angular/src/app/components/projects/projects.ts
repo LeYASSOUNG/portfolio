@@ -22,7 +22,13 @@ interface Project {
   templateUrl: './projects.html',
   styleUrl: './projects.css',
 })
+/**
+ * Composant Projets
+ * Affiche une grille de projets interactifs avec carrousels d'images et stats GitHub.
+ */
 export class Projects implements AfterViewInit {
+  // Signal réactif contenant la liste des projets.
+  // L'utilisation de Signal permet une mise à jour fluide de l'UI lors de la réception des stats GitHub.
   projects = signal<Project[]>([
     {
       id: 'p1',
@@ -56,13 +62,16 @@ export class Projects implements AfterViewInit {
     private github: GithubService
   ) {}
 
+  /**
+   * Initialisation : Récupération asynchrone des statistiques GitHub (Stars/Forks).
+   */
   async ngOnInit() {
-    // Fetch stats and update signal
     const currentProjects = [...this.projects()];
     for (let i = 0; i < currentProjects.length; i++) {
       if (currentProjects[i].repo) {
+        // Appel au service GitHub pour chaque dépôt
         currentProjects[i].stats = await this.github.getRepoStats(currentProjects[i].repo);
-        // On met à jour le signal à chaque fois pour un effet "progressif"
+        // On met à jour le signal progressivement pour que l'utilisateur voit les chiffres apparaître
         this.projects.set([...currentProjects]);
       }
     }
@@ -74,36 +83,18 @@ export class Projects implements AfterViewInit {
     }
   }
 
+  /**
+   * Initialise les carrousels Swiper pour les images de chaque projet.
+   */
   private initSwipers() {
     setTimeout(() => {
-      // 1. Carrousel global
-      new Swiper('.projects-global-swiper', {
-        modules: [Navigation, Pagination, Autoplay],
-        slidesPerView: 1,
-        spaceBetween: 30,
-        loop: true,
-        speed: 850,
-        grabCursor: true,
-        autoplay: {
-          delay: 3200,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true
-        },
-        pagination: { el: '.projects-pagination', clickable: true, dynamicBullets: true },
-        navigation: { nextEl: '.global-next', prevEl: '.global-prev' },
-        breakpoints: {
-          768: { slidesPerView: 2, enabled: true },
-          1100: { slidesPerView: 3, enabled: true }
-        }
-      });
-
-      // 2. Carrousels internes
+      // Configuration des carrousels internes imbriqués
       new Swiper('.project-inner-swiper', {
         modules: [Navigation, Pagination],
         slidesPerView: 1,
-        loop: true,
-        nested: true,
-        touchReleaseOnEdges: true,
+        loop: false, // Pas de boucle infinie pour les images
+        nested: true, // Indique que le swiper est imbriqué (évite les conflits de swipe)
+        touchReleaseOnEdges: true, // Permet de continuer le scroll de la page après la dernière image
         navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
         pagination: { el: '.project-img-pagination', type: 'fraction' }
       });

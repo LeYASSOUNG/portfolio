@@ -17,26 +17,35 @@ import { routeAnimations } from './animations';
  * Gère la structure principale et les effets globaux (Curseur dynamique, Scroll Indicator, Animations d'apparition).
  */
 export class App implements AfterViewInit {
-  // Variables pour la position de la souris
-  private mx = 0;
-  private my = 0;
+  /**
+   * Vérifie si la page actuelle est la page CV.
+   * Utilisé pour masquer la navbar globale qui ferait doublon.
+   */
+  get isCvPage(): boolean {
+    return this.router.url.includes('/cv');
+  }
   
-  // Variables pour la position fluide du curseur (interpolation)
-  private cx = 0;
-  private cy = 0;
+  // --- GESTION DU CURSEUR ET DU SCROLL ---
+  private mx = 0; // Position X cible de la souris
+  private my = 0; // Position Y cible de la souris
   
-  private animationFrameId: number | null = null;
-  private isBrowser: boolean;
+  private cx = 0; // Position X actuelle du curseur fluide (interpolation)
+  private cy = 0; // Position Y actuelle du curseur fluide (interpolation)
+  
+  private animationFrameId: number | null = null; // ID de la boucle d'animation
+  private isBrowser: boolean; // Flag pour éviter les erreurs de DOM sur le serveur (SSR)
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, @Inject(DOCUMENT) private document: Document, private router: Router) {
     // Vérifie si l'application s'exécute dans un navigateur web (évite les erreurs en cas de Server-Side Rendering)
     this.isBrowser = isPlatformBrowser(this.platformId);
     
-    // Réinitialise les animations à chaque changement de page (contournement SPA)
+    // Réinitialise les observateurs d'animations à chaque changement de page
+    // (Angular étant une SPA, les nouveaux éléments DOM du router-outlet doivent être scannés)
     if (this.isBrowser) {
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
-                setTimeout(() => this.initObservers(), 100);
+                // Petit délai pour laisser le temps au DOM de s'injecter
+                setTimeout(() => this.initObservers(), 150);
             }
         });
     }
@@ -88,14 +97,18 @@ export class App implements AfterViewInit {
       this.animationFrameId = requestAnimationFrame(steps);
     }
 
-    // Effet de grossissement et magnétisme lors du survol d'éléments interactifs
+    /**
+     * Initialise les interactions du curseur sur les éléments cliquables.
+     * Ajoute des classes CSS pour transformer le curseur (magnétisme, grossissement).
+     */
     const setupInteractions = () => {
-        const hoverElements = this.document.querySelectorAll('a, button, .interactive');
+        const hoverElements = this.document.querySelectorAll('a, button, .interactive, .magnetic');
         hoverElements.forEach(el => {
             const htmlEl = el as HTMLElement;
             
             htmlEl.addEventListener('mouseenter', () => {
                 cur?.classList.add('hovered');
+                // Active l'effet magnétique si l'élément possède la classe ou est un bouton
                 if (htmlEl.classList.contains('magnetic') || htmlEl.tagName === 'A' || htmlEl.tagName === 'BUTTON') {
                     isMagnetic = true;
                     magneticTarget = htmlEl;
@@ -171,7 +184,7 @@ export class App implements AfterViewInit {
                 });
                 statsObs.unobserve(entry.target);
             });
-        }, { threshold: 0.5 });
+        }, { threshold: 0.2 });
         statsObs.observe(statsSection);
     }
   }

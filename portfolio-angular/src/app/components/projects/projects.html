@@ -6,12 +6,10 @@
           <p>{{ translation.translate('projects.subtitle') }}</p>
       </div>
 
-      <!-- Global Swiper for Projects -->
-      <div class="swiper projects-global-swiper reveal">
-          <div class="swiper-wrapper">
-              
+      <!-- Projects Grid -->
+      <div class="projects-grid reveal">
               @for (project of projects(); track project.id; let idx = $index) {
-                <div class="swiper-slide project-slide">
+                <div class="project-wrapper">
                     <div class="project-glass-card glass-card magnetic" [class.project-featured]="idx === 0">
 
                         <!-- Featured badge -->
@@ -90,21 +88,10 @@
                     </div>
                 </div>
               }
-
-          </div>
-          
-          <!-- Global Navigation Buttons (Hidden on Desktop) -->
-          <div class="global-nav-wrap">
-              <div class="swiper-button-prev global-prev"></div>
-              <div class="swiper-button-next global-next"></div>
-          </div>
-
-          <!-- Global Pagination Dots -->
-          <div class="swiper-pagination projects-pagination"></div>
       </div>
 
       <div class="projects-cta-wrap reveal">
-          <a href="https://github.com/diarrass2003" target="_blank" rel="noopener noreferrer" class="btn-primary magnetic">
+          <a href="https://github.com/LeYASSOUNG" target="_blank" rel="noopener noreferrer" class="btn-primary magnetic">
               {{ translation.translate('projects.view_github') }} <i class="fas fa-arrow-right"></i>
           </a>
       </div>

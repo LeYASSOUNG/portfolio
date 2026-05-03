@@ -7,6 +7,10 @@ import { TranslationService } from '../../services/translation.service';
   templateUrl: './hero.html',
   styleUrl: './hero.css',
 })
+/**
+ * Composant Hero Section
+ * La première section visible, présentant le titre principal, les badges et les statistiques.
+ */
 export class Hero {
   constructor(public translation: TranslationService) {}
 }

@@ -8,7 +8,7 @@
       <div class="skills-grid">
           <!-- Technical skills -->
           <div class="reveal">
-              <h3 class="skill-title">{{ translation.currentLang() === 'fr' ? 'Expertise Technique' : 'Technical Expertise' }}</h3>
+              <h3 class="skill-title">{{ translation.translate('skills.tech_title') }}</h3>
               <div class="skill-cards-container">
                   <div class="skill-glass-card glass-card magnetic">
                       <div class="skill-info">
@@ -47,34 +47,34 @@
 
           <!-- Soft skills / Professional -->
           <div class="reveal">
-              <h3 class="skill-title">{{ translation.currentLang() === 'fr' ? 'Compétences Professionnelles' : 'Professional Skills' }}</h3>
+              <h3 class="skill-title">{{ translation.translate('skills.soft_title') }}</h3>
               <div class="soft-skills-grid">
                   <div class="soft-item glass-card magnetic">
                       <div class="soft-icon icon-blue"><i class="fas fa-users"></i></div>
                       <div class="soft-content">
-                          <h4>Team Leadership</h4>
-                          <p>Agilité et synergie de groupe.</p>
+                          <h4>{{ translation.translate('skills.team') }}</h4>
+                          <p>{{ translation.translate('skills.team_sub') }}</p>
                       </div>
                   </div>
                   <div class="soft-item glass-card magnetic">
                       <div class="soft-icon icon-purple"><i class="fas fa-lightbulb"></i></div>
                       <div class="soft-content">
-                          <h4>Problem Solving</h4>
-                          <p>Pensée critique et solutions innovantes.</p>
+                          <h4>{{ translation.translate('skills.problem') }}</h4>
+                          <p>{{ translation.translate('skills.problem_sub') }}</p>
                       </div>
                   </div>
                   <div class="soft-item glass-card magnetic">
                       <div class="soft-icon icon-green"><i class="fas fa-comments"></i></div>
                       <div class="soft-content">
-                          <h4>Design Thinking</h4>
-                          <p>Centré sur l'expérience utilisateur.</p>
+                          <h4>{{ translation.translate('skills.design') }}</h4>
+                          <p>{{ translation.translate('skills.design_sub') }}</p>
                       </div>
                   </div>
                   <div class="soft-item glass-card magnetic">
                       <div class="soft-icon icon-yellow"><i class="fas fa-tasks"></i></div>
                       <div class="soft-content">
-                          <h4>Cloud & DevOps</h4>
-                          <p>Déploiement et scalabilité.</p>
+                          <h4>{{ translation.translate('skills.devops') }}</h4>
+                          <p>{{ translation.translate('skills.devops_sub') }}</p>
                       </div>
                   </div>
               </div>

@@ -41,8 +41,9 @@ Le composant `Home` ne possède pratiquement pas de logique propre. Son template
 
 ### E. `<app-cv>` (Page Curriculum Vitae)
 - **Design Midnight Aurora** : Sidebar avec glassmorphism et timeline interactive.
-- **Intersection Observer** : Utilise ses propres instances d'observateurs pour animer les barres de compétences et les éléments de la timeline uniquement lorsqu'ils sont visibles.
-- **Routage dédié** : Accessible via `/cv`, ce composant permet une présentation plus formelle et détaillée du parcours professionnel.
+- **Animations de Remplissage** : Les barres de progression des compétences s'animent de 0% à leur valeur cible (`data-width`) via un `IntersectionObserver` dédié dans `cv.ts`.
+- **Routage et Isolation** : Accessible via `/cv`. Pour une immersion totale, la Navbar et le Footer globaux sont masqués dynamiquement sur cette route via une condition `@if` dans `app.html`.
+- **Reveal on Scroll** : Réactivation des animations d'apparition qui étaient bridées par le CSS, offrant une lecture fluide et rythmée.
 
 ### F. Les Pages Légales (Désactivées)
 - Anciennement `privacy-policy` & `terms`. Elles ont été retirées du routage actif pour simplifier la navigation SPA actuelle.
@@ -73,7 +74,11 @@ Pour ne pas alourdir chaque composant avec de l'animation, la **logique visuelle
 
 ---
 
-## 5. Routage (`app.routes.ts`)
+## 5. Architecture de Mise en Page (Layout)
+
+- **Centrage Intelligent** : Utilisation de `justify-content: center` sur les conteneurs Flex (notamment la section Hero) pour garantir un équilibre visuel parfait sur les écrans ultra-larges.
+- **Synchronisation de l'Alignement** : La barre de navigation et les sections de contenu partagent la même variable de padding (`--page-pad`), assurant un alignement vertical strict du logo et des titres.
+- **Accessibilité Mobile** : Les actions de projets ("Code" et "Live") sont dédoublées dans un bloc `.project-actions` visible uniquement sur mobile pour compenser l'absence de survol (hover) sur écran tactile.
 
 Le tableau des routes gère des chargements synchrones avec redirection wildcard sécurisée vers l'accueil.
 ```typescript

@@ -42,15 +42,15 @@
           <!-- Info Card -->
           <div class="contact-card area reveal">
               <div class="glass-card contact-info-inner">
-                  <h3 class="contact-subtitle">{{ translation.currentLang() === 'fr' ? 'Détails de Contact' : 'Contact Details' }}</h3>
+                  <h3 class="contact-subtitle">{{ translation.translate('contact.details') }}</h3>
                   <div class="contact-items-list">
                       <div class="contact-pill magnetic">
                           <div class="pill-icon icon-blue">
                               <i class="fas fa-map-marker-alt"></i>
                           </div>
                           <div class="pill-body">
-                              <h4>Localisation</h4>
-                              <p>Tiassalé, Côte d'Ivoire</p>
+                              <h4>{{ translation.translate('nav.location') }}</h4>
+                              <p>{{ translation.translate('contact.address') }}</p>
                           </div>
                       </div>
                       <div class="contact-pill magnetic">
@@ -58,7 +58,7 @@
                               <i class="fas fa-envelope"></i>
                           </div>
                           <div class="pill-body">
-                              <h4>Email</h4>
+                              <h4>{{ translation.translate('nav.email') }}</h4>
                               <p>
                                   diarrassoubayassoungo33&#64;gmail.com
                                   <button class="copy-btn-mini" (click)="copyText('diarrassoubayassoungo33@gmail.com', emailCopyBtn)" #emailCopyBtn title="Copier l'email">
@@ -72,14 +72,14 @@
                               <i class="fas fa-phone-alt"></i>
                           </div>
                           <div class="pill-body">
-                              <h4>Téléphone</h4>
+                              <h4>{{ translation.translate('nav.phone') }}</h4>
                               <p>+225 07 49 67 90 02</p>
                           </div>
                       </div>
                   </div>
 
                   <div class="contact-social-footer">
-                      <h4>{{ translation.currentLang() === 'fr' ? 'Réseaux Sociaux' : 'Social Networks' }}</h4>
+                      <h4>{{ translation.translate('nav.socials') }}</h4>
                       <div class="social-grid">
                           <a href="https://github.com/LeYASSOUNG" target="_blank" rel="noopener noreferrer" class="social-circle blue-glow magnetic" title="Lien vers GitHub"><i class="fab fa-github"></i></a>
                           <a href="https://www.linkedin.com/in/yassoungo-youssouf-diarrassouba-0b7037306" target="_blank" rel="noopener noreferrer" class="social-circle purple-glow magnetic" title="Lien vers LinkedIn"><i class="fab fa-linkedin-in"></i></a>

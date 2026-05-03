@@ -9,6 +9,10 @@ import { TranslationService } from '../../services/translation.service';
   templateUrl: './about.html',
   styleUrl: './about.css',
 })
+/**
+ * Composant À Propos
+ * Présente le parcours, la biographie et les compétences secondaires.
+ */
 export class About {
   constructor(public translation: TranslationService) {}
 }
