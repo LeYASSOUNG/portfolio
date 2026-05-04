@@ -51,16 +51,17 @@ ul {
 
     /* Light mode (Crystal & Clean) */
     --bg: #f8fafc;
-    --bg-card: rgba(255, 255, 255, 0.7);
+    --bg-card: rgba(255, 255, 255, 0.85);
     --bg-section: #f1f5f9;
     --text: #0f172a;
-    --text-muted: #64748b;
-    --border: rgba(226, 232, 240, 0.5);
-    --nav-bg: rgba(255, 255, 255, 0.8);
+    --text-muted: #475569;         /* Upgraded: was #64748b (4.0:1) → now 5.2:1 on white */
+    --text-subtle: #64748b;        /* Nuanced uses only */
+    --border: rgba(203, 213, 225, 0.7);
+    --nav-bg: rgba(255, 255, 255, 0.92);
 
     /* Glass System - Refined for High Precision */
-    --glass-bg: rgba(255, 255, 255, 0.6);
-    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(148, 163, 184, 0.25);
     --glass-blur: 24px;
     --glass-saturate: 180%;
 
@@ -89,14 +90,14 @@ html.dark {
     --bg-card: #0a0d1d;
     --bg-section: #0f172a;
     --text: #f1f5f9;
-    --text-muted: #94a3b8;
-    --border: rgba(99, 102, 241, 0.18);
-    /* Indigo-tinted border */
-    --nav-bg: rgba(2, 6, 23, 0.9);
+    --text-muted: #b4c0d3;         /* Upgraded: was #94a3b8 (6.8:1 on dark) → now 9.2:1 */
+    --text-subtle: #94a3b8;        /* Nuanced uses only */
+    --border: rgba(99, 102, 241, 0.22);
+    --nav-bg: rgba(2, 6, 23, 0.92);
 
     /* Dark Glass System — Deep Indigo, NOT milky white */
-    --glass-bg: rgba(15, 23, 42, 0.65);
-    --glass-border: rgba(99, 102, 241, 0.22);
+    --glass-bg: rgba(15, 23, 42, 0.75);
+    --glass-border: rgba(99, 102, 241, 0.28);
 
     /* Enhanced neon glow shadows */
     --shadow-soft: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
@@ -333,10 +334,11 @@ body::after {
 .nav-link {
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--text-muted);
+    color: var(--text);
     position: relative;
     padding: 0.5rem 0;
     transition: color 0.3s var(--ease);
+    opacity: 0.8;
 }
 
 .nav-link::after {
@@ -355,6 +357,7 @@ body::after {
 .nav-link:hover,
 .nav-link.active {
     color: var(--accent-blue);
+    opacity: 1;
 }
 
 .nav-link:hover::after,
@@ -668,6 +671,9 @@ body::after {
     overflow: hidden;
     transform-style: preserve-3d;
     perspective: 1000px;
+    color: var(--text);
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
 }
 
 .glass-card::before {
@@ -686,6 +692,18 @@ body::after {
     transform: translateY(-12px) rotateX(2deg) rotateY(-1deg);
     border-color: rgba(99, 102, 241, 0.4);
     box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.35), 0 0 20px rgba(99, 102, 241, 0.2);
+}
+
+/* Light mode: stronger glass card contrast */
+html:not(.dark) .glass-card {
+    background: rgba(255, 255, 255, 0.88);
+    border-color: rgba(148, 163, 184, 0.35);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+html:not(.dark) .glass-card:hover {
+    border-color: rgba(99, 102, 241, 0.35);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 0 20px rgba(99, 102, 241, 0.15);
 }
 
 .magnetic {
@@ -1114,9 +1132,11 @@ section {
 
 .section-header p {
     color: var(--text-muted);
-    font-size: 1rem;
+    font-size: 1.05rem;
+    font-weight: 500;
     max-width: 540px;
     margin: 0 auto;
+    line-height: 1.7;
 }
 
 /* ── Hero Section ────────────────────────────────────────────── */
@@ -1252,11 +1272,12 @@ section {
 }
 
 .hero-desc {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: var(--text-muted);
     max-width: 580px;
     margin-bottom: 2.5rem;
-    line-height: 1.8;
+    line-height: 1.85;
+    font-weight: 450;
 }
 
 .hero-cta {
@@ -1391,11 +1412,11 @@ section {
 }
 
 .stat-label {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     color: var(--text-muted);
-    font-weight: 600;
+    font-weight: 700;
 }
 
 /* Hero Image Area */
@@ -1653,10 +1674,11 @@ section {
 }
 
 .about-text {
-    font-size: 1.1rem;
-    line-height: 1.8;
+    font-size: 1.05rem;
+    line-height: 1.9;
     color: var(--text-muted);
     margin-bottom: 2.5rem;
+    font-weight: 450;
 }
 
 .about-cta {
@@ -1797,9 +1819,10 @@ section {
 }
 
 .timeline-desc {
-    font-size: 0.95rem;
+    font-size: 0.97rem;
     color: var(--text-muted);
-    line-height: 1.6;
+    line-height: 1.7;
+    font-weight: 450;
 }
 
 @media (max-width: 992px) {
@@ -1937,8 +1960,9 @@ section {
 }
 
 .skill-detail {
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     color: var(--text-muted);
+    font-weight: 500;
 }
 
 /* Soft Skills Grid */
@@ -2216,9 +2240,10 @@ section {
 .project-desc {
     font-size: 0.95rem;
     color: var(--text-muted);
-    line-height: 1.6;
+    line-height: 1.7;
     margin-bottom: 1.5rem;
     flex: 1;
+    font-weight: 450;
 }
 
 .project-tags {
@@ -2404,14 +2429,16 @@ section {
 }
 
 .pill-body h4 {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     font-weight: 700;
     margin-bottom: 2px;
+    color: var(--text);
 }
 
 .pill-body p {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     color: var(--text-muted);
+    font-weight: 500;
 }
 
 .contact-social-footer h4 {
