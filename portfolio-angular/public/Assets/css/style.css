@@ -426,9 +426,9 @@ body::after {
 .mobile-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(2, 6, 23, 0.95);
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
+    background: rgba(1, 4, 19, 0.98);
+    -webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(25px);
     z-index: 999;
     display: flex;
     align-items: center;
@@ -1124,9 +1124,9 @@ section {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center; /* Add horizontal centering for flex items */
+    justify-content: center;
     position: relative;
-    padding: 120px 0 80px;
+    padding: 140px 0 100px;
     background-color: var(--bg);
     background-image: radial-gradient(rgba(99, 102, 241, 0.15) 1px, transparent 1px);
     background-size: 24px 24px;
@@ -1409,6 +1409,7 @@ section {
     position: relative;
     width: 100%;
     max-width: 420px;
+    margin: 0 auto;
     animation: float 6s ease-in-out infinite;
 }
 
@@ -1518,9 +1519,14 @@ section {
         order: 1;
     }
 
+    .hero-img-container {
+        max-width: 300px;
+    }
+
     .hero-desc {
         margin-left: auto;
         margin-right: auto;
+        font-size: 1rem;
     }
 
     .hero-cta,
@@ -1529,21 +1535,46 @@ section {
     }
 
     .hero-stats {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        gap: 1rem;
-        padding: 1.2rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+        padding: 1rem;
     }
 
     .stat-number {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
+    }
+    
+    .stat-label {
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-stats {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .floating-badge {
+        display: none; /* Too cluttered on tiny screens */
     }
 }
 
 /* ── About Section ───────────────────────────────────────────── */
 .about-section {
-    padding: 100px 0;
+    padding: 80px 0;
     position: relative;
     width: 100%;
+}
+
+@media (max-width: 768px) {
+    .about-section {
+        padding: 60px var(--page-pad);
+    }
 }
 
 .about-grid {
@@ -1777,6 +1808,11 @@ section {
         gap: 3rem;
         text-align: center;
     }
+    
+    .about-img-frame {
+        max-width: 280px;
+        margin: 0 auto;
+    }
 
     .about-cards-grid {
         grid-template-columns: 1fr;
@@ -1793,10 +1829,17 @@ section {
 
 /* ── Skills Section ──────────────────────────────────────────── */
 .skills-section {
-    padding: 100px 0;
+    padding: 80px 0;
     position: relative;
     max-width: 1300px;
     margin: 0 auto;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .skills-section {
+        padding: 60px var(--page-pad);
+    }
 }
 
 .skill-title {
@@ -2027,11 +2070,17 @@ section {
 
 /* ── Projects Section ────────────────────────────────────────── */
 .projects-section {
-    padding: 100px 0;
+    padding: 80px 0;
     position: relative;
     width: 100%;
     background: radial-gradient(circle at 15% 15%, rgba(139, 92, 246, 0.08), transparent 45%),
         radial-gradient(circle at 85% 85%, rgba(244, 63, 94, 0.05), transparent 40%);
+}
+
+@media (max-width: 768px) {
+    .projects-section {
+        padding: 60px var(--page-pad);
+    }
 }
 
 .projects-grid {
@@ -2041,10 +2090,16 @@ section {
     margin-bottom: 4rem;
 }
 
+.project-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
 .project-glass-card {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: auto;
+    min-height: 0;
     overflow: hidden;
 }
 
@@ -2053,6 +2108,8 @@ section {
     width: 100%;
     aspect-ratio: 16/9;
     overflow: hidden;
+    flex-shrink: 0;
+    contain: layout;
 }
 
 .project-img-container::after {
@@ -2242,9 +2299,15 @@ section {
 
 /* ── Contact Section ─────────────────────────────────────────── */
 .contact-section {
-    padding: 100px 0 160px;
+    padding: 80px 0 120px;
     position: relative;
     width: 100%;
+}
+
+@media (max-width: 768px) {
+    .contact-section {
+        padding: 60px var(--page-pad) 80px;
+    }
 }
 
 .contact-grid {
@@ -2617,7 +2680,8 @@ section {
 #backToTop {
     position: fixed;
     bottom: 2rem;
-    left: 50%;
+    right: 2rem;
+    left: auto;
     width: 52px;
     height: 52px;
     border-radius: 50%;
@@ -2629,22 +2693,33 @@ section {
     align-items: center;
     justify-content: center;
     font-size: 1.1rem;
-    z-index: 90;
+    z-index: 990;
     opacity: 0;
     pointer-events: none;
-    transform: translateX(-50%);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    box-shadow: 0 4px 20px rgba(59, 130, 246, .4);
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.4s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 20px rgba(99, 102, 241, .4);
 }
 
 #backToTop.visible {
     opacity: 1;
     pointer-events: auto;
-    transform: translateX(-50%);
+    transform: translateY(0);
 }
 
 #backToTop:hover {
-    transform: translateX(-50%) translateY(-3px) scale(1.08);
+    transform: translateY(-4px) scale(1.08);
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.6);
+}
+
+@media (max-width: 768px) {
+    #backToTop {
+        bottom: 1.25rem;
+        right: 1.25rem;
+        width: 44px;
+        height: 44px;
+        font-size: 0.95rem;
+    }
 }
 
 /* ── Responsive ──────────────────────────────────────────────── */
@@ -2678,6 +2753,15 @@ section {
     .contact-grid,
     .footer-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* Contact: la carte d'info va sous le formulaire */
+    .contact-grid {
+        gap: 2rem;
+    }
+
+    .contact-info-inner {
+        padding: 2rem;
     }
 }
 
@@ -2823,11 +2907,12 @@ section {
 
     /* Bouton retour en haut plus petit sur mobile pour ne pas masquer le contenu */
     #backToTop {
-        width: 38px;
-        height: 38px;
-        bottom: 1rem;
-        left: 50%;
-        font-size: 0.8rem;
+        width: 40px;
+        height: 40px;
+        bottom: 1.25rem;
+        right: 1.25rem;
+        left: auto;
+        font-size: 0.85rem;
     }
 }
 
@@ -2947,19 +3032,7 @@ section {
 }
 
 /* ── Staggered Reveals ───────────────────────────────────────── */
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
-    will-change: transform, opacity;
-}
-
-.reveal.visible {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-}
-
-/* --- ANIMATIONS PREMIUM --- */
+/* Base reveal styles are defined at the end of the file */
 @keyframes shimmer {
     0% {
         transform: translateX(-100%) skewX(-15deg);
@@ -3065,26 +3138,8 @@ section {
     transition-delay: calc(0.05s * var(--i, 1));
 }
 
-/* ── Scroll Reveal ───────────────────────────────────────────── */
-/* Absolute visibility to prevent invisibility bug */
-.reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    visibility: visible !important;
-    animation: none !important;
-}
-
-.js-ready .reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    visibility: visible !important;
-    animation: none !important;
-}
-
-.js-ready .reveal.visible {
-    opacity: 1 !important;
-    transform: none !important;
-}
+/* ── Scroll Reveal System ────────────────────────────────────── */
+/* Defined at the end of the file to ensure proper hierarchy */
 
 /* ── Custom cursor ───────────────────────────────────────────── */
 .cursor {
@@ -3139,3 +3194,67 @@ section {
         font-size: 0.9rem;
     }
 }
+
+/* ── Back to Top Button ───────────────────────────────────────── */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--grad-main);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 990;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s var(--ease);
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(99, 102, 241, 0.6);
+}
+
+@media (max-width: 768px) {
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 44px;
+        height: 44px;
+        font-size: 1rem;
+    }
+}
+
+/* ── Reveal Logic Correction ─────────────────────────────────── */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+    will-change: opacity, transform;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Fallback for no-js or issues */
+.no-js .reveal {
+    opacity: 1;
+    transform: none;
+}
