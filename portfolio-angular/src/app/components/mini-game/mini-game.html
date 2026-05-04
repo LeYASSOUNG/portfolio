@@ -1,4 +1,5 @@
-﻿<section id="game" class="mini-game-section" tabindex="-1">
+<!-- Section Mini-Jeu interactif : Sert à engager le visiteur -->
+<section id="game" class="mini-game-section" tabindex="-1">
   <div class="container">
     <header class="section-header reveal">
       <h2>
@@ -8,6 +9,7 @@
       <p>{{ translation.translate('game.subtitle') }}</p>
     </header>
 
+    <!-- Carte principale du mini-jeu (Plateau et outils) -->
     <div class="mini-game-card glass-card reveal">
       <div class="mini-game-toolbar">
         <div class="mini-game-stats">
@@ -34,6 +36,7 @@
         {{ translation.translate('game.hint') }}
       </p>
 
+      <!-- Plateau de jeu : Grille générée dynamiquement -->
       <div class="mini-game-board" role="grid" [attr.aria-label]="translation.translate('game.title')">
         @for (row of board(); track rowTrackBy($index); let r = $index) {
           <div class="board-row" role="row">
@@ -55,6 +58,7 @@
 
       <p class="game-message" [class.success]="isCompleted()">{{ message() }}</p>
 
+      <!-- Liste des mots à trouver -->
       <div class="words-list">
         @for (item of words(); track item.word) {
           <span class="word-pill" [class.found]="item.found">{{ item.word }}</span>

@@ -1,12 +1,13 @@
+<!-- Section Héro (Accueil) : Présentation principale de l'utilisateur avec effets visuels -->
 <section id="home" class="hero-section">
-  <!-- Dynamic Background Decoration -->
+  <!-- Décoration d'arrière-plan dynamique (formes fluides "blobs") -->
   <div class="hero-decorative-blobs">
       <div class="blob blob-1"></div>
       <div class="blob blob-2"></div>
   </div>
 
   <div class="hero-grid container">
-      <!-- Left Content -->
+      <!-- Contenu gauche : Textes d'introduction, appel à l'action et réseaux sociaux -->
       <div class="hero-content reveal">
           <div class="hero-badge magnetic">
               <span class="badge-dot"></span>
@@ -23,6 +24,7 @@
 
           <p class="hero-desc" [innerHTML]="translation.translate('hero.desc')"></p>
 
+          <!-- Boutons d'appel à l'action (Call to Action) -->
           <div class="hero-cta">
               <a href="#contact" class="btn-primary magnetic">
                   <i class="fas fa-paper-plane"></i> {{ translation.translate('hero.cta_contact') }}
@@ -32,6 +34,7 @@
               </a>
           </div>
 
+          <!-- Liens vers les réseaux sociaux -->
           <div class="hero-socials">
               <a href="https://github.com/LeYASSOUNG" target="_blank" rel="noopener noreferrer"
                   class="social-btn social-github magnetic" title="GitHub">
@@ -51,6 +54,7 @@
               </a>
           </div>
 
+          <!-- Grille de statistiques clés (Expérience, Projets, Services) -->
           <div class="hero-stats glass-card">
               <div class="stat-item">
                   <div class="stat-number" [attr.data-target]="1">0+</div>
@@ -67,7 +71,7 @@
           </div>
       </div>
 
-      <!-- Right (Photo Container) -->
+      <!-- Zone droite : Photo de profil animée et badges de compétences flottants -->
       <div class="hero-image-area reveal">
           <div class="hero-img-container">
               <div class="hero-img-glow"></div>

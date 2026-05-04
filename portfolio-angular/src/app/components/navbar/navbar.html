@@ -1,9 +1,11 @@
+<!-- Barre de navigation (Navbar) globale : Liens d'ancrage, actions (thème, langue) et menu mobile -->
 <nav class="navbar" [class.scrolled]="isScrolled">
   <div class="navbar-inner">
       <a href="#home" class="navbar-brand magnetic" (click)="setActive('home')">
           <span class="brand-text">Diarrassouba</span>
       </a>
 
+      <!-- Liens de navigation centraux (Visibles sur Desktop) -->
       <div class="navbar-links">
           <a href="#home" class="nav-link" [class.active]="activeSection === 'home'" (click)="setActive('home')">
             <i class="fas fa-home-alt nav-icon"></i> {{ translation.translate('nav.home') }}
@@ -24,6 +26,7 @@
             <i class="fas fa-envelope nav-icon"></i> {{ translation.translate('nav.contact') }}
           </a>
           
+          <!-- Boutons d'actions rapides (Langue, Installation PWA, Thème Sombre/Clair) -->
           <div class="nav-actions">
             <button class="lang-toggle interactive" (click)="$event.stopPropagation(); toggleLanguage()" 
                     [title]="translation.currentLang() === 'fr' ? 'Switch to English' : 'Passer en Français'">
@@ -55,7 +58,7 @@
       </button>
   </div>
 
-  <!-- Fullscreen Mobile Menu Overlay -->
+  <!-- Menu Mobile Plein Écran (Overlay) -->
   <div class="mobile-overlay glass-card" [class.open]="isMenuOpen">
       <button class="close-menu" (click)="closeMenu()" 
               [attr.title]="translation.currentLang() === 'fr' ? 'Fermer' : 'Close'"

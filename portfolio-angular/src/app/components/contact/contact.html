@@ -1,3 +1,4 @@
+<!-- Section Contact : Formulaire de prise de contact et informations de localisation/réseaux -->
 <section id="contact" class="contact-section">
   <div class="container">
       <div class="section-header reveal">
@@ -6,7 +7,7 @@
       </div>
 
       <div class="contact-grid">
-          <!-- Form -->
+          <!-- Formulaire de contact fonctionnel (lié à Formspree via le composant TS) -->
           <div class="contact-form-area reveal">
               <form id="contactForm" (submit)="onSubmitContact($event)" class="glass-card premium-form">
                   <div id="formMessage" class="form-message" [ngClass]="formMessageClass">{{ formMessageText }}</div>
@@ -39,7 +40,7 @@
               </form>
           </div>
 
-          <!-- Info Card -->
+          <!-- Carte d'informations (Adresse, Email, Téléphone, Réseaux Sociaux) -->
           <div class="contact-card area reveal">
               <div class="glass-card contact-info-inner">
                   <h3 class="contact-subtitle">{{ translation.translate('contact.details') }}</h3>

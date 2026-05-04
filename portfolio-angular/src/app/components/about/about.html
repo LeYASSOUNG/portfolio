@@ -1,3 +1,4 @@
+<!-- Section À Propos : Présentation détaillée, spécialités, boutons de téléchargement et parcours -->
 <section id="about" class="about-section">
   <div class="container">
       <div class="section-header reveal">
@@ -6,7 +7,7 @@
       </div>
 
       <div class="about-grid">
-          <!-- Profile image -->
+          <!-- Zone de gauche : Image de profil avec effet de brillance (shimmer) et halo auroral -->
           <div class="about-img-area reveal">
               <div class="about-img-frame glass-card float-animation shimmer-wrapper">
                   <div class="aurora-halo about-halo"></div>
@@ -15,7 +16,7 @@
               </div>
           </div>
 
-          <!-- Text -->
+          <!-- Zone de droite : Texte de présentation et grille de spécialités -->
           <div class="about-content reveal">
               <h3 class="about-subtitle">{{ translation.translate('about.who') }}</h3>
               <p class="about-text" [innerHTML]="translation.translate('about.desc')"></p>
@@ -51,6 +52,7 @@
                   </div>
               </div>
 
+              <!-- Boutons d'action (Navigation vers CV, Téléchargement PDF, et Contact) -->
               <div class="about-cta">
                   <a [routerLink]="['/cv']" class="btn-primary magnetic">
                       <i class="fas fa-eye"></i> {{ translation.translate('about.view_cv') }}
@@ -65,7 +67,7 @@
           </div>
       </div>
 
-      <!-- Timeline -->
+      <!-- Zone de chronologie (Timeline) : Parcours académique et professionnel -->
       <div class="journey-area reveal">
           <h3 class="section-subtitle text-center">{{ translation.translate('about.journey') }}</h3>
           <div class="premium-timeline">

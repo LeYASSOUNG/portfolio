@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, PLATFORM_ID, Inject, signal, WritableSignal } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, PLATFORM_ID, Inject, signal, WritableSignal } from '@angular/core';
 import { CommonModule, isPlatformBrowser, NgClass } from '@angular/common';
 import { TranslationService } from '../../services/translation.service';
 import { GithubService, RepoStats } from '../../services/github';
@@ -26,7 +26,8 @@ interface Project {
  * Composant Projets
  * Affiche une grille de projets interactifs avec carrousels d'images et stats GitHub.
  */
-export class Projects implements AfterViewInit {
+export class Projects implements AfterViewInit, OnDestroy {
+  private autoScrollInterval: any;
   // Signal réactif contenant la liste des projets.
   // L'utilisation de Signal permet une mise à jour fluide de l'UI lors de la réception des stats GitHub.
   projects = signal<Project[]>([
@@ -80,7 +81,47 @@ export class Projects implements AfterViewInit {
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.initSwipers();
+      this.initMobileAutoScroll();
     }
+  }
+
+  ngOnDestroy() {
+    if (this.autoScrollInterval) {
+      clearInterval(this.autoScrollInterval);
+    }
+  }
+
+  /**
+   * Initialise le défilement automatique du carrousel des projets sur mobile.
+   */
+  private initMobileAutoScroll() {
+    if (window.innerWidth > 992) return;
+
+    setTimeout(() => {
+      const grid = document.querySelector('.projects-grid') as HTMLElement;
+      if (!grid) return;
+
+      let isTouching = false;
+      grid.addEventListener('touchstart', () => isTouching = true, { passive: true });
+      grid.addEventListener('touchend', () => {
+          setTimeout(() => isTouching = false, 3000); // Pause the auto-scroll for 3s after touch
+      }, { passive: true });
+
+      this.autoScrollInterval = setInterval(() => {
+        if (isTouching) return;
+
+        const currentScroll = grid.scrollLeft;
+        const maxScroll = grid.scrollWidth - grid.clientWidth;
+        const card = grid.querySelector('.project-wrapper');
+        const cardWidth = card ? card.clientWidth : 300;
+
+        if (currentScroll >= maxScroll - 10) {
+          grid.scrollTo({ left: 0, behavior: 'smooth' }); // Rewind to start
+        } else {
+          grid.scrollTo({ left: currentScroll + cardWidth, behavior: 'smooth' }); // Scroll to next
+        }
+      }, 5000);
+    }, 1000); // Attend que le DOM soit complètement rendu
   }
 
   /**

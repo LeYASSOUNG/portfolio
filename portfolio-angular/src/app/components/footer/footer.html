@@ -1,3 +1,4 @@
+<!-- Pied de page (Footer) : Liens de navigation, services, réseaux sociaux et newsletter -->
 <footer class="footer-section">
   <div class="footer-inner glass-card">
       <div class="footer-grid">
@@ -20,6 +21,7 @@
               </div>
           </div>
 
+          <!-- Grille de navigation du pied de page (Liens rapides et Newsletter) -->
           <div class="footer-nav-grid">
               <div class="footer-col">
                   <h4>{{ translation.translate('footer.nav_title') }}</h4>
@@ -69,7 +71,7 @@
   </div>
 </footer>
 
-<!-- Magnetic Back to Top -->
+<!-- Bouton magnétique de retour en haut de page (Back to Top) -->
 <button id="backToTop" class="back-to-top magnetic" [class.visible]="showBackToTop" (click)="scrollToTop()" 
         title="Scroll to top" [title]="translation.translate('footer.scroll_top')" 
         [aria-label]="translation.translate('footer.scroll_top')">
