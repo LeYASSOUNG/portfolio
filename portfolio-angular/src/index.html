@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" class="dark">
   <head>
     <meta charset="utf-8" />
     <title>Diarrassouba | Développeur Full Stack</title>
@@ -7,15 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Portfolio de Diarrassouba Yassoungo, Développeur Full Stack spécialisé en Angular,
-      Node.js et UI/UX. Découvrez mes projets et mon parcours MIAGE."
+      content="Portfolio de Diarrassouba Yassoungo, Développeur Full Stack spécialisé en Angular, Laravel et architectures web modernes. Découvrez mes projets et mon parcours."
     />
     <meta
       name="keywords"
-      content="Diarrassouba, Yassoungo, Développeur Full Stack, Angular,
-        MIAGE, Portfolio, Côte d'Ivoire, Web Developer"
+      content="Diarrassouba, Yassoungo, Développeur Full Stack, Angular, Laravel, PHP, TypeScript, MIAGE, Portfolio, Côte d'Ivoire, Web Developer"
     />
     <meta name="author" content="Diarrassouba Yassoungo" />
+    <link rel="canonical" href="https://leyassoung-portfolio.vercel.app/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -23,14 +22,14 @@
     <meta property="og:title" content="Diarrassouba Yassoungo | Développeur Full Stack" />
     <meta
       property="og:description"
-      content="Découvrez mes réalisations et mon expertise en développement web moderne."
+      content="Découvrez mes réalisations et mon expertise en développement web moderne avec Angular & Laravel."
     />
     <meta property="og:image" content="Assets/images/og-preview.png" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:title" content="Diarrassouba Yassoungo | Développeur Full Stack" />
-    <meta property="twitter:description" content="Expertise Angular &amp; Full Stack." />
+    <meta property="twitter:description" content="Expertise Angular &amp; Laravel Full Stack." />
     <meta property="twitter:image" content="Assets/images/og-preview.png" />
 
     <!-- JSON-LD Structured Data -->
@@ -38,14 +37,20 @@
       {
         "@context": "https://schema.org",
         "@type": "Person",
-        "name": "Diarrassouba Yassoungo",
+        "name": "Diarrassouba Yassoungo Youssouf",
         "jobTitle": "Développeur Web Full Stack",
         "url": "https://leyassoung-portfolio.vercel.app/",
+        "nationality": "Ivorian",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "CI"
+        },
         "sameAs": [
           "https://github.com/LeYASSOUNG",
-          "https://www.linkedin.com/in/yassoungo-youssouf-diarrassouba-0b7037306"
+          "https://www.linkedin.com/in/yassoungo-youssouf-diarrassouba-0b7037306",
+          "https://x.com/Yassoungo01"
         ],
-        "knowsAbout": ["Angular", "TypeScript", "Node.js", "UI/UX Design", "Java", "Spring Boot"]
+        "knowsAbout": ["Angular", "TypeScript", "Laravel", "PHP", "MySQL", "REST APIs", "TailwindCSS", "UI/UX Design"]
       }
     </script>
 
@@ -62,7 +67,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
@@ -73,6 +78,17 @@
     <link rel="manifest" href="manifest.webmanifest" />
   </head>
   <body>
+    <!-- Theme init: apply saved theme before Angular renders to avoid flash -->
+    <script>
+      (function() {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
     <!-- Skip Link : Premier élément focusable, permet aux utilisateurs de clavier
        de sauter directement au contenu principal en évitant la navbar -->
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>

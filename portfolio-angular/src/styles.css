@@ -1,15 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 body, body *:not(.fa):not(.fas):not(.fab):not(.far):not(.fa-solid):not(.fa-brands):not(.fa-regular) {
-  font-family: 'Times New Roman', serif !important;
+  font-family: 'Times New Roman', serif;
 }
 
 /* ============================================================
-   ACCESSIBILITÉ GLOBALE
+   ACCESSIBILITÃ‰ GLOBALE
    ============================================================ */
 
 /* --- Skip Link (Aller directement au contenu principal) ---
-   Invisible sauf quand l'élément reçoit le focus clavier.
-   Critique pour les utilisateurs de lecteurs d'écran et de clavier. */
+   Invisible sauf quand l'Ã©lÃ©ment reÃ§oit le focus clavier.
+   Critique pour les utilisateurs de lecteurs d'Ã©cran et de clavier. */
 .skip-link {
   position: fixed;
   top: -100%;
@@ -33,25 +33,25 @@ body, body *:not(.fa):not(.fas):not(.fab):not(.far):not(.fa-solid):not(.fa-brand
 }
 
 /* --- Focus Visible Global ---
-   Outline cohérent et visible pour tous les éléments interactifs
+   Outline cohÃ©rent et visible pour tous les Ã©lÃ©ments interactifs
    navigables au clavier. On utilise :focus-visible pour ne pas
-   afficher l'outline lors du clic à la souris. */
+   afficher l'outline lors du clic Ã  la souris. */
 :focus-visible {
   outline: 2px solid var(--primary, #6c63ff);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
-/* Supprime l'outline par défaut du navigateur uniquement quand
-   :focus-visible est supporté (pour ne pas pénaliser les anciens navigateurs) */
+/* Supprime l'outline par dÃ©faut du navigateur uniquement quand
+   :focus-visible est supportÃ© (pour ne pas pÃ©naliser les anciens navigateurs) */
 :focus:not(:focus-visible) {
   outline: none;
 }
 
-/* --- Réduction du Mouvement ---
-   Respecte la préférence système de l'utilisateur.
-   Désactive toutes les animations CSS pour les personnes
-   sensibles au mouvement (épilepsie, vertiges, etc.). */
+/* --- RÃ©duction du Mouvement ---
+   Respecte la prÃ©fÃ©rence systÃ¨me de l'utilisateur.
+   DÃ©sactive toutes les animations CSS pour les personnes
+   sensibles au mouvement (Ã©pilepsie, vertiges, etc.). */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -61,4 +61,135 @@ body, body *:not(.fa):not(.fas):not(.fab):not(.far):not(.fa-solid):not(.fa-brand
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* =========================================
+   PWA Install Banner
+   ========================================= */
+.pwa-install-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-card, rgba(15, 23, 42, 0.95));
+  border: 1px solid var(--accent-purple, #8b5cf6);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  width: 90%;
+  max-width: 500px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.pwa-install-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pwa-icon {
+  font-size: 1.5rem;
+  color: var(--accent-cyan, #06b6d4);
+}
+
+.pwa-install-content strong {
+  display: block;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.pwa-install-content p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted, #94a3b8);
+}
+
+.pwa-install-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+}
+
+@keyframes slideUp {
+  from { transform: translate(-50%, 100%); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+@media (max-width: 480px) {
+  .pwa-install-banner {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    bottom: 10px;
+  }
+  .pwa-install-content {
+    flex-direction: column;
+  }
+  .pwa-install-actions {
+    justify-content: center;
+    margin-top: 1rem;
+  }
+}
+
+/* =========================================
+   LIGHT THEME OVERRIDES
+   ========================================= */
+body.light-theme {
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --bg-section: #f8fafc;
+  --text: #0f172a;
+  --text-muted: #475569;
+  --text-subtle: #64748b;
+  --border: rgba(0, 0, 0, 0.1);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --nav-bg: rgba(255, 255, 255, 0.85);
+  background-color: #f1f5f9;
+  color: var(--text);
+}
+
+body.light-theme .glass-card {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+body.light-theme .navbar {
+  background: var(--nav-bg);
+}
+
+body.light-theme .nav-link {
+  color: var(--text-muted);
+}
+
+body.light-theme .nav-link:hover,
+body.light-theme .nav-link.active {
+  color: var(--primary);
+}
+
+body.light-theme h1, 
+body.light-theme h2, 
+body.light-theme h3, 
+body.light-theme h4 {
+  color: var(--text);
+}
+
+body.light-theme p {
+  color: var(--text-muted);
+}
+
+/* Fix mesh background to not be too dark */
+body.light-theme #mesh-gradient .mesh-ball {
+  opacity: 0.3;
 }

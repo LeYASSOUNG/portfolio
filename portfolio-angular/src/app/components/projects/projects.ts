@@ -1,12 +1,15 @@
-import { Component, AfterViewInit, OnDestroy, PLATFORM_ID, Inject, signal, computed } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, PLATFORM_ID, Inject, signal, computed, NgZone } from '@angular/core';
 import { CommonModule, isPlatformBrowser, NgClass } from '@angular/common';
 import { TranslationService } from '../../services/translation.service';
 import { GithubService, RepoStats } from '../../services/github';
 import { Swiper } from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
+import { ApiService } from '../../services/api.service';
 
 interface Project {
   id: string;
+  title: string;
+  description: string;
   repo: string;
   category: 'angular' | 'fullstack' | 'uiux';
   images: string[];
@@ -32,35 +35,7 @@ export class Projects implements AfterViewInit, OnDestroy {
 
   activeCategory = signal<string>('all');
 
-  projects = signal<Project[]>([
-    {
-      id: 'p1',
-      repo: 'LeYASSOUNG/ShopAfrica',
-      category: 'fullstack',
-      images: ['Assets/images/quicklodge_1.png', 'Assets/images/quicklodge_2.png'],
-      tags: ['Angular', 'Java', 'PostgreSQL'],
-      githubUrl: 'https://github.com/LeYASSOUNG/ShopAfrica',
-      demoUrl: '#',
-    },
-    {
-      id: 'p2',
-      repo: 'LeYASSOUNG/gestion-stock',
-      category: 'fullstack',
-      images: ['Assets/images/lumina_1.png', 'Assets/images/lumina_2.png'],
-      tags: ['Next.js', 'Node.js', 'Spring Boot'],
-      githubUrl: 'https://github.com/LeYASSOUNG/gestion-stock',
-      demoUrl: '#',
-    },
-    {
-      id: 'p3',
-      repo: 'LeYASSOUNG/portfolio',
-      category: 'angular',
-      images: ['Assets/images/midnight_1.png', 'Assets/images/midnight_2.png'],
-      tags: ['Angular', 'UI/UX', 'PWA'],
-      githubUrl: 'https://github.com/LeYASSOUNG/portfolio',
-      demoUrl: '#',
-    },
-  ]);
+  projects = signal<Project[]>([]);
 
   filteredProjects = computed(() => {
     const cat = this.activeCategory();
@@ -72,6 +47,8 @@ export class Projects implements AfterViewInit, OnDestroy {
     @Inject(PLATFORM_ID) private platformId: Object,
     public translation: TranslationService,
     private github: GithubService,
+    private apiService: ApiService,
+    private ngZone: NgZone
   ) {}
 
   setFilter(category: string) {
@@ -82,22 +59,48 @@ export class Projects implements AfterViewInit, OnDestroy {
   }
 
   /**
-   * Initialisation : Récupération asynchrone des statistiques GitHub (Stars/Forks).
+   * Initialisation : Récupération asynchrone des projets depuis l'API et des statistiques GitHub.
    */
   async ngOnInit() {
-    const currentProjects = this.projects();
-    await Promise.all(
-      currentProjects.map(async (project, i) => {
-        if (project.repo) {
-          const stats = await this.github.getRepoStats(project.repo);
-          this.projects.update((projects) => {
-            const updated = [...projects];
-            updated[i] = { ...updated[i], stats };
-            return updated;
-          });
-        }
-      })
-    );
+    this.apiService.getProjects().subscribe(async (apiProjects: any[]) => {
+      // Transformation des données de l'API pour correspondre à l'interface locale
+      const formattedProjects: Project[] = apiProjects.map(p => ({
+        id: p.id.toString(),
+        title: p.title,
+        description: p.description,
+        repo: p.github ? p.github.replace('https://github.com/', '') : '',
+        category: 'fullstack', // Par défaut, ou à ajouter dans le backend
+        images: p.image ? [p.image] : ['Assets/images/quicklodge_1.png'],
+        tags: [], 
+        githubUrl: p.github,
+        demoUrl: p.link,
+      }));
+
+      this.projects.set(formattedProjects);
+
+      // Chargement des stats Github
+      const currentProjects = this.projects();
+      await Promise.all(
+        currentProjects.map(async (project, i) => {
+          if (project.repo) {
+            try {
+              const stats = await this.github.getRepoStats(project.repo);
+              this.projects.update((projects) => {
+                const updated = [...projects];
+                updated[i] = { ...updated[i], stats };
+                return updated;
+              });
+            } catch (e) {
+              console.error('Erreur Github stats', e);
+            }
+          }
+        })
+      );
+
+      if (isPlatformBrowser(this.platformId)) {
+        setTimeout(() => this.initSwipers(), 200);
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -146,20 +149,22 @@ export class Projects implements AfterViewInit, OnDestroy {
         { passive: true },
       );
 
-      this.autoScrollInterval = setInterval(() => {
-        if (isTouching) return;
+      this.ngZone.runOutsideAngular(() => {
+        this.autoScrollInterval = setInterval(() => {
+          if (isTouching) return;
 
-        const currentScroll = grid.scrollLeft;
-        const maxScroll = grid.scrollWidth - grid.clientWidth;
-        const card = grid.querySelector('.project-wrapper');
-        const cardWidth = card ? card.clientWidth : 300;
+          const currentScroll = grid.scrollLeft;
+          const maxScroll = grid.scrollWidth - grid.clientWidth;
+          const card = grid.querySelector('.project-wrapper');
+          const cardWidth = card ? card.clientWidth : 300;
 
-        if (currentScroll >= maxScroll - 10) {
-          grid.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          grid.scrollTo({ left: currentScroll + cardWidth, behavior: 'smooth' });
-        }
-      }, 5000);
+          if (currentScroll >= maxScroll - 10) {
+            grid.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            grid.scrollTo({ left: currentScroll + cardWidth, behavior: 'smooth' });
+          }
+        }, 5000);
+      });
     }, 1000);
   }
 

@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+
+<main class="not-found-main" aria-labelledby="not-found-title">
+  <div class="not-found-container">
+
+    <!-- Glowing number -->
+    <div class="not-found-code" aria-hidden="true">
+      <span class="code-4">4</span>
+      <span class="code-0">0</span>
+      <span class="code-4">4</span>
+    </div>
+
+    <div class="not-found-orb" aria-hidden="true"></div>
+
+    <h1 id="not-found-title" class="not-found-title gradient-text">
+      Page introuvable
+    </h1>
+    <p class="not-found-subtitle">
+      Oups ! La page que vous cherchez n'existe pas ou a été déplacée.
+    </p>
+
+    <div class="not-found-actions">
+      <a routerLink="/" class="btn-primary not-found-btn">
+        <i class="fas fa-home" aria-hidden="true"></i>
+        Retour à l'accueil
+      </a>
+      <a routerLink="/blog" class="btn-secondary not-found-btn">
+        <i class="fas fa-newspaper" aria-hidden="true"></i>
+        Voir le blog
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<app-footer></app-footer>

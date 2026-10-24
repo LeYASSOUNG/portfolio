@@ -11,7 +11,7 @@
         href="#home"
         class="nav-link"
         [class.active]="activeSection === 'home'"
-        (click)="setActive('home')"
+        (click)="$event.preventDefault(); setActive('home')"
         [attr.aria-current]="activeSection === 'home' ? 'page' : null"
       >
         <i class="fas fa-home-alt nav-icon" aria-hidden="true"></i> {{ translation.translate('nav.home') }}
@@ -20,7 +20,7 @@
         href="#about"
         class="nav-link"
         [class.active]="activeSection === 'about'"
-        (click)="setActive('about')"
+        (click)="$event.preventDefault(); setActive('about')"
         [attr.aria-current]="activeSection === 'about' ? 'page' : null"
       >
         <i class="fas fa-user nav-icon" aria-hidden="true"></i> {{ translation.translate('nav.about') }}
@@ -29,7 +29,7 @@
         href="#company"
         class="nav-link"
         [class.active]="activeSection === 'company'"
-        (click)="setActive('company')"
+        (click)="$event.preventDefault(); setActive('company')"
         [attr.aria-current]="activeSection === 'company' ? 'page' : null"
       >
         <i class="fas fa-building nav-icon" aria-hidden="true"></i> {{ translation.translate('nav.company') }}
@@ -38,7 +38,7 @@
         href="#skills"
         class="nav-link"
         [class.active]="activeSection === 'skills'"
-        (click)="setActive('skills')"
+        (click)="$event.preventDefault(); setActive('skills')"
         [attr.aria-current]="activeSection === 'skills' ? 'page' : null"
       >
         <i class="fas fa-code nav-icon" aria-hidden="true"></i> {{ translation.translate('nav.skills') }}
@@ -47,7 +47,7 @@
         href="#projects"
         class="nav-link"
         [class.active]="activeSection === 'projects'"
-        (click)="setActive('projects')"
+        (click)="$event.preventDefault(); setActive('projects')"
         [attr.aria-current]="activeSection === 'projects' ? 'page' : null"
       >
         <i class="fas fa-project-diagram nav-icon" aria-hidden="true"></i> {{ translation.translate('nav.projects') }}
@@ -56,16 +56,23 @@
         href="#game"
         class="nav-link"
         [class.active]="activeSection === 'game'"
-        (click)="setActive('game')"
+        (click)="$event.preventDefault(); setActive('game')"
         [attr.aria-current]="activeSection === 'game' ? 'page' : null"
       >
         <i class="fas fa-puzzle-piece nav-icon" aria-hidden="true"></i> {{ translation.translate('nav.game') }}
       </a>
       <a
+        routerLink="/guestbook"
+        class="nav-link"
+        routerLinkActive="active"
+      >
+        <i class="fas fa-book-open nav-icon" aria-hidden="true"></i> Livre d'or
+      </a>
+      <a
         href="#contact"
         class="nav-link"
         [class.active]="activeSection === 'contact'"
-        (click)="setActive('contact')"
+        (click)="$event.preventDefault(); setActive('contact')"
         [attr.aria-current]="activeSection === 'contact' ? 'page' : null"
       >
         <i class="fas fa-envelope nav-icon" aria-hidden="true"></i> {{ translation.translate('nav.contact') }}
@@ -76,26 +83,31 @@
         <button
           class="lang-toggle interactive"
           (click)="$event.stopPropagation(); toggleLanguage()"
-          title="{{ translation.currentLang() === 'fr' ? 'Switch to English' : 'Passer en Français' }}"
+          [attr.data-tooltip]="translation.currentLang() === 'fr' ? 'English' : 'Français'"
           aria-label="{{ translation.currentLang() === 'fr' ? 'Switch to English' : 'Passer en Français' }}"
         >
           <span class="lang-text" aria-hidden="true">{{ translation.currentLang() === 'fr' ? 'FR' : 'EN' }}</span>
         </button>
 
+        <div class="nav-actions-sep" aria-hidden="true"></div>
+
         @if (pwaInstall.canInstall()) {
           <button
             class="install-btn magnetic"
             (click)="pwaInstall.install()"
+            data-tooltip="Installer l'app"
             [attr.aria-label]="translation.translate('pwa.install')"
           >
             <i class="fas fa-download" aria-hidden="true"></i>
             <span class="sr-only">{{ translation.translate('pwa.install') }}</span>
           </button>
+          <div class="nav-actions-sep" aria-hidden="true"></div>
         }
 
         <button
           class="dark-toggle magnetic"
           (click)="toggleTheme()"
+          [attr.data-tooltip]="isDarkTheme ? 'Mode clair' : 'Mode sombre'"
           [attr.aria-label]="isDarkTheme ? 'Activer le mode clair' : 'Activer le mode sombre'"
         >
           <i class="fas" [class.fa-sun]="isDarkTheme" [class.fa-moon]="!isDarkTheme" aria-hidden="true"></i>
@@ -128,7 +140,8 @@
     role="dialog"
     aria-modal="true"
     [attr.aria-label]="translation.currentLang() === 'fr' ? 'Menu de navigation' : 'Navigation menu'"
-    [attr.aria-hidden]="!isMenuOpen"
+    [attr.aria-hidden]="!isMenuOpen ? 'true' : null"
+    [attr.inert]="!isMenuOpen ? '' : null"
   >
     <button
       class="close-menu"
@@ -141,25 +154,28 @@
 
     <div class="mobile-menu-inner">
       <div class="mobile-links">
-        <a href="#home" class="mobile-link" (click)="setActive('home')">
+        <a href="#home" class="mobile-link" (click)="$event.preventDefault(); setActive('home')">
           <i class="fas fa-home-alt" aria-hidden="true"></i> {{ translation.translate('nav.home') }}
         </a>
-        <a href="#about" class="mobile-link" (click)="setActive('about')">
+        <a href="#about" class="mobile-link" (click)="$event.preventDefault(); setActive('about')">
           <i class="fas fa-user" aria-hidden="true"></i> {{ translation.translate('nav.about') }}
         </a>
-        <a href="#company" class="mobile-link" (click)="setActive('company')">
+        <a href="#company" class="mobile-link" (click)="$event.preventDefault(); setActive('company')">
           <i class="fas fa-building" aria-hidden="true"></i> {{ translation.translate('nav.company') }}
         </a>
-        <a href="#skills" class="mobile-link" (click)="setActive('skills')">
+        <a href="#skills" class="mobile-link" (click)="$event.preventDefault(); setActive('skills')">
           <i class="fas fa-code" aria-hidden="true"></i> {{ translation.translate('nav.skills') }}
         </a>
-        <a href="#projects" class="mobile-link" (click)="setActive('projects')">
+        <a href="#projects" class="mobile-link" (click)="$event.preventDefault(); setActive('projects')">
           <i class="fas fa-project-diagram" aria-hidden="true"></i> {{ translation.translate('nav.projects') }}
         </a>
-        <a href="#game" class="mobile-link" (click)="setActive('game')">
+        <a href="#game" class="mobile-link" (click)="$event.preventDefault(); setActive('game')">
           <i class="fas fa-puzzle-piece" aria-hidden="true"></i> {{ translation.translate('nav.game') }}
         </a>
-        <a href="#contact" class="mobile-link" (click)="setActive('contact')">
+        <a routerLink="/guestbook" class="mobile-link" (click)="closeMenu()">
+          <i class="fas fa-book-open" aria-hidden="true"></i> Livre d'or
+        </a>
+        <a href="#contact" class="mobile-link" (click)="$event.preventDefault(); setActive('contact')">
           <i class="fas fa-envelope" aria-hidden="true"></i> {{ translation.translate('nav.contact') }}
         </a>
       </div>

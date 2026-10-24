@@ -15,69 +15,84 @@
           <i class="fas fa-certificate" aria-hidden="true"></i> {{ translation.translate('company.badge') }}
         </span>
       </div>
-      <h3 class="company-slogan gradient-text">{{ translation.translate('company.slogan') }}</h3>
-      <p class="company-vision">{{ translation.translate('company.vision') }}</p>
+      <h3 class="company-slogan gradient-text">{{ settings().company_slogan || translation.translate('company.slogan') }}</h3>
+      <p class="company-vision">{{ settings().company_vision || translation.translate('company.vision') }}</p>
     </div>
 
     <!-- Grille des Services Proposés -->
     <div class="company-services-grid reveal" role="list">
-      <div class="service-glass-card glass-card magnetic" role="listitem">
-        <div class="service-icon-wrap icon-blue">
-          <i class="fas fa-laptop-code" aria-hidden="true"></i>
+      @if (services().length > 0) {
+        @for (svc of services(); track svc.id) {
+          <div class="service-glass-card glass-card magnetic" role="listitem">
+            <div class="service-icon-wrap icon-blue">
+              <i [class]="svc.icon" aria-hidden="true"></i>
+            </div>
+            <h4 class="service-title">{{ svc.title }}</h4>
+            <p class="service-desc">{{ svc.description }}</p>
+            <div class="service-tags">
+              @for (tag of svc.tags; track tag) {
+                <span class="tag-pill tag-blue">{{ tag }}</span>
+              }
+            </div>
+          </div>
+        }
+      } @else {
+        <div class="service-glass-card glass-card magnetic" role="listitem">
+          <div class="service-icon-wrap icon-blue"><i class="fas fa-laptop-code" aria-hidden="true"></i></div>
+          <h4 class="service-title">{{ translation.translate('company.s1_title') }}</h4>
+          <p class="service-desc">{{ translation.translate('company.s1_desc') }}</p>
+          <div class="service-tags">
+            <span class="tag-pill tag-blue">Angular</span>
+            <span class="tag-pill tag-purple">Next.js</span>
+            <span class="tag-pill tag-cyan">Flutter</span>
+          </div>
         </div>
-        <h4 class="service-title">{{ translation.translate('company.s1_title') }}</h4>
-        <p class="service-desc">{{ translation.translate('company.s1_desc') }}</p>
-        <div class="service-tags">
-          <span class="tag-pill tag-blue">Angular</span>
-          <span class="tag-pill tag-purple">Next.js</span>
-          <span class="tag-pill tag-cyan">Flutter</span>
-        </div>
-      </div>
-
-      <div class="service-glass-card glass-card magnetic" role="listitem">
-        <div class="service-icon-wrap icon-purple">
-          <i class="fas fa-hotel" aria-hidden="true"></i>
-        </div>
-        <h4 class="service-title">{{ translation.translate('company.s2_title') }}</h4>
-        <p class="service-desc">{{ translation.translate('company.s2_desc') }}</p>
-        <div class="service-tags">
-          <span class="tag-pill tag-purple">QuickLodge</span>
-          <span class="tag-pill tag-green">Wave</span>
-          <span class="tag-pill tag-yellow">Orange Money</span>
-        </div>
-      </div>
-
-      <div class="service-glass-card glass-card magnetic" role="listitem">
-        <div class="service-icon-wrap icon-cyan">
-          <i class="fas fa-server" aria-hidden="true"></i>
-        </div>
-        <h4 class="service-title">{{ translation.translate('company.s3_title') }}</h4>
-        <p class="service-desc">{{ translation.translate('company.s3_desc') }}</p>
-        <div class="service-tags">
-          <span class="tag-pill tag-cyan">PostgreSQL</span>
-          <span class="tag-pill tag-yellow">Spring Boot</span>
-          <span class="tag-pill tag-green">Node.js</span>
-        </div>
-      </div>
+        <!-- Default Fallback Services can go here if needed -->
+      }
     </div>
+
+
 
     <!-- Métriques & Engagements Qualité -->
     <div class="company-stats-strip glass-card reveal">
       <div class="company-stat-item">
-        <div class="stat-value gradient-text">{{ translation.translate('company.stat1_val') }}</div>
-        <div class="stat-label">{{ translation.translate('company.stat1_lbl') }}</div>
+        <div class="stat-value gradient-text">{{ settings().company_stat1_val || translation.translate('company.stat1_val') }}</div>
+        <div class="stat-label">{{ settings().company_stat1_lbl || translation.translate('company.stat1_lbl') }}</div>
       </div>
       <div class="company-stat-divider" aria-hidden="true"></div>
       <div class="company-stat-item">
-        <div class="stat-value gradient-text">{{ translation.translate('company.stat2_val') }}</div>
-        <div class="stat-label">{{ translation.translate('company.stat2_lbl') }}</div>
+        <div class="stat-value gradient-text">{{ settings().company_stat2_val || translation.translate('company.stat2_val') }}</div>
+        <div class="stat-label">{{ settings().company_stat2_lbl || translation.translate('company.stat2_lbl') }}</div>
       </div>
       <div class="company-stat-divider" aria-hidden="true"></div>
       <div class="company-stat-item">
-        <div class="stat-value gradient-text">{{ translation.translate('company.stat3_val') }}</div>
-        <div class="stat-label">{{ translation.translate('company.stat3_lbl') }}</div>
+        <div class="stat-value gradient-text">{{ settings().company_stat3_val || translation.translate('company.stat3_val') }}</div>
+        <div class="stat-label">{{ settings().company_stat3_lbl || translation.translate('company.stat3_lbl') }}</div>
       </div>
     </div>
+
+    <!-- TÉMOIGNAGES -->
+    @if (testimonials().length > 0) {
+    <div class="company-testimonials reveal">
+      <h3 class="gradient-text text-center company-exp-title">Témoignages Clients</h3>
+      <div class="testimonials-grid">
+        @for (t of testimonials(); track t.id) {
+          <div class="testimonial-card glass-card magnetic">
+            <div class="testimonial-header">
+              <div class="testimonial-avatar-wrap">
+                <img [src]="t.avatar || 'assets/default-avatar.png'" alt="Avatar" class="testimonial-avatar" onerror="this.src='https://ui-avatars.com/api/?name=' + t.author + '&background=random&color=fff'">
+              </div>
+              <div>
+                <h4 class="testimonial-author">{{ t.author }}</h4>
+                <p class="testimonial-role">{{ t.role }}</p>
+              </div>
+            </div>
+            <p class="testimonial-content">"{{ t.content }}"</p>
+          </div>
+        }
+      </div>
+    </div>
+    }
 
     <!-- Appel à l'action CTA -->
     <div class="company-cta-wrap reveal">

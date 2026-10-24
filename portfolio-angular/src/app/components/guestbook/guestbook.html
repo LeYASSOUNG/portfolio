@@ -1,0 +1,70 @@
+<div class="guestbook-container">
+  <div class="guestbook-header reveal">
+    <h2 class="gradient-text"><i class="fas fa-book-open"></i> Livre d'or</h2>
+    <p>Laissez une trace de votre passage ! Connectez-vous avec GitHub pour partager vos impressions.</p>
+  </div>
+
+  <div class="guestbook-auth-section reveal" *ngIf="!isAuthenticated()">
+    <div class="glass-card auth-card magnetic">
+      <i class="fab fa-github auth-icon"></i>
+      <h3>Connexion requise</h3>
+      <p>Pour éviter le spam, vous devez vous connecter via GitHub pour publier un message.</p>
+      <button (click)="loginWithGithub()" class="btn-primary mt-15">
+        <i class="fab fa-github"></i> Se connecter avec GitHub
+      </button>
+    </div>
+  </div>
+
+  <div class="guestbook-compose reveal" *ngIf="isAuthenticated()">
+    <div class="glass-card compose-card">
+      <div class="compose-header">
+        <span class="user-badge" *ngIf="user()">
+          <img [src]="user()?.avatar || 'Assets/images/default-avatar.png'" alt="Avatar" class="connected-avatar">
+          Connecté en tant que <strong>{{ user()?.name }}</strong>
+        </span>
+        <span class="user-badge" *ngIf="!user()"><i class="fas fa-check-circle text-green"></i> Connecté</span>
+        <button (click)="logout()" class="btn-text-danger"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
+      </div>
+      <textarea 
+        [(ngModel)]="newMessage" 
+        placeholder="Écrivez votre message public ici..." 
+        class="form-control guestbook-textarea"
+        rows="4">
+      </textarea>
+      <button 
+        (click)="submitMessage()" 
+        [disabled]="isSubmitting() || !newMessage().trim()" 
+        class="btn-primary mt-15">
+        <i class="fas fa-paper-plane"></i> {{ isSubmitting() ? 'Envoi...' : 'Publier le message' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="guestbook-entries reveal">
+    <h3 class="entries-title"><i class="fas fa-comments"></i> Messages récents ({{ entries().length }})</h3>
+    
+    <div class="entries-grid">
+      @for (entry of entries(); track entry.id) {
+        <div class="glass-card entry-card magnetic">
+          <div class="entry-header">
+            <div class="entry-user">
+              <img [src]="entry.user_avatar || 'Assets/images/default-avatar.png'" alt="Avatar" class="entry-avatar">
+              <span class="entry-name">{{ entry.user_name }}</span>
+            </div>
+            <span class="entry-date">{{ entry.created_at | date:'dd MMM yyyy' }}</span>
+          </div>
+          <div class="entry-body">
+            <p>{{ entry.message }}</p>
+          </div>
+        </div>
+      }
+      
+      @if (entries().length === 0) {
+        <div class="empty-state">
+          <i class="fas fa-wind"></i>
+          <p>Aucun message pour le moment. Soyez le premier à signer le livre d'or !</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>

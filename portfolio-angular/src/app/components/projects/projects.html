@@ -46,7 +46,7 @@
           <article
             class="project-glass-card glass-card magnetic"
             [class.project-featured]="idx === 0"
-            [attr.aria-label]="translation.translate('projects.' + project.id + '_title')"
+            [attr.aria-label]="project.title"
           >
             <!-- Badge "Projet Mis en avant" pour le premier élément -->
             @if (idx === 0) {
@@ -65,7 +65,7 @@
                 class="swiper project-inner-swiper"
                 role="region"
                 [attr.aria-label]="
-                  'Carrousel d\'images — ' + translation.translate('projects.' + project.id + '_title')
+                  'Carrousel d\'images \u2014 ' + project.title
                 "
               >
                 <div class="swiper-wrapper">
@@ -73,8 +73,8 @@
                     <div class="swiper-slide">
                       <img
                         [src]="img"
-                        title="{{ translation.translate('projects.' + project.id + '_title') }}"
-                        alt="{{ translation.translate('projects.' + project.id + '_title') }} — capture d'écran"
+                        title="{{ project.title }}"
+                        alt="{{ project.title }} — capture d'écran"
                         class="project-image"
                       />
                     </div>
@@ -87,30 +87,32 @@
 
               <div class="project-overlay" aria-hidden="true">
                 <div class="overlay-content">
-                  <a
-                    [href]="project.githubUrl"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="overlay-link magnetic"
-                    [attr.aria-label]="
-                      'Code source — ' +
-                      translation.translate('projects.' + project.id + '_title') +
-                      ' (GitHub, nouvelle fenêtre)'
-                    "
-                  >
-                    <i class="fab fa-github" aria-hidden="true"></i>
-                    <span>{{ translation.translate('projects.code') }}</span>
-                  </a>
-                  @if (project.demoUrl !== '#') {
+                  @if (project.githubUrl) {
+                    <a
+                      [href]="project.githubUrl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="overlay-link magnetic"
+                      [attr.aria-label]="
+                        'Code source \u2014 ' +
+                        project.title +
+                        ' (GitHub, nouvelle fen\u00eatre)'
+                      "
+                    >
+                      <i class="fab fa-github" aria-hidden="true"></i>
+                      <span>{{ translation.translate('projects.code') }}</span>
+                    </a>
+                  }
+                  @if (project.demoUrl && project.demoUrl !== '#') {
                     <a
                       [href]="project.demoUrl"
                       target="_blank"
                       rel="noopener noreferrer"
                       class="overlay-link magnetic"
                       [attr.aria-label]="
-                        'Démo live — ' +
-                        translation.translate('projects.' + project.id + '_title') +
-                        ' (nouvelle fenêtre)'
+                        'D\u00e9mo live \u2014 ' +
+                        project.title +
+                        ' (nouvelle fen\u00eatre)'
                       "
                     >
                       <i class="fas fa-external-link-alt" aria-hidden="true"></i>
@@ -137,8 +139,8 @@
 
             <!-- Contenu textuel, tags des technologies et boutons d'action -->
             <div class="project-content">
-              <h3 class="project-title">{{ translation.translate('projects.' + project.id + '_title') }}</h3>
-              <p class="project-desc">{{ translation.translate('projects.' + project.id + '_desc') }}</p>
+              <h3 class="project-title">{{ project.title }}</h3>
+              <p class="project-desc">{{ project.description }}</p>
               <div class="project-tags" role="list" aria-label="Technologies utilisées">
                 @for (tag of project.tags; track tag) {
                   <span
@@ -164,8 +166,8 @@
                   class="project-action-btn"
                   [attr.aria-label]="
                     'Code source de ' +
-                    translation.translate('projects.' + project.id + '_title') +
-                    ' sur GitHub (nouvelle fenêtre)'
+                    project.title +
+                    ' sur GitHub (nouvelle fen\u00eatre)'
                   "
                 >
                   <i class="fab fa-github" aria-hidden="true"></i> {{ translation.translate('projects.code') }}
@@ -177,9 +179,9 @@
                     rel="noopener noreferrer"
                     class="project-action-btn project-action-btn--demo"
                     [attr.aria-label]="
-                      'Voir la démo de ' +
-                      translation.translate('projects.' + project.id + '_title') +
-                      ' (nouvelle fenêtre)'
+                      'Voir la d\u00e9mo de ' +
+                      project.title +
+                      ' (nouvelle fen\u00eatre)'
                     "
                   >
                     <i class="fas fa-external-link-alt" aria-hidden="true"></i>

@@ -1,13 +1,10 @@
 /* Premium Form & Contact Info Enhancements */
-.contact-form-area,
-.contact-card {
+.contact-form-area, .contact-card {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
-
-.contact-form-area .premium-form,
-.contact-card .contact-info-inner {
+.contact-form-area .premium-form, .contact-card .contact-info-inner {
   background: var(--bg-card);
   border: 1px solid var(--border);
   flex: 1 1 auto;
@@ -17,17 +14,13 @@
   min-height: 100%;
   box-sizing: border-box;
 }
-
-.contact-card .contact-info-inner:hover,
-.contact-form-area .premium-form:hover {
+.contact-card .contact-info-inner:hover, .contact-form-area .premium-form:hover {
   border-color: var(--accent-blue);
 }
-
 /* Fix long text overflow in contact details */
 .pill-body {
   min-width: 0;
 }
-
 .pill-body p {
   display: flex;
   align-items: center;
@@ -35,7 +28,6 @@
   max-width: 100%;
   margin: 0;
 }
-
 .pill-body a {
   white-space: nowrap;
   overflow: hidden;
@@ -43,7 +35,6 @@
   display: block;
   min-width: 0;
 }
-
 /* Align submit button properly and push to bottom */
 .premium-form .btn-primary {
   display: inline-flex;
@@ -52,22 +43,13 @@
   gap: 0.6rem;
   margin-top: auto;
 }
-
 /* Force form and its elements to never exceed the screen width */
-.contact-form-area,
-.contact-card,
-.premium-form,
-.contact-info-inner {
+.contact-form-area, .contact-card, .premium-form, .contact-info-inner {
   max-width: 100%;
 }
-
-.form-row,
-.form-group,
-.glass-input,
-.btn-primary {
+.form-row, .form-group, .glass-input, .btn-primary {
   max-width: 100%;
 }
-
 /* Fix CSS Grid blowout on mobile */
 @media (max-width: 992px) {
   .contact-grid {
@@ -75,9 +57,58 @@
     width: 100%;
   }
 }
-
 @media (max-width: 640px) {
   .form-row {
     grid-template-columns: minmax(0, 1fr) !important;
   }
+}
+/* Floating Labels CSS */
+.form-group.floating {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.floating-input {
+  width: 100%;
+  padding: 1.5rem 1rem 0.5rem;
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  transition: all 0.3s var(--ease);
+}
+.floating-input:focus {
+  outline: none;
+  border-color: var(--accent-purple);
+  background: rgba(15, 23, 42, 0.6);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+.floating-label {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 1rem;
+  transition: all 0.3s var(--ease);
+  pointer-events: none;
+}
+textarea.floating-input {
+  min-height: 120px;
+}
+textarea.floating-input + .floating-label {
+  top: 1.5rem;
+}
+.floating-input:focus + .floating-label,
+.floating-input:not(:placeholder-shown) + .floating-label {
+  top: 0.8rem;
+  font-size: 0.75rem;
+  color: var(--accent-purple);
+}
+
+/* Honeypot invisible pour les bots */
+.hp-field {
+  display: none !important;
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
 }

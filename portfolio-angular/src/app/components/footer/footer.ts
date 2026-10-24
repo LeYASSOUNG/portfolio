@@ -1,12 +1,13 @@
-import { Component, HostListener, inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, HostListener, inject, PLATFORM_ID, signal } from '@angular/core';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslationService } from '../../services/translation.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: './footer.html',
   styleUrl: './footer.css',
 })
@@ -19,6 +20,13 @@ export class Footer {
 
   private platformId = inject(PLATFORM_ID);
   public translation = inject(TranslationService);
+  private apiService = inject(ApiService);
+  
+  settings = signal<any>({});
+
+  constructor() {
+    this.apiService.getSettings().subscribe(data => this.settings.set(data));
+  }
 
   newsletterStatus: 'idle' | 'loading' | 'success' | 'error' = 'idle';
   showBackToTop = false;
@@ -26,7 +34,7 @@ export class Footer {
   /**
    * Envoi du formulaire de newsletter de façon asynchrone (via Formspree).
    */
-  async onNewsletterSubmit(event: Event) {
+  onNewsletterSubmit(event: Event) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const input = form.querySelector('.newsletter-input') as HTMLInputElement;
@@ -36,25 +44,18 @@ export class Footer {
 
     this.newsletterStatus = 'loading';
 
-    try {
-      const res = await fetch('https://formspree.io/f/xdapoaww', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ email: email, subject: 'Inscription Newsletter' }),
-      });
-
-      if (res.ok) {
+    this.apiService.subscribeNewsletter(email).subscribe({
+      next: () => {
         input.value = '';
         this.newsletterStatus = 'success';
-      } else {
-        throw new Error('Error');
+      },
+      error: () => {
+        this.newsletterStatus = 'error';
+        setTimeout(() => {
+          this.newsletterStatus = 'idle';
+        }, 3000);
       }
-    } catch {
-      this.newsletterStatus = 'error';
-      setTimeout(() => {
-        this.newsletterStatus = 'idle';
-      }, 3000);
-    }
+    });
   }
 
   @HostListener('window:scroll', [])

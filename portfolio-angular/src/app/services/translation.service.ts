@@ -1,5 +1,6 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { StorageService } from './storage.service';
 
 export type Language = 'fr' | 'en';
 
@@ -13,6 +14,7 @@ export type Language = 'fr' | 'en';
  */
 export class TranslationService {
   private http = inject(HttpClient);
+  private storage = inject(StorageService);
 
   // Signal réactif stockant la langue actuelle.
   currentLang = signal<Language>('fr');
@@ -25,11 +27,10 @@ export class TranslationService {
 
   constructor() {
     // Initialisation : on récupère la langue sauvegardée par l'utilisateur
-    if (typeof window !== 'undefined') {
-      const savedLang = localStorage.getItem('lang') as Language;
-      if (savedLang) {
-        this.currentLang.set(savedLang);
-        // Applique la langue sauvegardée à l'attribut HTML dès le départ
+    const savedLang = this.storage.get('lang') as Language;
+    if (savedLang) {
+      this.currentLang.set(savedLang);
+      if (typeof document !== 'undefined') {
         document.documentElement.lang = savedLang;
       }
     }
@@ -46,9 +47,8 @@ export class TranslationService {
     if (this.currentLang() === lang) return;
 
     this.currentLang.set(lang);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('lang', lang);
-      // Informe les lecteurs d'écran de la langue du contenu
+    this.storage.set('lang', lang);
+    if (typeof document !== 'undefined') {
       document.documentElement.lang = lang;
     }
 
