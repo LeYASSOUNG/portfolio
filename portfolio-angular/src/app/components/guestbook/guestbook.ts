@@ -33,21 +33,36 @@ export class Guestbook implements OnInit {
   }
 
   checkAuth() {
-    // Check if token is in URL (from OAuth redirect)
-    this.route.queryParams.subscribe(params => {
-      if (params['token']) {
+    // Lire le token depuis le fragment de l'URL (#token=xxx) pour plus de sécurité
+    // Les fragments ne sont jamais envoyés au serveur (pas de fuite dans les logs/Referer)
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.substring(1); // enlever le #
+      const params = new URLSearchParams(hash);
+      const token = params.get('token');
+      const error = params.get('error');
+
+      if (token) {
         if (typeof localStorage !== 'undefined') {
-          localStorage.setItem('auth_token', params['token']);
+          localStorage.setItem('auth_token', token);
         }
-        // Clean URL
-        this.router.navigate([], { queryParams: { token: null }, queryParamsHandling: 'merge' });
+        // Nettoyer le fragment de l'URL
+        window.history.replaceState(null, '', window.location.pathname);
         this.isAuthenticated.set(true);
         this.fetchUser();
-      } else if (typeof localStorage !== 'undefined' && (localStorage.getItem('auth_token') || localStorage.getItem('admin_token'))) {
-        this.isAuthenticated.set(true);
-        this.fetchUser();
+        return;
       }
-    });
+
+      if (error) {
+        console.error('OAuth authentication failed:', error);
+        window.history.replaceState(null, '', window.location.pathname);
+      }
+    }
+
+    // Vérifier si un token existe déjà en localStorage
+    if (typeof localStorage !== 'undefined' && (localStorage.getItem('auth_token') || localStorage.getItem('admin_token'))) {
+      this.isAuthenticated.set(true);
+      this.fetchUser();
+    }
   }
 
   fetchUser() {

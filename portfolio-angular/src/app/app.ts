@@ -44,6 +44,7 @@ export class App implements AfterViewInit, OnInit, OnDestroy {
 
   /** Stocke les AbortControllers pour nettoyer les event listeners entre navigations */
   private interactionAbortController: AbortController | null = null;
+  private windowAbortController: AbortController | null = null;
   
   // PWA Install Prompt
   deferredPrompt: any = null;
@@ -119,6 +120,7 @@ export class App implements AfterViewInit, OnInit, OnDestroy {
     this.initCursor();
     this.setupInteractions();
     this.initObservers();
+    this.setupWindowListeners();
   }
 
   private initCursor() {
@@ -264,31 +266,33 @@ export class App implements AfterViewInit, OnInit, OnDestroy {
   }
 
   /**
-   * Écoute l'évènement de mouvement de souris sur toute la fenêtre.
-   * Met à jour les coordonnées (mx, my) utilisées par l'animation du curseur.
+   * Enregistre les listeners haute fréquence (mousemove, scroll) en dehors de NgZone
+   * pour éviter de déclencher le change detection à chaque événement.
    */
-  @HostListener('window:mousemove', ['$event'])
-  onMouseMove(e: MouseEvent) {
-    if (this.isBrowser) {
-      this.mx = e.clientX;
-      this.my = e.clientY;
-    }
-  }
-
-  /**
-   * Écoute l'évènement de défilement (scroll) pour la jauge de progression.
-   * Ajuste visuellement la largeur de l'indicateur selon la position du scroll.
-   */
-  @HostListener('window:scroll', [])
-  onScroll() {
+  private setupWindowListeners() {
     if (!this.isBrowser) return;
-    const indicator = this.document.getElementById('scrollIndicator');
-    const total = this.document.body.scrollHeight - window.innerHeight;
 
-    if (indicator && total > 0) {
-      // ratio compris entre 0 et 1 modifiant l'échelle horizontale CSS (transform: scaleX)
-      indicator.style.transform = `scaleX(${window.scrollY / total})`;
+    if (this.windowAbortController) {
+      this.windowAbortController.abort();
     }
+    this.windowAbortController = new AbortController();
+    const { signal } = this.windowAbortController;
+
+    this.ngZone.runOutsideAngular(() => {
+      window.addEventListener('mousemove', (e: MouseEvent) => {
+        this.mx = e.clientX;
+        this.my = e.clientY;
+      }, { signal });
+
+      window.addEventListener('scroll', () => {
+        const indicator = this.document.getElementById('scrollIndicator');
+        const total = this.document.body.scrollHeight - window.innerHeight;
+
+        if (indicator && total > 0) {
+          indicator.style.transform = `scaleX(${window.scrollY / total})`;
+        }
+      }, { passive: true, signal });
+    });
   }
 
   // --- GESTION DE LA PWA ---
@@ -331,6 +335,10 @@ export class App implements AfterViewInit, OnInit, OnDestroy {
     if (this.interactionAbortController) {
       this.interactionAbortController.abort();
       this.interactionAbortController = null;
+    }
+    if (this.windowAbortController) {
+      this.windowAbortController.abort();
+      this.windowAbortController = null;
     }
   }
 }

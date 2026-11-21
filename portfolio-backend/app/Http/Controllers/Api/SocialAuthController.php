@@ -58,10 +58,11 @@ class SocialAuthController extends Controller
             // Token limité au livre d'or : aucun accès aux routes admin
             $token = $user->createToken('guestbook-token', ['guestbook'])->plainTextToken;
 
-            // Redirect back to frontend with token
-            return redirect($frontendUrl . '/guestbook?token=' . $token);
+            // Redirect back to frontend with token via URL fragment
+            // (fragments are NOT sent to the server, preventing token leakage in logs/Referer)
+            return redirect($frontendUrl . '/guestbook#token=' . $token);
         } catch (\Exception $e) {
-            return redirect($frontendUrl . '/guestbook?error=auth_failed');
+            return redirect($frontendUrl . '/guestbook#error=auth_failed');
         }
     }
 

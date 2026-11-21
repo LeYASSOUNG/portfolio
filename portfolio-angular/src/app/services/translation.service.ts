@@ -19,8 +19,8 @@ export class TranslationService {
   // Signal réactif stockant la langue actuelle.
   currentLang = signal<Language>('fr');
 
-  // Dictionnaire des traductions chargé
-  private translations: any = {};
+  // Dictionnaire des traductions chargé par langue
+  private translations: Partial<Record<Language, Record<string, any>>> = {};
 
   // État de chargement pour éviter le scintillement (optionnel)
   public isLoaded = signal<boolean>(false);
@@ -60,7 +60,7 @@ export class TranslationService {
    */
   private loadTranslations(lang: Language) {
     this.isLoaded.set(false);
-    this.http.get(`Assets/i18n/${lang}.json`).subscribe({
+    this.http.get<Record<string, any>>(`Assets/i18n/${lang}.json`).subscribe({
       next: (data) => {
         this.translations[lang] = data;
         this.isLoaded.set(true);
@@ -86,21 +86,22 @@ export class TranslationService {
     this.isLoaded();
 
     // Si la langue n'est pas encore chargée, retourner temporairement la clé
-    if (!this.translations[lang]) {
+    const dict = this.translations[lang];
+    if (!dict) {
       return key;
     }
 
     const keys = key.split('.');
-    let result = this.translations[lang];
+    let result: any = dict;
 
     for (const k of keys) {
-      if (result) {
+      if (result && typeof result === 'object' && k in result) {
         result = result[k];
       } else {
         return key;
       }
     }
 
-    return result || key;
+    return typeof result === 'string' ? result : key;
   }
 }
