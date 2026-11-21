@@ -35,6 +35,13 @@ class ChatController extends Controller
         }
 
         // Conversation memory: map front-end history to Gemini roles
+        // Plafond global journalier (protège le quota/coût Gemini contre les abus distribués)
+        $dailyKey = 'chatbot.daily.' . now()->format('Ymd');
+        Cache::add($dailyKey, 0, now()->endOfDay());
+        if (Cache::increment($dailyKey) > (int) config('services.gemini.daily_limit', 500)) {
+            return response()->json(['reply' => 'Le chatbot a atteint sa limite quotidienne. Reviens demain ou utilise la section Contact !'], 429);
+        }
+
         $contents = collect($validated['history'] ?? [])
             ->take(-self::MAX_HISTORY)
             ->map(fn ($m) => [

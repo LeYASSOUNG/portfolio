@@ -20,7 +20,7 @@ Route::get('/projects/{project}', [ProjectController::class, 'show']);
 Route::get('/skills', [SkillController::class, 'index']);
 Route::get('/experiences', [ExperienceController::class, 'index']);
 Route::post('/messages', [MessageController::class, 'store'])->middleware('throttle:3,1');
-Route::get('/scores', [ScoreController::class, 'index']);
+Route::get('/scores', [ScoreController::class, 'index'])->middleware('throttle:60,1');
 Route::post('/scores', [ScoreController::class, 'store'])->middleware('throttle:10,1');
 Route::post('/visits', [StatsController::class, 'recordVisit'])->middleware('throttle:60,1');
 Route::get('/articles', [ArticleController::class, 'index']);
@@ -33,10 +33,11 @@ Route::post('/chat', [\App\Http\Controllers\Api\ChatController::class, 'chat'])-
 Route::get('/testimonials', [\App\Http\Controllers\Api\TestimonialController::class, 'index']);
 Route::get('/articles/{id}/comments', [\App\Http\Controllers\Api\CommentController::class, 'index'])->whereNumber('id');
 Route::post('/articles/{id}/comments', [\App\Http\Controllers\Api\CommentController::class, 'store'])->whereNumber('id')->middleware('throttle:5,1');
-Route::get('/github/stats', [\App\Http\Controllers\Api\GithubController::class, 'stats']);
-Route::get('/now', [\App\Http\Controllers\Api\GithubController::class, 'now']);
-Route::get('/cv/download', [\App\Http\Controllers\Api\CvController::class, 'download']);
-Route::get('/seo', [\App\Http\Controllers\SeoController::class, 'index']);
+Route::get('/github/stats', [\App\Http\Controllers\Api\GithubController::class, 'stats'])->middleware('throttle:30,1');
+Route::get('/now', [\App\Http\Controllers\Api\GithubController::class, 'now'])->middleware('throttle:30,1');
+// Génération PDF coûteuse : limite stricte
+Route::get('/cv/download', [\App\Http\Controllers\Api\CvController::class, 'download'])->middleware('throttle:5,1');
+Route::get('/seo', [\App\Http\Controllers\SeoController::class, 'index'])->middleware('throttle:60,1');
 
 // Socialite Auth
 Route::get('/auth/{provider}/redirect', [\App\Http\Controllers\Api\SocialAuthController::class, 'redirect']);
