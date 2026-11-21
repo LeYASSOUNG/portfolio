@@ -521,9 +521,16 @@ export class AdminDashboard implements OnInit {
   }
 
   // ---- CRUD COMPANY SERVICES ----
+  /** Extrait le 1er message de validation Laravel (422), sinon un message par défaut. */
+  private serverMessage(err: any, fallback: string): string {
+    const errors = err?.error?.errors;
+    const first = errors ? (Object.values(errors)[0] as string[] | undefined)?.[0] : undefined;
+    return first ?? err?.error?.message ?? fallback;
+  }
+
   createCompanyService() {
-    if (!this.newCompanyService.title) {
-      this.showToast('Le titre du service est requis', 'error');
+    if (!this.newCompanyService.title?.trim() || !this.newCompanyService.description?.trim()) {
+      this.showToast('Le titre et la description du service sont requis', 'error');
       return;
     }
     this.newCompanyService.tags = this.serviceTagsString.split(',').map(t => t.trim()).filter(t => t);
@@ -533,7 +540,7 @@ export class AdminDashboard implements OnInit {
         this.resetCompanyServiceForm();
         this.showToast('Service créé', 'success');
       },
-      error: () => this.showToast('Erreur lors de la création du service', 'error')
+      error: (err) => this.showToast(this.serverMessage(err, 'Erreur lors de la création du service'), 'error')
     });
   }
   editCompanyService(service: any) {
@@ -543,7 +550,11 @@ export class AdminDashboard implements OnInit {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   updateCompanyService() {
-    if (!this.editingCompanyServiceId || !this.newCompanyService.title) return;
+    if (!this.editingCompanyServiceId) return;
+    if (!this.newCompanyService.title?.trim() || !this.newCompanyService.description?.trim()) {
+      this.showToast('Le titre et la description du service sont requis', 'error');
+      return;
+    }
     this.newCompanyService.tags = this.serviceTagsString.split(',').map(t => t.trim()).filter(t => t);
     this.apiService.updateCompanyService(this.editingCompanyServiceId, this.newCompanyService).subscribe({
       next: () => {
@@ -551,7 +562,7 @@ export class AdminDashboard implements OnInit {
         this.resetCompanyServiceForm();
         this.showToast('Service mis à jour', 'success');
       },
-      error: () => this.showToast('Erreur lors de la mise à jour du service', 'error')
+      error: (err) => this.showToast(this.serverMessage(err, 'Erreur lors de la mise à jour du service'), 'error')
     });
   }
   cancelEditCompanyService() { this.resetCompanyServiceForm(); }
