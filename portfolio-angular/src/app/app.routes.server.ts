@@ -3,7 +3,8 @@ import { RenderMode, ServerRoute } from '@angular/ssr';
 export const serverRoutes: ServerRoute[] = [
   {
     path: 'blog/:slug',
-    renderMode: RenderMode.Server
+    // Hébergement statique (Vercel) : pas de serveur Node, donc rendu côté client
+    renderMode: RenderMode.Client
   },
   {
     path: '**',
