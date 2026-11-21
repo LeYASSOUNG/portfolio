@@ -1,0 +1,63 @@
+# Blueprint Render : backend Laravel (Docker) + base PostgreSQL
+# Les variables "sync: false" sont à saisir dans le tableau de bord Render.
+services:
+  - type: web
+    name: leyassoung-portfolio-api
+    runtime: docker
+    rootDir: portfolio-backend
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /up
+    envVars:
+      - key: APP_NAME
+        value: Portfolio
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY          # php artisan key:generate --show
+        sync: false
+      - key: APP_URL          # ex: https://leyassoung-portfolio-api.onrender.com
+        sync: false
+      - key: FRONTEND_URL     # ex: https://leyassoung-portfolio.vercel.app
+        sync: false
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: LOG_LEVEL
+        value: warning
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_URL
+        fromDatabase:
+          name: portfolio-db
+          property: connectionString
+      - key: SESSION_DRIVER
+        value: database
+      - key: CACHE_STORE
+        value: database
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: GITHUB_CLIENT_ID
+        sync: false
+      - key: GITHUB_CLIENT_SECRET
+        sync: false
+      - key: GITHUB_REDIRECT_URI   # APP_URL + /api/auth/github/callback
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_DAILY_LIMIT
+        value: "500"
+      - key: ADMIN_EMAIL      # votre email de connexion admin
+        sync: false
+      - key: ADMIN_PASSWORD   # 12 caractères minimum
+        sync: false
+      - key: RUN_SEED         # "true" au 1er démarrage pour charger projets/compétences, puis supprimer
+        sync: false
+      - key: MAIL_MAILER
+        value: log
+
+databases:
+  - name: portfolio-db
+    plan: free
+    databaseName: portfolio
+    user: portfolio

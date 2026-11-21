@@ -12,6 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Derrière le proxy HTTPS de Render : fait confiance aux en-têtes X-Forwarded-*
+        // (sinon les URLs générées - assets, OAuth - seraient en http://)
+        $middleware->trustProxies(at: '*');
+
         // Vérification des capacités des tokens Sanctum (admin vs guestbook)
         $middleware->alias([
             'abilities' => \Laravel\Sanctum\Http\Middleware\CheckAbilities::class,
