@@ -121,7 +121,17 @@
     "p2_desc": "Smart inventory management solution with analytical dashboards and real-time collaboration.",
     "p3_title": "Midnight Aurora Portfolio",
     "p3_desc": "Immersive experience showcasing my technical expertise through a premium and interactive interface.",
-    "view_github": "Explore my GitHub universe"
+    "view_github": "Explore my GitHub universe",
+    "filters_label": "Project filters",
+    "carousel": "Image carousel",
+    "next_image": "Next image",
+    "prev_image": "Previous image",
+    "pagination": "Image navigation",
+    "screenshot": "screenshot",
+    "github_stats": "GitHub statistics",
+    "stars": "Stars: ",
+    "forks": "Forks: ",
+    "load_error": "Unable to load projects right now. Please try again later."
   },
   "contact": {
     "title": "Contact",

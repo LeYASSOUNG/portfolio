@@ -121,7 +121,17 @@
     "p2_desc": "Solution de gestion de stocks intelligente avec tableaux de bord analytiques et collaboration en temps réel.",
     "p3_title": "Midnight Aurora Portfolio",
     "p3_desc": "Expérience immersive présentant mon expertise technique via une interface premium et interactive.",
-    "view_github": "Voir tout mon univers GitHub"
+    "view_github": "Voir tout mon univers GitHub",
+    "filters_label": "Filtres des projets",
+    "carousel": "Carrousel d'images",
+    "next_image": "Image suivante",
+    "prev_image": "Image précédente",
+    "pagination": "Navigation des images",
+    "screenshot": "capture d'écran",
+    "github_stats": "Statistiques GitHub",
+    "stars": "Étoiles : ",
+    "forks": "Forks : ",
+    "load_error": "Impossible de charger les projets pour le moment. Réessayez plus tard."
   },
   "contact": {
     "title": "Contact",

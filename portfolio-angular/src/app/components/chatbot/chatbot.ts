@@ -124,9 +124,10 @@ export class Chatbot implements AfterViewChecked, OnDestroy {
       next: res => this.finish({ role: "bot", text: res.reply, time: Date.now() }),
       error: (err: HttpErrorResponse) => {
         const msg =
-          err.status === 429
+          err.error?.reply ??
+          (err.status === 429
             ? "⏳ Vous allez un peu vite ! Patientez une minute avant de reposer une question."
-            : err.error?.reply ?? "Une erreur est survenue. Veuillez réessayer.";
+            : "Une erreur est survenue. Veuillez réessayer.");
         this.finish({ role: "bot", text: msg, time: Date.now(), error: true, retryText: text });
       },
     });

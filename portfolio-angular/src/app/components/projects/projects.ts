@@ -1,4 +1,5 @@
-import { Component, AfterViewInit, OnDestroy, PLATFORM_ID, Inject, signal, computed, NgZone } from '@angular/core';
+import { catchError, of } from 'rxjs';
+import { Component, AfterViewInit, OnDestroy, OnInit, ElementRef, PLATFORM_ID, Inject, signal, computed, NgZone } from '@angular/core';
 import { CommonModule, isPlatformBrowser, NgClass } from '@angular/common';
 import { TranslationService } from '../../services/translation.service';
 import { GithubService, RepoStats } from '../../services/github';
@@ -30,8 +31,10 @@ interface Project {
  * Composant Projets
  * Affiche une grille de projets interactifs avec filtres par catégorie, carrousels d'images isolés et stats GitHub.
  */
-export class Projects implements AfterViewInit, OnDestroy {
+export class Projects implements OnInit, AfterViewInit, OnDestroy {
   private autoScrollInterval: any;
+
+  loadError = signal(false);
 
   activeCategory = signal<string>('all');
 
@@ -48,33 +51,115 @@ export class Projects implements AfterViewInit, OnDestroy {
     public translation: TranslationService,
     private github: GithubService,
     private apiService: ApiService,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private host: ElementRef<HTMLElement>
   ) {}
 
   setFilter(category: string) {
     this.activeCategory.set(category);
     if (isPlatformBrowser(this.platformId)) {
-      setTimeout(() => this.initSwipers(), 200);
+      this.scheduleSwipers();
     }
+  }
+
+  /**
+   * Résout la catégorie pour le filtrage
+   */
+  private resolveCategory(title: string, desc: string, repo: string): 'angular' | 'fullstack' | 'uiux' {
+    const text = `${title} ${desc} ${repo}`.toLowerCase();
+    if (text.includes('angular') || repo.toLowerCase().includes('portfolio')) {
+      return 'angular';
+    }
+    if (text.includes('shopafrica') || text.includes('ui/ux') || text.includes('yass digital') || text.includes('vue')) {
+      return 'uiux';
+    }
+    return 'fullstack';
+  }
+
+  /**
+   * Résout les tags technologiques associés
+   */
+  private resolveTags(title: string, repo: string): string[] {
+    const r = (repo || '').toLowerCase();
+    const t = (title || '').toLowerCase();
+
+    if (r.includes('portfolio') || t.includes('portfolio')) {
+      return ['Angular', 'Laravel', 'TypeScript', 'PostgreSQL'];
+    }
+    if (r.includes('yass-digital-lab') || t.includes('yass digital')) {
+      return ['Vue.js', 'Nuxt', 'E-commerce', 'Tailwind CSS'];
+    }
+    if (r.includes('gestion-stock') || t.includes('gestion de stock') || t.includes('gestion-stock')) {
+      return ['JavaScript', 'Node.js', 'Express', 'Inventaire'];
+    }
+    if (r.includes('promanager') || t.includes('promanager') || t.includes('ya-consulting')) {
+      return ['Laravel', 'PHP', 'Vue.js', 'MySQL'];
+    }
+    if (r.includes('jobs-platform') || t.includes('jobs')) {
+      return ['Laravel', 'Blade', 'PHP', 'Tailwind'];
+    }
+    if (r.includes('quicklodge') || t.includes('quicklodge')) {
+      return ['Java', 'Spring Boot', 'PostgreSQL', 'Fullstack'];
+    }
+    if (r.includes('shopafrica') || t.includes('shopafrica')) {
+      return ['Vue.js', 'JavaScript', 'UI/UX', 'E-Commerce'];
+    }
+    return ['Fullstack', 'Web'];
+  }
+
+  /**
+   * Résout les images du projet pour alimenter le carrousel Swiper
+   */
+  private resolveImages(image: string | null | undefined, repo: string, title: string): string[] {
+    const r = (repo || '').toLowerCase();
+    const t = (title || '').toLowerCase();
+
+    if (r.includes('quicklodge') || t.includes('quicklodge')) {
+      return ['Assets/images/quicklodge_1.png', 'Assets/images/quicklodge_2.png'];
+    }
+    if (r.includes('yass-digital-lab') || t.includes('yass digital')) {
+      return ['Assets/images/lumina_1.png', 'Assets/images/lumina_2.png'];
+    }
+    if (r.includes('portfolio') || t.includes('portfolio')) {
+      return ['Assets/images/portfo image-1.png', 'Assets/images/lumina_1.png'];
+    }
+    if (r.includes('gestion-stock') || t.includes('gestion-stock') || t.includes('gestion de stock')) {
+      return ['Assets/images/midnight_1.png', 'Assets/images/midnight_2.png'];
+    }
+    if (image) {
+      return [image];
+    }
+    return ['Assets/images/photo-1467232004584-a241de8bcf5d.avif'];
   }
 
   /**
    * Initialisation : Récupération asynchrone des projets depuis l'API et des statistiques GitHub.
    */
-  async ngOnInit() {
-    this.apiService.getProjects().subscribe(async (apiProjects: any[]) => {
+  ngOnInit() {
+    this.apiService
+      .getProjects()
+      .pipe(
+        catchError(() => {
+          this.loadError.set(true);
+          return of([] as any[]);
+        }),
+      )
+      .subscribe(async (apiProjects: any[]) => {
       // Transformation des données de l'API pour correspondre à l'interface locale
-      const formattedProjects: Project[] = apiProjects.map(p => ({
-        id: p.id.toString(),
-        title: p.title,
-        description: p.description,
-        repo: p.github ? p.github.replace('https://github.com/', '') : '',
-        category: 'fullstack', // Par défaut, ou à ajouter dans le backend
-        images: p.image ? [p.image] : ['Assets/images/quicklodge_1.png'],
-        tags: [], 
-        githubUrl: p.github,
-        demoUrl: p.link,
-      }));
+      const formattedProjects: Project[] = apiProjects.map(p => {
+        const repo = p.github ? p.github.replace('https://github.com/', '').trim() : '';
+        return {
+          id: p.id.toString(),
+          title: p.title,
+          description: p.description,
+          repo,
+          category: p.category || this.resolveCategory(p.title, p.description, repo),
+          images: this.resolveImages(p.image, repo, p.title),
+          tags: Array.isArray(p.tags) && p.tags.length > 0 ? p.tags : this.resolveTags(p.title, repo),
+          githubUrl: p.github,
+          demoUrl: p.link,
+        };
+      });
 
       this.projects.set(formattedProjects);
 
@@ -98,14 +183,14 @@ export class Projects implements AfterViewInit, OnDestroy {
       );
 
       if (isPlatformBrowser(this.platformId)) {
-        setTimeout(() => this.initSwipers(), 200);
+        this.scheduleSwipers();
       }
     });
   }
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      this.initSwipers();
+      this.scheduleSwipers();
       this.initMobileAutoScroll();
     }
   }
@@ -113,6 +198,8 @@ export class Projects implements AfterViewInit, OnDestroy {
   private swiperInstances: Swiper[] = [];
 
   ngOnDestroy() {
+    clearTimeout(this.swiperTimer);
+    clearTimeout(this.autoScrollStart);
     this.destroySwipers();
     if (this.autoScrollInterval) {
       clearInterval(this.autoScrollInterval);
@@ -135,8 +222,8 @@ export class Projects implements AfterViewInit, OnDestroy {
     const MOBILE_BREAKPOINT = 992;
     if (window.innerWidth > MOBILE_BREAKPOINT) return;
 
-    setTimeout(() => {
-      const grid = document.querySelector('.projects-grid') as HTMLElement;
+    this.autoScrollStart = setTimeout(() => {
+      const grid = this.host.nativeElement.querySelector('.projects-grid') as HTMLElement;
       if (!grid) return;
 
       let isTouching = false;
@@ -171,10 +258,19 @@ export class Projects implements AfterViewInit, OnDestroy {
   /**
    * Initialise de manière isolée les carrousels Swiper pour chaque carte de projet.
    */
+  private swiperTimer?: ReturnType<typeof setTimeout>;
+  private autoScrollStart?: ReturnType<typeof setTimeout>;
+
+  /** Regroupe les demandes d'initialisation en un seul passage (évite les cycles destroy/create en rafale). */
+  private scheduleSwipers() {
+    clearTimeout(this.swiperTimer);
+    this.swiperTimer = setTimeout(() => this.initSwipers(), 200);
+  }
+
   private initSwipers() {
     this.destroySwipers();
-    setTimeout(() => {
-      document.querySelectorAll('.project-glass-card').forEach((card) => {
+    {
+      this.host.nativeElement.querySelectorAll('.project-glass-card').forEach((card) => {
         const swiperContainer = card.querySelector('.project-inner-swiper') as HTMLElement;
         if (!swiperContainer) return;
         const nextEl = card.querySelector('.swiper-button-next') as HTMLElement;
@@ -192,6 +288,6 @@ export class Projects implements AfterViewInit, OnDestroy {
         });
         this.swiperInstances.push(instance);
       });
-    }, 200);
+    }
   }
 }
