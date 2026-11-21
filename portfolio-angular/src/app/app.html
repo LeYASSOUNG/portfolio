@@ -1,4 +1,4 @@
-@if (!isCvPage) {
+@if (!hideLayout) {
   <app-navbar></app-navbar>
 }
 
@@ -6,6 +6,23 @@
   <router-outlet #outlet="outlet"></router-outlet>
 </main>
 
-@if (!isCvPage) {
+@if (!hideLayout) {
   <app-footer></app-footer>
+  <app-chatbot></app-chatbot>
+}
+
+@if (showInstallBanner) {
+  <div class="pwa-install-banner">
+    <div class="pwa-install-content">
+      <i class="fas fa-download pwa-icon"></i>
+      <div>
+        <strong>Installer l'application</strong>
+        <p>Ajoutez ce portfolio sur votre écran d'accueil pour un accès rapide.</p>
+      </div>
+    </div>
+    <div class="pwa-install-actions">
+      <button class="btn-secondary btn-sm" (click)="dismissInstall()">Plus tard</button>
+      <button class="btn-primary btn-sm" (click)="installPwa()">Installer</button>
+    </div>
+  </div>
 }

@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+
+<main class="page-container blog-post-main">
+  
+  @if (article()) {
+    <article>
+      <a routerLink="/blog" class="blog-back-link">
+        <i class="fas fa-arrow-left"></i> Retour au blog
+      </a>
+
+      <header class="blog-post-header">
+        <h1 class="gradient-text blog-post-title">
+          {{ article().title }}
+        </h1>
+        <div class="blog-post-meta">
+          <span><i class="far fa-calendar-alt"></i> {{ article().created_at | date:'dd MMMM yyyy' }}</span>
+          <span><i class="fas fa-user-circle"></i> Diarrassouba</span>
+        </div>
+      </header>
+
+      @if (article().image) {
+        <div class="blog-post-image-container">
+          <img [src]="article().image" [alt]="article().title" title="{{ article().title }}" class="blog-post-image">
+        </div>
+      }
+
+      <div class="article-content blog-post-content" [innerHTML]="article().content"></div>
+      
+      <!-- ==================== COMMENTAIRES ==================== -->
+      <section class="comments-section">
+        <h3 class="gradient-text comments-title"><i class="fas fa-comments"></i> Commentaires</h3>
+        
+        <!-- Liste des commentaires approuvés -->
+        <div class="comments-list">
+          @if (comments().length === 0) {
+            <p class="comments-empty">Aucun commentaire pour le moment. Soyez le premier à réagir !</p>
+          } @else {
+            @for (c of comments(); track c.id) {
+              <div class="comment-card glass-card">
+                <div class="comment-header">
+                  <strong class="comment-author">{{ c.author }}</strong>
+                  <span class="comment-date">{{ c.created_at | date:'dd/MM/yyyy HH:mm' }}</span>
+                </div>
+                <p class="comment-text">{{ c.content }}</p>
+              </div>
+            }
+          }
+        </div>
+
+        <!-- Formulaire d'ajout de commentaire -->
+        <div class="comment-form-container glass-card">
+          <h4 class="comment-form-title">Laisser un commentaire</h4>
+          
+          @if (commentStatus) {
+            <div class="alert comment-alert">
+              {{ commentStatus }}
+            </div>
+          }
+          
+          <form (submit)="submitComment($event)" class="comment-form">
+            <input type="text" [(ngModel)]="newComment.author" name="author" placeholder="Votre nom" required class="comment-input">
+            <textarea [(ngModel)]="newComment.content" name="content" placeholder="Votre commentaire..." required rows="4" class="comment-textarea"></textarea>
+            <button type="submit" class="btn-primary comment-submit-btn">
+              <i class="fas fa-paper-plane"></i> Envoyer
+            </button>
+          </form>
+        </div>
+      </section>
+    </article>
+  } @else {
+    <div class="blog-loading">
+      <i class="fas fa-spinner fa-spin"></i>
+      <p>Chargement de l'article...</p>
+    </div>
+  }
+
+</main>
+
+<app-footer></app-footer>

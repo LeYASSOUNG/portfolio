@@ -1,5 +1,6 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal, OnInit } from '@angular/core';
 import { TranslationService } from '../../services/translation.service';
+import { ApiService } from '../../services/api.service';
 
 type Direction = { r: number; c: number };
 type CellPos = { r: number; c: number };
@@ -16,7 +17,7 @@ type WordItem = {
   found: boolean;
 };
 
-const SIZE = 10;
+
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const DIRECTIONS: Direction[] = [
   { r: 0, c: 1 },
@@ -35,12 +36,47 @@ const DIRECTIONS: Direction[] = [
   templateUrl: './mini-game.html',
   styleUrl: './mini-game.css',
 })
-export class MiniGame {
-  private readonly sourceWords = ['JAVASCRIPT', 'PYTHON', 'JAVA', 'RUST', 'KOTLIN', 'SWIFT'];
+export class MiniGame implements OnInit {
+  sourceWords: string[] = [];
 
   board = signal<BoardCell[][]>([]);
   words = signal<WordItem[]>([]);
   message = signal('');
+
+  difficulty = signal<'easy' | 'medium' | 'hard'>('easy');
+  
+  gridSize = computed(() => {
+    switch(this.difficulty()) {
+      case 'easy': return 10;
+      case 'medium': return 12;
+      case 'hard': return 15;
+    }
+  });
+
+  wordCount = computed(() => {
+    switch(this.difficulty()) {
+      case 'easy': return 5;
+      case 'medium': return 8;
+      case 'hard': return 12;
+    }
+  });
+
+  allowedDirections = computed(() => {
+    switch(this.difficulty()) {
+      case 'easy': 
+        return [ { r: 0, c: 1 }, { r: 1, c: 0 } ];
+      case 'medium':
+        return [ { r: 0, c: 1 }, { r: 1, c: 0 }, { r: 1, c: 1 }, { r: -1, c: 1 } ];
+      case 'hard':
+        return DIRECTIONS;
+    }
+  });
+  
+  leaderboard = signal<any[]>([]);
+  playerName = signal('');
+  gameSaved = signal(false);
+  startTime: number = 0;
+  timeTaken = signal(0);
 
   private startCell: CellPos | null = null;
 
@@ -48,8 +84,25 @@ export class MiniGame {
   totalCount = computed(() => this.words().length);
   isCompleted = computed(() => this.foundCount() === this.totalCount() && this.totalCount() > 0);
 
-  constructor(public translation: TranslationService) {
-    this.newGame();
+  constructor(
+    public translation: TranslationService,
+    private apiService: ApiService
+  ) {}
+
+  ngOnInit() {
+    this.fetchLeaderboard();
+    this.apiService.getSettings().subscribe(settings => {
+      if (settings && settings['game_words']) {
+        this.sourceWords = settings['game_words'].split(',').map((w: string) => w.trim().toUpperCase()).filter((w: string) => w);
+      } else {
+        this.sourceWords = ['JAVASCRIPT', 'PYTHON', 'JAVA', 'RUST', 'KOTLIN', 'SWIFT'];
+      }
+      this.newGame();
+    });
+  }
+
+  fetchLeaderboard() {
+    this.apiService.getScores().subscribe(data => this.leaderboard.set(data));
   }
 
   newGame(): void {
@@ -58,6 +111,16 @@ export class MiniGame {
     this.words.set(generated.words.map((word) => ({ word, found: false })));
     this.message.set(this.translation.translate('game.ready'));
     this.startCell = null;
+    
+    this.startTime = Date.now();
+    this.gameSaved.set(false);
+    this.timeTaken.set(0);
+    this.playerName.set('');
+  }
+
+  setDifficulty(level: 'easy' | 'medium' | 'hard') {
+    this.difficulty.set(level);
+    this.newGame();
   }
 
   rowTrackBy(index: number): number {
@@ -93,6 +156,7 @@ export class MiniGame {
       this.message.set(this.translation.translate('game.word_found').replace('{word}', target.word));
       if (this.isCompleted()) {
         this.message.set(this.translation.translate('game.completed'));
+        this.timeTaken.set(Math.floor((Date.now() - this.startTime) / 1000));
       }
     } else {
       this.highlightCells(path);
@@ -101,6 +165,23 @@ export class MiniGame {
     }
 
     this.startCell = null;
+  }
+
+  saveScore() {
+    if (!this.playerName()) return;
+    const scoreData = {
+      player_name: this.playerName(),
+      score: this.foundCount(),
+      time_taken: this.timeTaken()
+    };
+    this.apiService.saveScore(scoreData).subscribe(() => {
+      this.gameSaved.set(true);
+      this.fetchLeaderboard();
+    });
+  }
+
+  updatePlayerName(event: any) {
+    this.playerName.set(event.target.value);
   }
 
   clearSelection(): void {
@@ -151,10 +232,16 @@ export class MiniGame {
   }
 
   private generateBoard(): { board: BoardCell[][]; words: string[] } {
-    const board: string[][] = Array.from({ length: SIZE }, () =>
-      Array.from({ length: SIZE }, () => '')
+    const size = this.gridSize();
+    const board: string[][] = Array.from({ length: size }, () =>
+      Array.from({ length: size }, () => '')
     );
-    const words = [...this.sourceWords].sort(() => Math.random() - 0.5);
+    let availableWords = [...this.sourceWords].sort(() => Math.random() - 0.5);
+    
+    // Pour ne garder que ceux qui rentrent
+    availableWords = availableWords.filter(w => w.length <= size);
+    
+    const words = availableWords.slice(0, this.wordCount());
 
     for (const word of words) {
       this.tryPlaceWord(board, word);
@@ -169,10 +256,11 @@ export class MiniGame {
   }
 
   private fillRandomLetters(board: string[][]): void {
-    const totalCells = SIZE * SIZE;
+    const size = this.gridSize();
+    const totalCells = size * size;
     for (let i = 0; i < totalCells; i++) {
-      const r = Math.floor(i / SIZE);
-      const c = i % SIZE;
+      const r = Math.floor(i / size);
+      const c = i % size;
       if (!board[r][c]) {
         board[r][c] = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
       }
@@ -185,12 +273,14 @@ export class MiniGame {
   }
 
   private tryPlaceWordRandomly(board: string[][], word: string): boolean {
-    const MAX_TRIES = 180;
+    const MAX_TRIES = 250;
+    const size = this.gridSize();
+    const dirs = this.allowedDirections();
     for (let tries = 0; tries < MAX_TRIES; tries++) {
       const placement = {
-        dir: DIRECTIONS[Math.floor(Math.random() * DIRECTIONS.length)],
-        row: Math.floor(Math.random() * SIZE),
-        col: Math.floor(Math.random() * SIZE),
+        dir: dirs[Math.floor(Math.random() * dirs.length)],
+        row: Math.floor(Math.random() * size),
+        col: Math.floor(Math.random() * size),
       };
 
       if (this.canPlaceWord(board, word, placement)) {
@@ -202,8 +292,10 @@ export class MiniGame {
   }
 
   private tryPlaceWordFallback(board: string[][], word: string): void {
-    const maxCols = SIZE - word.length + 1;
-    const totalCells = SIZE * maxCols;
+    const size = this.gridSize();
+    const maxCols = size - word.length + 1;
+    if (maxCols <= 0) return;
+    const totalCells = size * maxCols;
     for (let i = 0; i < totalCells; i++) {
       const r = Math.floor(i / maxCols);
       const c = i % maxCols;
@@ -217,10 +309,11 @@ export class MiniGame {
 
   private canPlaceWord(board: string[][], word: string, placement: Placement): boolean {
     const { row, col, dir } = placement;
+    const size = this.gridSize();
     for (let i = 0; i < word.length; i++) {
       const rr = row + dir.r * i;
       const cc = col + dir.c * i;
-      if (rr < 0 || rr >= SIZE || cc < 0 || cc >= SIZE) return false;
+      if (rr < 0 || rr >= size || cc < 0 || cc >= size) return false;
       const current = board[rr][cc];
       if (current && current !== word[i]) return false;
     }

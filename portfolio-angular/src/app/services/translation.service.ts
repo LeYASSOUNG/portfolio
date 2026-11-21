@@ -1,5 +1,6 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { StorageService } from './storage.service';
 
 export type Language = 'fr' | 'en';
 
@@ -13,23 +14,23 @@ export type Language = 'fr' | 'en';
  */
 export class TranslationService {
   private http = inject(HttpClient);
+  private storage = inject(StorageService);
 
   // Signal réactif stockant la langue actuelle.
   currentLang = signal<Language>('fr');
 
-  // Dictionnaire des traductions chargé
-  private translations: any = {};
+  // Dictionnaire des traductions chargé par langue
+  private translations: Partial<Record<Language, Record<string, any>>> = {};
 
   // État de chargement pour éviter le scintillement (optionnel)
   public isLoaded = signal<boolean>(false);
 
   constructor() {
     // Initialisation : on récupère la langue sauvegardée par l'utilisateur
-    if (typeof window !== 'undefined') {
-      const savedLang = localStorage.getItem('lang') as Language;
-      if (savedLang) {
-        this.currentLang.set(savedLang);
-        // Applique la langue sauvegardée à l'attribut HTML dès le départ
+    const savedLang = this.storage.get('lang') as Language;
+    if (savedLang) {
+      this.currentLang.set(savedLang);
+      if (typeof document !== 'undefined') {
         document.documentElement.lang = savedLang;
       }
     }
@@ -46,9 +47,8 @@ export class TranslationService {
     if (this.currentLang() === lang) return;
 
     this.currentLang.set(lang);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('lang', lang);
-      // Informe les lecteurs d'écran de la langue du contenu
+    this.storage.set('lang', lang);
+    if (typeof document !== 'undefined') {
       document.documentElement.lang = lang;
     }
 
@@ -60,7 +60,7 @@ export class TranslationService {
    */
   private loadTranslations(lang: Language) {
     this.isLoaded.set(false);
-    this.http.get(`Assets/i18n/${lang}.json`).subscribe({
+    this.http.get<Record<string, any>>(`Assets/i18n/${lang}.json`).subscribe({
       next: (data) => {
         this.translations[lang] = data;
         this.isLoaded.set(true);
@@ -86,21 +86,22 @@ export class TranslationService {
     this.isLoaded();
 
     // Si la langue n'est pas encore chargée, retourner temporairement la clé
-    if (!this.translations[lang]) {
+    const dict = this.translations[lang];
+    if (!dict) {
       return key;
     }
 
     const keys = key.split('.');
-    let result = this.translations[lang];
+    let result: any = dict;
 
     for (const k of keys) {
-      if (result) {
+      if (result && typeof result === 'object' && k in result) {
         result = result[k];
       } else {
         return key;
       }
     }
 
-    return result || key;
+    return typeof result === 'string' ? result : key;
   }
 }

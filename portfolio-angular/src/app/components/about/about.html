@@ -14,7 +14,7 @@
         <div class="about-img-frame glass-card float-animation shimmer-wrapper">
           <div class="aurora-halo about-halo"></div>
           <div class="about-img-glow"></div>
-          <img src="Assets/images/portfo image-1.png" alt="" class="about-photo" role="presentation" />
+          <img src="Assets/images/portfo image-1.png" alt="Diarrassouba Yassoungo Youssouf - Développeur Full Stack" class="about-photo" />
         </div>
       </div>
 
@@ -60,8 +60,7 @@
             <i class="fas fa-eye" aria-hidden="true"></i> {{ translation.translate('about.view_cv') }}
           </a>
           <a
-            href="cv/CV_Diarrassouba.pdf"
-            download
+            [href]="apiUrl + '/cv/download'"
             class="btn-outline magnetic"
             aria-label="Télécharger mon CV en PDF"
           >
@@ -74,63 +73,123 @@
       </div>
     </div>
 
+    <!-- GITHUB INTEGRATION -->
+    @if (githubStats()) {
+      <div class="github-area">
+        <h3 class="section-subtitle text-center">
+          <i class="fab fa-github"></i> Open Source & GitHub
+        </h3>
+        
+        <div class="github-grid">
+          <!-- Profil Stats -->
+          <div class="github-profile-card glass-card magnetic">
+            <div class="github-avatar-wrapper">
+              <img [src]="githubStats().user.avatar_url" alt="GitHub Avatar" class="github-avatar">
+            </div>
+            <h4>LeYASSOUNG</h4>
+            <div class="github-stats-row">
+              <div class="gh-stat"><i class="fas fa-users"></i> {{ githubStats().user.followers }} Followers</div>
+              <div class="gh-stat"><i class="fas fa-book"></i> {{ githubStats().user.public_repos }} Repos</div>
+              <div class="gh-stat"><i class="fas fa-star"></i> {{ githubStats().total_stars }} Stars</div>
+            </div>
+            <a [href]="githubStats().user.html_url" target="_blank" class="btn-outline mt-15">Voir le profil GitHub</a>
+          </div>
+
+          <!-- Top Repos -->
+          <div class="github-repos-grid">
+            @for (repo of githubStats().top_repos; track repo.name) {
+              <div class="github-repo-card glass-card magnetic">
+                <h5><a [href]="repo.html_url" target="_blank"><i class="fas fa-bookmark"></i> {{ repo.name }}</a></h5>
+                <p>{{ repo.description || 'Aucune description fournie.' }}</p>
+                <div class="repo-meta">
+                  <span class="repo-lang"><i class="fas fa-circle"></i> {{ repo.language || 'N/A' }}</span>
+                  <span class="repo-stars"><i class="fas fa-star"></i> {{ repo.stars }}</span>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    }
+
     <!-- Zone de chronologie (Timeline) : Parcours académique et professionnel -->
     <div class="journey-area reveal">
       <h3 class="section-subtitle text-center">{{ translation.translate('about.journey') }}</h3>
       <!-- role="list" + role="listitem" permettent aux lecteurs d'écran de naviguer dans la timeline -->
       <div class="premium-timeline" role="list">
-        <div class="timeline-item reveal" role="listitem">
-          <div class="timeline-marker" aria-hidden="true">
-            <div class="marker-dot"></div>
-            <div class="marker-line"></div>
-          </div>
-          <div class="timeline-content glass-card magnetic">
-            <div class="timeline-header">
-              <h4>{{ translation.translate('about.tl1_title') }}</h4>
-              <span class="timeline-date">
-                <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                {{ translation.translate('about.tl1_date') }}
-              </span>
+        @for (exp of experiences(); track exp.id) {
+          <div class="timeline-item" role="listitem">
+            <div class="timeline-marker" aria-hidden="true">
+              <div class="marker-dot"></div>
+              <div class="marker-line"></div>
             </div>
-            <p class="timeline-org">{{ translation.translate('about.tl1_org') }}</p>
-            <p class="timeline-desc">{{ translation.translate('about.tl1_desc') }}</p>
+            <div class="timeline-content glass-card magnetic">
+              <div class="timeline-header">
+                <h4>{{ exp.title }}</h4>
+                <span class="timeline-date">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  {{ exp.start_date | date:'MMM yyyy' }} - {{ exp.end_date ? (exp.end_date | date:'MMM yyyy') : 'Présent' }}
+                </span>
+              </div>
+              <p class="timeline-org">{{ exp.company }}</p>
+              <p class="timeline-desc">{{ exp.description }}</p>
+            </div>
           </div>
-        </div>
+        } @empty {
+          <div class="timeline-item" role="listitem">
+            <div class="timeline-marker" aria-hidden="true">
+              <div class="marker-dot"></div>
+              <div class="marker-line"></div>
+            </div>
+            <div class="timeline-content glass-card magnetic">
+              <div class="timeline-header">
+                <h4>{{ translation.translate('about.tl1_title') }}</h4>
+                <span class="timeline-date">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  {{ translation.translate('about.tl1_date') }}
+                </span>
+              </div>
+              <p class="timeline-org">{{ translation.translate('about.tl1_org') }}</p>
+              <p class="timeline-desc">{{ translation.translate('about.tl1_desc') }}</p>
+            </div>
+          </div>
+          
+          <div class="timeline-item" role="listitem">
+            <div class="timeline-marker" aria-hidden="true">
+              <div class="marker-dot"></div>
+              <div class="marker-line"></div>
+            </div>
+            <div class="timeline-content glass-card magnetic">
+              <div class="timeline-header">
+                <h4>{{ translation.translate('about.tl2_title') }}</h4>
+                <span class="timeline-date">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  {{ translation.translate('about.tl2_date') }}
+                </span>
+              </div>
+              <p class="timeline-org">{{ translation.translate('about.tl2_org') }}</p>
+              <p class="timeline-desc">{{ translation.translate('about.tl2_desc') }}</p>
+            </div>
+          </div>
 
-        <div class="timeline-item reveal" role="listitem">
-          <div class="timeline-marker" aria-hidden="true">
-            <div class="marker-dot"></div>
-            <div class="marker-line"></div>
-          </div>
-          <div class="timeline-content glass-card magnetic">
-            <div class="timeline-header">
-              <h4>{{ translation.translate('about.tl2_title') }}</h4>
-              <span class="timeline-date">
-                <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                {{ translation.translate('about.tl2_date') }}
-              </span>
+          <div class="timeline-item" role="listitem">
+            <div class="timeline-marker" aria-hidden="true">
+              <div class="marker-dot"></div>
+              <div class="marker-line"></div>
             </div>
-            <p class="timeline-org">{{ translation.translate('about.tl2_org') }}</p>
-            <p class="timeline-desc">{{ translation.translate('about.tl2_desc') }}</p>
-          </div>
-        </div>
-
-        <div class="timeline-item reveal" role="listitem">
-          <div class="timeline-marker" aria-hidden="true">
-            <div class="marker-dot"></div>
-          </div>
-          <div class="timeline-content glass-card magnetic">
-            <div class="timeline-header">
-              <h4>{{ translation.translate('about.tl3_title') }}</h4>
-              <span class="timeline-date">
-                <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                {{ translation.translate('about.tl3_date') }}
-              </span>
+            <div class="timeline-content glass-card magnetic">
+              <div class="timeline-header">
+                <h4>{{ translation.translate('about.tl3_title') }}</h4>
+                <span class="timeline-date">
+                  <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                  {{ translation.translate('about.tl3_date') }}
+                </span>
+              </div>
+              <p class="timeline-org">{{ translation.translate('about.tl3_org') }}</p>
+              <p class="timeline-desc">{{ translation.translate('about.tl3_desc') }}</p>
             </div>
-            <p class="timeline-org">{{ translation.translate('about.tl3_org') }}</p>
-            <p class="timeline-desc">{{ translation.translate('about.tl3_desc') }}</p>
           </div>
-        </div>
+        }
       </div>
     </div>
   </div>

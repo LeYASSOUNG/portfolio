@@ -349,7 +349,11 @@ html:not(.dark) .cv-sidebar {
   background: var(--grad-aurora);
   border-radius: 5px;
   box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
-  transition: width 1s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cv-skill-fill.zero-width {
+  width: 0;
 }
 
 /* ── Languages ────────────────────────────────────────────────── */
@@ -388,6 +392,95 @@ html:not(.dark) .cv-sidebar {
   background: rgba(245, 158, 11, 0.12);
   color: #f59e0b;
   border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.cv-badge-featured {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+/* ─────────────────────────────────────────────────────────
+ * 9. Impression / Export PDF (A4)
+ * ───────────────────────────────────────────────────────── */
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .cv-page-wrapper {
+    padding: 0;
+    min-height: 0;
+  }
+
+  .cv-container {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    page-break-inside: avoid;
+  }
+
+  /* Rendre le texte lisible sur papier */
+  .cv-name { color: #000; }
+  .cv-role { color: #333; }
+  .cv-sidebar-heading { color: #000; }
+  .cv-sidebar {
+    background: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+    color: #1e293b;
+    width: 300px;
+    padding: 2rem 1.5rem;
+  }
+  
+  .cv-sidebar p, .cv-lang-name, .cv-skill-name {
+    color: #334155;
+  }
+
+  .cv-main-content {
+    background: #fff;
+    padding: 2rem 2.5rem;
+    color: #0f172a;
+  }
+
+  .cv-section-icon {
+    background: #f1f5f9;
+    color: #0f172a;
+  }
+
+  h2, h3, h4, strong { color: #000 !important; }
+  p { color: #333 !important; }
+
+  .cv-timeline-desc, .cv-exp-list li {
+    color: #475569 !important;
+  }
+
+  .cv-timeline-marker { background: #000; }
+  .cv-timeline-item { border-left-color: #cbd5e1; }
+  
+  .cv-skill-bar { background: #e2e8f0; }
+  .cv-skill-fill { background: #000 !important; }
+
+  .no-print {
+    display: none !important;
+  }
+}
+
+.cv-actions-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 /* ── Hobbies ──────────────────────────────────────────────────── */
@@ -649,7 +742,12 @@ html:not(.dark) .cv-sidebar {
 .cv-timeline-desc {
   font-size: 0.85rem;
   color: var(--text-muted);
-  line-height: 1.7;
+  line-height: 1.6;
+}
+
+.cv-timeline-desc.pre-line {
+  white-space: pre-line;
+  margin-top: 10px;
 }
 
 /* ── Experience List ──────────────────────────────────────────── */

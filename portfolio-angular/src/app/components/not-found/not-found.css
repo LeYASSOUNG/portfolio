@@ -1,0 +1,119 @@
+/* ============================================================
+   404 NOT FOUND — Premium Dark Page
+   ============================================================ */
+
+.not-found-main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.not-found-container {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Glowing 404 number */
+.not-found-code {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  line-height: 1;
+  margin-bottom: 2rem;
+  user-select: none;
+}
+
+.not-found-code span {
+  font-size: clamp(6rem, 18vw, 14rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 40px currentColor;
+  animation: float 3s ease-in-out infinite;
+}
+
+.code-4 {
+  color: var(--accent-purple, #8b5cf6);
+  text-shadow: 0 0 40px rgba(139, 92, 246, 0.8), 0 0 80px rgba(139, 92, 246, 0.4);
+  animation-delay: 0s;
+}
+
+.code-0 {
+  color: var(--accent-blue, #38bdf8);
+  text-shadow: 0 0 40px rgba(56, 189, 248, 0.8), 0 0 80px rgba(56, 189, 248, 0.4);
+  animation-delay: 0.3s;
+}
+
+/* Decorative orb */
+.not-found-orb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle at center,
+    rgba(139, 92, 246, 0.12) 0%,
+    rgba(56, 189, 248, 0.08) 40%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  animation: pulse-orb 4s ease-in-out infinite;
+}
+
+.not-found-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.not-found-subtitle {
+  color: var(--text-muted, #94a3b8);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+.not-found-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.not-found-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse-orb {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+}
+
+@media (max-width: 480px) {
+  .not-found-actions { flex-direction: column; align-items: center; }
+  .not-found-btn { width: 100%; justify-content: center; }
+}

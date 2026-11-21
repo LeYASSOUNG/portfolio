@@ -1,11 +1,14 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslationService } from '../../services/translation.service';
+import { ApiService } from '../../services/api.service';
+import { environment } from '../../../environments/environment';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-cv',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, DatePipe],
   templateUrl: './cv.html',
   styleUrl: './cv.css',
 })
@@ -15,7 +18,15 @@ import { TranslationService } from '../../services/translation.service';
  * et animations reveal au scroll.
  */
 export class Cv implements OnInit, AfterViewInit {
-  constructor(public translation: TranslationService) {}
+  skills = signal<any[]>([]);
+  experiences = signal<any[]>([]);
+  settings = signal<any>({});
+  apiUrl = environment.apiUrl;
+
+  constructor(
+    public translation: TranslationService,
+    private apiService: ApiService
+  ) {}
 
   /**
    * À l'initialisation, on remonte en haut de page.
@@ -25,6 +36,19 @@ export class Cv implements OnInit, AfterViewInit {
     if (typeof window !== 'undefined') {
       window.scrollTo(0, 0);
     }
+
+    this.apiService.getSkills().subscribe(data => {
+      this.skills.set(data);
+      setTimeout(() => this.initSkillObserver(), 100);
+    });
+
+    this.apiService.getExperiences().subscribe(data => {
+      this.experiences.set(data);
+    });
+    
+    this.apiService.getSettings().subscribe(data => {
+      this.settings.set(data);
+    });
   }
 
   /**
@@ -48,8 +72,10 @@ export class Cv implements OnInit, AfterViewInit {
 
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-    // --- ANIMATIONS DES BARRES DE COMPÉTENCES ---
-    // Les barres s'animent de 0 à X% uniquement lorsqu'elles entrent dans l'écran
+  }
+
+  private initSkillObserver() {
+    if (typeof window === 'undefined') return;
     const skillObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -57,19 +83,14 @@ export class Cv implements OnInit, AfterViewInit {
             const fills = entry.target.querySelectorAll('.cv-skill-fill');
             fills.forEach((fill: Element) => {
               const el = fill as HTMLElement;
-              // On récupère la largeur cible via l'attribut data-width (ex: "90%")
               const targetWidth = el.dataset['width'] || '0%';
-
-              // On force le passage par 0 pour déclencher la transition CSS
               el.style.width = '0';
               requestAnimationFrame(() => {
-                // Petit délai pour assurer que le navigateur détecte le changement de style
                 setTimeout(() => {
                   el.style.width = targetWidth;
                 }, 100);
               });
             });
-            // Une fois animé, on arrête d'observer pour optimiser les performances
             skillObserver.unobserve(entry.target);
           }
         });

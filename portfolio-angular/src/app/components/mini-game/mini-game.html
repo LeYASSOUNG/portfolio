@@ -17,6 +17,11 @@
             {{ translation.translate('game.progress') }}:
             <strong>{{ foundCount() }}/{{ totalCount() }}</strong>
           </span>
+          <div class="difficulty-group">
+            <button class="difficulty-btn" [class.active]="difficulty() === 'easy'" (click)="setDifficulty('easy')">Facile</button>
+            <button class="difficulty-btn" [class.active]="difficulty() === 'medium'" (click)="setDifficulty('medium')">Moyen</button>
+            <button class="difficulty-btn" [class.active]="difficulty() === 'hard'" (click)="setDifficulty('hard')">Difficile</button>
+          </div>
         </div>
 
         <div class="mini-game-actions">
@@ -39,7 +44,7 @@
       <!-- Plateau de jeu : Grille générée dynamiquement -->
       <div class="mini-game-board" role="grid" [attr.aria-label]="translation.translate('game.title')">
         @for (row of board(); track rowTrackBy($index); let r = $index) {
-          <div class="board-row" role="row">
+          <div class="board-row" role="row" [style.grid-template-columns]="'repeat(' + gridSize() + ', minmax(0, 1fr))'">
             @for (cell of row; track cellTrackBy($index); let c = $index) {
               <button
                 type="button"
@@ -64,6 +69,32 @@
           <span class="word-pill" [class.found]="item.found">{{ item.word }}</span>
         }
       </div>
+
+      <!-- Leaderboard & Sauvegarde -->
+      @if (isCompleted() && !gameSaved()) {
+        <div class="save-score-form">
+          <h4 class="save-score-title">Termine en {{ timeTaken() }} secondes !</h4>
+          <div class="save-score-row">
+            <input type="text" [value]="playerName()" (input)="updatePlayerName($event)" placeholder="Votre Pseudo" class="glass-input save-score-input" title="Votre pseudo pour le classement">
+            <button (click)="saveScore()" class="btn-primary magnetic">Enregistrer le score</button>
+          </div>
+        </div>
+      }
+
+      @if (leaderboard().length > 0) {
+        <div class="leaderboard-section">
+          <h3 class="text-center gradient-text leaderboard-title">Top 10 - Meilleurs Temps</h3>
+          <div class="leaderboard-list" role="list" aria-label="Classement des meilleurs scores">
+            @for (score of leaderboard(); track score.id; let i = $index) {
+              <div class="leaderboard-item" role="listitem">
+                <span class="leaderboard-rank">#{{ i + 1 }}</span>
+                <span class="leaderboard-name">{{ score.player_name }}</span>
+                <span class="leaderboard-time">{{ score.time_taken }} sec</span>
+              </div>
+            }
+          </div>
+        </div>
+      }
     </div>
   </div>
 </section>

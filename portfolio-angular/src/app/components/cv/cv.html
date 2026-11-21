@@ -5,8 +5,8 @@
     <i class="fas fa-arrow-left"></i>
     <span>{{ translation.translate('cv.back') }}</span>
   </a>
-  <a href="cv/CV_Diarrassouba.pdf" download class="cv-download-btn">
-    <i class="fas fa-file-pdf"></i>
+  <a [href]="apiUrl + '/cv/download'" class="cv-download-btn">
+    <i class="fas fa-file-download" aria-hidden="true"></i>
     <span>{{ translation.translate('cv.download') }}</span>
   </a>
 </div>
@@ -44,6 +44,16 @@
       <!-- Divider -->
       <div class="cv-sidebar-divider"></div>
 
+      <!-- Barre d'actions -->
+      <div class="cv-actions no-print cv-actions-buttons">
+        <a routerLink="/" class="cv-btn cv-btn-primary">
+          <i class="fas fa-arrow-left" aria-hidden="true"></i> {{ translation.translate('cv.back') }}
+        </a>
+        <a [href]="apiUrl + '/cv/download'" class="cv-btn cv-btn-secondary">
+          <i class="fas fa-download" aria-hidden="true"></i> {{ translation.translate('cv.download') }}
+        </a>
+      </div>
+
       <!-- Contact Info -->
       <div class="cv-sidebar-block">
         <h3 class="cv-sidebar-heading">
@@ -73,60 +83,17 @@
       <div class="cv-sidebar-block">
         <h3 class="cv-sidebar-heading"><i class="fas fa-code"></i> {{ translation.translate('cv.skills') }}</h3>
         <div class="cv-skills-list">
-          <div class="cv-skill-row">
-            <div class="cv-skill-info">
-              <span class="cv-skill-name">HTML / CSS</span>
-              <span class="cv-skill-pct">90%</span>
+          @for (skill of skills(); track skill.id) {
+            <div class="cv-skill-row">
+              <div class="cv-skill-info">
+                <span class="cv-skill-name">{{ skill.name }}</span>
+                <span class="cv-skill-pct">{{ skill.level }}%</span>
+              </div>
+              <div class="cv-skill-bar">
+                <div class="cv-skill-fill zero-width" [attr.data-width]="skill.level + '%'"></div>
+              </div>
             </div>
-            <div class="cv-skill-bar">
-              <div class="cv-skill-fill skill-w-90" data-width="90%"></div>
-            </div>
-          </div>
-          <div class="cv-skill-row">
-            <div class="cv-skill-info">
-              <span class="cv-skill-name">Angular / TypeScript</span>
-              <span class="cv-skill-pct">75%</span>
-            </div>
-            <div class="cv-skill-bar">
-              <div class="cv-skill-fill skill-w-75" data-width="75%"></div>
-            </div>
-          </div>
-          <div class="cv-skill-row">
-            <div class="cv-skill-info">
-              <span class="cv-skill-name">Java / PHP</span>
-              <span class="cv-skill-pct">65%</span>
-            </div>
-            <div class="cv-skill-bar">
-              <div class="cv-skill-fill skill-w-65" data-width="65%"></div>
-            </div>
-          </div>
-          <div class="cv-skill-row">
-            <div class="cv-skill-info">
-              <span class="cv-skill-name">MySQL</span>
-              <span class="cv-skill-pct">70%</span>
-            </div>
-            <div class="cv-skill-bar">
-              <div class="cv-skill-fill skill-w-70" data-width="70%"></div>
-            </div>
-          </div>
-          <div class="cv-skill-row">
-            <div class="cv-skill-info">
-              <span class="cv-skill-name">UI/UX &amp; Figma</span>
-              <span class="cv-skill-pct">80%</span>
-            </div>
-            <div class="cv-skill-bar">
-              <div class="cv-skill-fill skill-w-80" data-width="80%"></div>
-            </div>
-          </div>
-          <div class="cv-skill-row">
-            <div class="cv-skill-info">
-              <span class="cv-skill-name">Modélisation UML</span>
-              <span class="cv-skill-pct">70%</span>
-            </div>
-            <div class="cv-skill-bar">
-              <div class="cv-skill-fill skill-w-70" data-width="70%"></div>
-            </div>
-          </div>
+          }
         </div>
       </div>
 
@@ -262,57 +229,21 @@
           <h2>{{ translation.translate('cv.exp_title') }}</h2>
         </div>
         <div class="cv-timeline">
-          <div class="cv-timeline-item">
-            <div class="cv-timeline-marker"></div>
-            <div class="cv-timeline-body">
-              <div class="cv-timeline-header">
-                <strong>{{ translation.translate('cv.p1_title') }}</strong>
-                <span class="cv-badge-date cv-badge-featured">Featured</span>
-              </div>
-              <p class="cv-timeline-org"><i class="fas fa-code"></i> {{ translation.translate('cv.p_academic') }}</p>
-              <ul class="cv-exp-list">
-                <li><i class="fas fa-check-circle"></i> {{ translation.translate('cv.p1_item1') }}</li>
-                <li><i class="fas fa-check-circle"></i> {{ translation.translate('cv.p1_item2') }}</li>
-                <li><i class="fas fa-check-circle"></i> {{ translation.translate('cv.p1_item3') }}</li>
-                <li><i class="fas fa-check-circle"></i> {{ translation.translate('cv.p1_item4') }}</li>
-              </ul>
-              <div class="cv-tech-tags">
-                <span>Angular</span><span>Spring Boot</span><span>MySQL</span><span>REST API</span>
+          @for (exp of experiences(); track exp.id) {
+            <div class="cv-timeline-item">
+              <div class="cv-timeline-marker"></div>
+              <div class="cv-timeline-body">
+                <div class="cv-timeline-header">
+                  <strong>{{ exp.title }}</strong>
+                  <span class="cv-badge-date">
+                    {{ exp.start_date | date:'yyyy' }} — {{ exp.end_date ? (exp.end_date | date:'yyyy') : translation.translate('nav.present') }}
+                  </span>
+                </div>
+                <p class="cv-timeline-org"><i class="fas fa-briefcase"></i> {{ exp.company }}</p>
+                <p class="cv-timeline-desc pre-line">{{ exp.description }}</p>
               </div>
             </div>
-          </div>
-          <div class="cv-timeline-item">
-            <div class="cv-timeline-marker"></div>
-            <div class="cv-timeline-body">
-              <div class="cv-timeline-header">
-                <strong>{{ translation.translate('cv.p2_title') }}</strong>
-                <span class="cv-badge-date">2024</span>
-              </div>
-              <p class="cv-timeline-org"><i class="fas fa-palette"></i> {{ translation.translate('cv.p_personal') }}</p>
-              <ul class="cv-exp-list">
-                <li><i class="fas fa-check-circle"></i> {{ translation.translate('cv.p2_item1') }}</li>
-                <li><i class="fas fa-check-circle"></i> {{ translation.translate('cv.p2_item2') }}</li>
-                <li><i class="fas fa-check-circle"></i> {{ translation.translate('cv.p2_item3') }}</li>
-              </ul>
-              <div class="cv-tech-tags"><span>Angular</span><span>CSS Architecture</span><span>TypeScript</span></div>
-            </div>
-          </div>
-          <div class="cv-timeline-item">
-            <div class="cv-timeline-marker"></div>
-            <div class="cv-timeline-body">
-              <div class="cv-timeline-header">
-                <strong>{{ translation.translate('cv.p3_title') }}</strong>
-                <span class="cv-badge-date">2023 — 2024</span>
-              </div>
-              <p class="cv-timeline-org"><i class="fas fa-university"></i> Université Polytechnique de Bingerville</p>
-              <ul class="cv-exp-list">
-                <li><i class="fas fa-check-circle"></i> {{ translation.translate('cv.p3_item1') }}</li>
-                <li><i class="fas fa-check-circle"></i> {{ translation.translate('cv.p3_item2') }}</li>
-                <li><i class="fas fa-check-circle"></i> {{ translation.translate('cv.p3_item3') }}</li>
-              </ul>
-              <div class="cv-tech-tags"><span>PHP</span><span>MySQL</span><span>HTML/CSS</span><span>UML</span></div>
-            </div>
-          </div>
+          }
         </div>
       </section>
     </main>

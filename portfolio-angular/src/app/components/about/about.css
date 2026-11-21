@@ -4,3 +4,252 @@
   top: -10%;
   left: -10%;
 }
+
+/* ── GitHub Section ── */
+.github-area {
+  margin: 4rem 0;
+}
+
+.github-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.github-profile-card {
+  text-align: center;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.github-avatar-wrapper {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid rgba(99, 102, 241, 0.5);
+  margin-bottom: 1rem;
+}
+
+.github-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.github-stats-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.gh-stat {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.gh-stat i {
+  color: var(--accent-purple);
+}
+
+.github-repos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.github-repo-card {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.github-repo-card h5 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.github-repo-card h5 a {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.github-repo-card h5 a:hover {
+  color: var(--accent-purple);
+}
+
+.github-repo-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+.repo-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-subtle);
+}
+
+.repo-lang i {
+  color: #10b981;
+  font-size: 0.6rem;
+}
+
+.repo-stars i {
+  color: #fbbf24;
+}
+
+@media (max-width: 900px) {
+  .github-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .github-repos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Premium Timeline ── */
+.premium-timeline {
+  position: relative;
+  padding: 2rem 0;
+  margin-top: 2rem;
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 3.5rem;
+  margin-bottom: 3rem;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Vertical line */
+.marker-line {
+  position: absolute;
+  top: 30px;
+  bottom: -3rem; /* Connects to next item */
+  left: 9px;
+  width: 2px;
+  background: var(--border);
+  z-index: 0;
+  transition: background 0.5s ease;
+}
+
+.timeline-item:last-child .marker-line {
+  display: none;
+}
+
+/* The dot */
+.marker-dot {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--bg-section);
+  border: 3px solid var(--border);
+  z-index: 1;
+  transition: all 0.5s ease;
+}
+
+/* Interactive state when scrolled into view (.visible from app.ts .reveal) */
+.timeline-item.visible .marker-dot {
+  border-color: var(--accent-cyan);
+  background: var(--accent-blue);
+  box-shadow: 0 0 15px var(--accent-cyan), inset 0 0 5px rgba(255, 255, 255, 0.5);
+  transform: scale(1.2);
+}
+
+.timeline-item.visible .marker-line {
+  background: linear-gradient(to bottom, var(--accent-cyan), var(--border));
+}
+
+.timeline-content {
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  transition: all 0.4s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--grad-main);
+  opacity: 0.5;
+  transition: opacity 0.4s var(--ease);
+}
+
+.timeline-item.visible .timeline-content::before {
+  opacity: 1;
+}
+
+.timeline-item.visible .timeline-content:hover {
+  transform: translateY(-5px);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-header h4 {
+  font-size: 1.25rem;
+  color: var(--text);
+  margin: 0;
+}
+
+.timeline-date {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  background: rgba(6, 182, 212, 0.1);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+.timeline-org {
+  font-weight: bold;
+  color: var(--text);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.timeline-desc {
+  color: var(--text-muted);
+  line-height: 1.6;
+}

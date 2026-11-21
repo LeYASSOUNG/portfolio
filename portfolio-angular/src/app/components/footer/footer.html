@@ -7,38 +7,38 @@
         <p class="brand-subtext">{{ translation.translate('footer.brand_desc') }}</p>
         <div class="footer-socials" aria-label="Réseaux sociaux">
           <a
-            href="https://github.com/LeYASSOUNG"
+            [href]="settings().social_github || 'https://github.com/LeYASSOUNG'"
             class="social-icon magnetic"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Profil GitHub de Diarrassouba Yassoungo (nouvelle fenêtre)"
+            aria-label="Profil GitHub (nouvelle fenêtre)"
           >
             <i class="fab fa-github" aria-hidden="true"></i>
           </a>
           <a
-            href="https://www.linkedin.com/in/yassoungo-youssouf-diarrassouba-0b7037306"
+            [href]="settings().social_linkedin || 'https://www.linkedin.com/in/yassoungo-youssouf-diarrassouba-0b7037306'"
             class="social-icon magnetic"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Profil LinkedIn de Diarrassouba Yassoungo (nouvelle fenêtre)"
+            aria-label="Profil LinkedIn (nouvelle fenêtre)"
           >
             <i class="fab fa-linkedin-in" aria-hidden="true"></i>
           </a>
           <a
-            href="https://x.com/Yassoungo01"
+            [href]="settings().social_twitter || 'https://x.com/Yassoungo01'"
             class="social-icon magnetic"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Profil X/Twitter de Diarrassouba Yassoungo (nouvelle fenêtre)"
+            aria-label="Profil X/Twitter (nouvelle fenêtre)"
           >
             <i class="fab fa-twitter" aria-hidden="true"></i>
           </a>
           <a
-            href="https://www.instagram.com/diarr_assoubayassoungo"
+            [href]="settings().social_instagram || 'https://www.instagram.com/diarr_assoubayassoungo'"
             class="social-icon magnetic"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Profil Instagram de Diarrassouba Yassoungo (nouvelle fenêtre)"
+            aria-label="Profil Instagram (nouvelle fenêtre)"
           >
             <i class="fab fa-instagram" aria-hidden="true"></i>
           </a>
@@ -131,7 +131,9 @@
   (click)="scrollToTop()"
   title="{{ translation.translate('footer.scroll_top') }}"
   aria-label="{{ translation.translate('footer.scroll_top') }}"
-  [attr.aria-hidden]="!showBackToTop"
+  [attr.aria-hidden]="!showBackToTop ? 'true' : null"
+  [tabIndex]="showBackToTop ? 0 : -1"
+  [attr.inert]="!showBackToTop ? '' : null"
 >
   <i class="fas fa-arrow-up" aria-hidden="true"></i>
 </button>

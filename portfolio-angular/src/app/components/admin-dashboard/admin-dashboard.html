@@ -1,0 +1,1342 @@
+<div class="dashboard-wrapper">
+
+  <!-- ── SIDEBAR ──────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <!-- Logo -->
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon"><i class="fas fa-code" aria-hidden="true"></i></div>
+      <div>
+        <div class="sidebar-logo-text">Portfolio</div>
+        <div class="sidebar-logo-sub">Administration</div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <span class="sidebar-section-label">Gestion</span>
+
+    <button
+      class="sidebar-nav-item"
+      [class.active]="activeTab() === 'dashboard'"
+      (click)="setTab('dashboard')"
+      title="Tableau de bord"
+    >
+      <i class="fas fa-chart-line" aria-hidden="true"></i>
+      Dashboard
+    </button>
+
+    <button
+      class="sidebar-nav-item"
+      [class.active]="activeTab() === 'messages'"
+      (click)="setTab('messages')"
+      title="Voir les messages"
+    >
+      <i class="fas fa-envelope" aria-hidden="true"></i>
+      Messages
+      @if (unreadMessagesCount() > 0) {
+        <span class="msg-count-badge">
+          {{ unreadMessagesCount() }}
+        </span>
+      }
+    </button>
+
+    <button
+      class="sidebar-nav-item"
+      [class.active]="activeTab() === 'projects'"
+      (click)="setTab('projects')"
+      title="Gérer les projets"
+    >
+      <i class="fas fa-layer-group" aria-hidden="true"></i>
+      Projets
+    </button>
+
+    <button
+      class="sidebar-nav-item"
+      [class.active]="activeTab() === 'skills'"
+      (click)="setTab('skills')"
+      title="Gérer les compétences"
+    >
+      <i class="fas fa-tools" aria-hidden="true"></i>
+      Compétences
+    </button>
+
+    <button
+      class="sidebar-nav-item"
+      [class.active]="activeTab() === 'experiences'"
+      (click)="setTab('experiences')"
+      title="Gérer les expériences"
+    >
+      <i class="fas fa-briefcase" aria-hidden="true"></i>
+      Expériences
+    </button>
+
+    <button
+      class="sidebar-nav-item"
+      [class.active]="activeTab() === 'blog'"
+      (click)="setTab('blog')"
+      title="Gérer les articles de blog"
+    >
+      <i class="fas fa-newspaper" aria-hidden="true"></i>
+      Blog
+      @if (draftArticlesCount() > 0) {
+        <span class="msg-count-badge badge-warning">
+          {{ draftArticlesCount() }}
+        </span>
+      }
+    </button>
+
+    <button
+      class="sidebar-nav-item"
+      [class.active]="activeTab() === 'settings'"
+      (click)="setTab('settings')"
+      title="Paramètres Généraux"
+    >
+      <i class="fas fa-cog" aria-hidden="true"></i>
+      Paramètres
+    </button>
+
+    <button
+      class="sidebar-nav-item"
+      [class.active]="activeTab() === 'company'"
+      (click)="setTab('company')"
+      title="Gérer l'Entreprise"
+    >
+      <i class="fas fa-building" aria-hidden="true"></i>
+      Entreprise
+    </button>
+
+    <button
+      class="sidebar-nav-item"
+      [class.active]="activeTab() === 'minigame'"
+      (click)="setTab('minigame')"
+      title="Scores Mini-Jeu"
+    >
+      <i class="fas fa-gamepad" aria-hidden="true"></i>
+      Mini-Jeu
+    </button>
+    
+    <button class="sidebar-nav-item" [class.active]="activeTab() === 'analytics'" (click)="setTab('analytics')" title="Trafic & Stats">
+      <i class="fas fa-chart-line" aria-hidden="true"></i> Trafic
+    </button>
+
+    <button class="sidebar-nav-item" [class.active]="activeTab() === 'newsletter'" (click)="setTab('newsletter')" title="Newsletter">
+      <i class="fas fa-envelope-open-text" aria-hidden="true"></i> Newsletter
+    </button>
+
+    <button class="sidebar-nav-item" [class.active]="activeTab() === 'testimonials'" (click)="setTab('testimonials')" title="Témoignages">
+      <i class="fas fa-star" aria-hidden="true"></i> Témoignages
+    </button>
+
+    <button class="sidebar-nav-item" [class.active]="activeTab() === 'comments'" (click)="setTab('comments')" title="Commentaires Blog">
+      <i class="fas fa-comments" aria-hidden="true"></i> Commentaires
+      @if (pendingCommentsCount() > 0) {
+        <span class="msg-count-badge badge-danger">
+          {{ pendingCommentsCount() }}
+        </span>
+      }
+    </button>
+
+    <button
+      class="sidebar-nav-item"
+      [class.active]="activeTab() === 'seo'"
+      (click)="setTab('seo')"
+      title="Paramètres SEO"
+    >
+      <i class="fas fa-search-plus" aria-hidden="true"></i>
+      SEO
+    </button>
+
+    <button
+      class="sidebar-nav-item"
+      [class.active]="activeTab() === 'security'"
+      (click)="setTab('security')"
+      title="Sécurité & Authentification"
+    >
+      <i class="fas fa-shield-alt" aria-hidden="true"></i>
+      Sécurité
+    </button>
+
+    <button
+      class="sidebar-nav-item"
+      [class.active]="activeTab() === 'media'"
+      (click)="setTab('media')"
+      title="Gestionnaire de Médias"
+    >
+      <i class="fas fa-photo-video" aria-hidden="true"></i>
+      Médias
+    </button>
+
+    <!-- Footer -->
+    <div class="sidebar-footer">
+      <button class="btn-logout" (click)="logout()" title="Se déconnecter">
+        <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+        Déconnexion
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ──────────────────────────────────────────────── -->
+  <main class="dashboard-main">
+
+    <!-- Top bar -->
+    <div class="dashboard-topbar">
+      <div>
+        <div class="topbar-title">
+          @if (activeTab() === 'dashboard') { Tableau de bord }
+          @else if (activeTab() === 'messages') { Boîte de réception }
+          @else if (activeTab() === 'projects') { Projets }
+          @else if (activeTab() === 'skills') { Compétences }
+          @else if (activeTab() === 'experiences') { Expériences }
+          @else if (activeTab() === 'blog') { Articles de Blog }
+          @else if (activeTab() === 'settings') { Paramètres }
+          @else if (activeTab() === 'company') { Entreprise }
+          @else if (activeTab() === 'minigame') { Mini-Jeu }
+          @else if (activeTab() === 'analytics') { Trafic & Stats }
+          @else if (activeTab() === 'newsletter') { Newsletter }
+          @else if (activeTab() === 'testimonials') { Témoignages }
+          @else if (activeTab() === 'comments') { Commentaires }
+          @else if (activeTab() === 'media') { Gestionnaire de Médias }
+          @else { Sécurité }
+        </div>
+        <div class="topbar-subtitle">Gestion de votre portfolio</div>
+      </div>
+      <div class="topbar-actions">
+        <div class="topbar-badge">
+          <i class="fas fa-circle status-dot" aria-hidden="true"></i>
+          Serveur actif
+        </div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="dashboard-body">
+
+      <!-- ── DASHBOARD TAB ── -->
+      @if (activeTab() === 'dashboard') {
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-label">Visites Totales</span>
+              <span class="stat-icon blue"><i class="fas fa-eye" aria-hidden="true"></i></span>
+            </div>
+            <div class="stat-value">{{ analyticsData()?.total_views || 0 }}</div>
+            <div class="stat-change"><i class="fas fa-chart-line" aria-hidden="true"></i> Vues sur tout le site</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-label">Messages</span>
+              <span class="stat-icon purple"><i class="fas fa-envelope" aria-hidden="true"></i></span>
+            </div>
+            <div class="stat-value">{{ dashboardStats().messages }}</div>
+            <div class="stat-change"><i class="fas fa-inbox" aria-hidden="true"></i> {{ dashboardStats().messages }} reçus</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-label">Projets</span>
+              <span class="stat-icon cyan"><i class="fas fa-layer-group" aria-hidden="true"></i></span>
+            </div>
+            <div class="stat-value">{{ dashboardStats().projects }}</div>
+            <div class="stat-change"><i class="fas fa-check-circle" aria-hidden="true"></i> Projets publiés</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-label">Articles Blog</span>
+              <span class="stat-icon amber"><i class="fas fa-newspaper" aria-hidden="true"></i></span>
+            </div>
+            <div class="stat-value">{{ dashboardStats().publishedArticles }}</div>
+            <div class="stat-change"><i class="fas fa-edit" aria-hidden="true"></i> + {{ dashboardStats().draftArticles }} brouillons</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-label">Abonnés Newsletter</span>
+              <span class="stat-icon emerald"><i class="fas fa-users" aria-hidden="true"></i></span>
+            </div>
+            <div class="stat-value">{{ dashboardStats().subscribers }}</div>
+            <div class="stat-change"><i class="fas fa-mail-bulk" aria-hidden="true"></i> Inscrits</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-label">Témoignages</span>
+              <span class="stat-icon amber"><i class="fas fa-star" aria-hidden="true"></i></span>
+            </div>
+            <div class="stat-value">{{ dashboardStats().testimonials }}</div>
+            <div class="stat-change"><i class="fas fa-comment-dots" aria-hidden="true"></i> Avis clients</div>
+          </div>
+        </div>
+      }
+
+      <!-- ── MESSAGES TAB ── -->
+      @if (activeTab() === 'messages') {
+        <div class="panel">
+          <div class="panel-header panel-header--flex">
+            <h3 class="panel-title">
+              <i class="fas fa-inbox" aria-hidden="true"></i>
+              Messages de contact
+            </h3>
+            <div class="admin-search-container">
+              <i class="fas fa-search" aria-hidden="true"></i>
+              <input type="text" [ngModel]="searchQuery()" (ngModelChange)="searchQuery.set($event)" placeholder="Rechercher un message..." class="form-input admin-search-input">
+            </div>
+          </div>
+          <div class="panel-body panel-body--flush">
+            @if (messages().length === 0) {
+              <div class="empty-state">
+                <i class="fas fa-inbox" aria-hidden="true"></i>
+                <p>Aucun message reçu pour le moment.</p>
+                <p class="empty-state-hint">Les messages envoyés via le formulaire de contact apparaîtront ici.</p>
+              </div>
+            } @else {
+              <table class="message-table" role="table" aria-label="Messages de contact">
+                <thead>
+                  <tr>
+                    <th scope="col">Expéditeur</th>
+                    <th scope="col">Sujet</th>
+                    <th scope="col">Aperçu</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (msg of paginatedMessages(); track msg.id) {
+                    <tr>
+                      <td>
+                        <div class="msg-sender-name">{{ msg.name }}</div>
+                        <div class="msg-sender-email">{{ msg.email }}</div>
+                      </td>
+                      <td>{{ msg.subject || 'Aucun sujet' }}</td>
+                      <td><div class="msg-preview">{{ msg.message }}</div></td>
+                      <td class="msg-date">{{ msg.created_at | date:'dd/MM/yy HH:mm' }}</td>
+                      <td>
+                        <button
+                          class="btn-secondary btn-action-sm"
+                          (click)="startReply(msg.id)"
+                          title="Répondre"
+                        >
+                          <i class="fas fa-reply" aria-hidden="true"></i>
+                        </button>
+                        <button
+                          class="btn-delete-sm"
+                          (click)="deleteMessage(msg.id)"
+                          title="Supprimer le message de {{ msg.name }}"
+                          [attr.aria-label]="'Supprimer le message de ' + msg.name"
+                        >
+                          <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    @if (replyingToMessageId === msg.id) {
+                      <tr class="tr-reply-active">
+                        <td colspan="5">
+                          <textarea [(ngModel)]="messageReplyText" class="form-input" rows="3" placeholder="Votre réponse..."></textarea>
+                          <div class="reply-actions">
+                            <button class="btn-add" (click)="sendReply(msg.id)"><i class="fas fa-paper-plane" aria-hidden="true"></i> Envoyer</button>
+                            <button class="btn-secondary ml-10" (click)="cancelReply()">Annuler</button>
+                          </div>
+                        </td>
+                      </tr>
+                    }
+                  }
+                </tbody>
+              </table>
+
+              <!-- Messages Pagination -->
+              @if (messagesTotalPages() > 1) {
+                <div class="pagination-controls">
+                  <button class="btn-secondary" [disabled]="messagesPage() === 1" (click)="messagesPage.set(messagesPage() - 1)">Précédent</button>
+                  <span class="pagination-info">Page {{ messagesPage() }} sur {{ messagesTotalPages() }}</span>
+                  <button class="btn-secondary" [disabled]="messagesPage() === messagesTotalPages()" (click)="messagesPage.set(messagesPage() + 1)">Suivant</button>
+                </div>
+              }
+            }
+          </div>
+        </div>
+      }
+
+      <!-- ── PROJECTS TAB ── -->
+      @if (activeTab() === 'projects') {
+
+        <!-- Formulaire d'ajout -->
+        <div class="project-form-card">
+          <h4 class="project-form-title">
+            <i class="fas fa-edit" aria-hidden="true" *ngIf="editingProjectId"></i>
+            <i class="fas fa-plus-circle" aria-hidden="true" *ngIf="!editingProjectId"></i>
+            @if (editingProjectId) { Modifier le projet } @else { Ajouter un projet }
+          </h4>
+          <div class="project-form-grid">
+            <input
+              type="text"
+              [(ngModel)]="newProject.title"
+              placeholder="Titre du projet"
+              class="form-input"
+              title="Titre du projet"
+            >
+            <input
+              type="url"
+              [(ngModel)]="newProject.github"
+              placeholder="URL GitHub (optionnel)"
+              class="form-input"
+              title="URL GitHub"
+            >
+            <input
+              type="url"
+              [(ngModel)]="newProject.link"
+              placeholder="Lien de démonstration (optionnel)"
+              class="form-input"
+              title="Lien de démonstration"
+            >
+            <div class="form-input-group span-2">
+              <input
+                type="text"
+                [(ngModel)]="newProject.image"
+                placeholder="URL de l'image (ex: /Assets/images/mon-image.png)"
+                class="form-input"
+                title="URL de l'image"
+              >
+              <button class="btn-secondary" (click)="openMediaSelector('project')">
+                <i class="fas fa-folder-open"></i> Parcourir
+              </button>
+            </div>
+            <textarea
+              [(ngModel)]="newProject.description"
+              placeholder="Description du projet..."
+              class="form-input span-2"
+              rows="3"
+              title="Description du projet"
+            ></textarea>
+          </div>
+          @if (editingProjectId) {
+            <button (click)="updateProject()" class="btn-add">
+              <i class="fas fa-save" aria-hidden="true"></i> Mettre à jour
+            </button>
+            <button (click)="cancelEdit()" class="btn-secondary ml-10">
+              Annuler
+            </button>
+          } @else {
+            <button (click)="createProject()" class="btn-add">
+              <i class="fas fa-plus" aria-hidden="true"></i> Créer le projet
+            </button>
+          }
+        </div>
+
+        <!-- Liste des projets -->
+        <div class="admin-search-wrapper">
+          <i class="fas fa-search admin-search-icon" aria-hidden="true"></i>
+          <input type="text" [ngModel]="searchQuery()" (ngModelChange)="searchQuery.set($event)" placeholder="Rechercher un projet..." class="form-input admin-search-input-padded">
+        </div>
+
+        @if (filteredProjects().length === 0) {
+          <div class="empty-state">
+            <i class="fas fa-layer-group" aria-hidden="true"></i>
+            <p>Aucun projet trouvé.</p>
+          </div>
+        } @else {
+          <div class="project-cards-grid">
+            @for (proj of filteredProjects(); track proj.id) {
+              <div class="project-card">
+                <button
+                  class="btn-delete-card"
+                  (click)="deleteProject(proj.id)"
+                  title="Supprimer {{ proj.title }}"
+                  [attr.aria-label]="'Supprimer le projet ' + proj.title"
+                >
+                  <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+                <button
+                  class="btn-edit-card"
+                  (click)="editProject(proj)"
+                  title="Modifier {{ proj.title }}"
+                  [attr.aria-label]="'Modifier le projet ' + proj.title"
+                >
+                  <i class="fas fa-pen" aria-hidden="true"></i>
+                </button>
+                <div class="project-card-badge">
+                  <i class="fas fa-code" aria-hidden="true"></i> Projet
+                </div>
+                <h4 class="project-card-title">{{ proj.title }}</h4>
+                <p class="project-card-desc">{{ proj.description }}</p>
+                <div class="project-card-links">
+                  @if (proj.github) {
+                    <a
+                      [href]="proj.github"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-link project-link--github"
+                      [title]="'Voir le code source de ' + proj.title + ' sur GitHub'"
+                    >
+                      <i class="fab fa-github" aria-hidden="true"></i> GitHub
+                    </a>
+                  }
+                  @if (proj.link) {
+                    <a
+                      [href]="proj.link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-link project-link--demo"
+                      [title]="'Voir la démo de ' + proj.title"
+                    >
+                      <i class="fas fa-external-link-alt" aria-hidden="true"></i> Démo
+                    </a>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        }
+      }
+
+      <!-- ── SKILLS TAB ── -->
+      @if (activeTab() === 'skills') {
+        <div class="project-form-card">
+          <h4 class="project-form-title">
+            <i class="fas fa-edit" aria-hidden="true" *ngIf="editingSkillId"></i>
+            <i class="fas fa-plus-circle" aria-hidden="true" *ngIf="!editingSkillId"></i>
+            @if (editingSkillId) { Modifier la compétence } @else { Ajouter une compétence }
+          </h4>
+          <div class="project-form-grid">
+            <input type="text" [(ngModel)]="newSkill.name" placeholder="Nom (ex: Angular)" class="form-input" title="Nom">
+            <input type="text" [(ngModel)]="newSkill.category" placeholder="Catégorie (ex: Frontend)" class="form-input" title="Catégorie">
+            <input type="number" [(ngModel)]="newSkill.level" placeholder="Niveau en % (ex: 80)" class="form-input span-2" title="Niveau">
+          </div>
+          @if (editingSkillId) {
+            <button (click)="updateSkill()" class="btn-add">
+              <i class="fas fa-save" aria-hidden="true"></i> Mettre à jour
+            </button>
+            <button (click)="cancelEditSkill()" class="btn-secondary ml-10">Annuler</button>
+          } @else {
+            <button (click)="createSkill()" class="btn-add">
+              <i class="fas fa-plus" aria-hidden="true"></i> Créer
+            </button>
+          }
+        </div>
+
+        @if (skills().length === 0) {
+          <div class="empty-state"><i class="fas fa-tools" aria-hidden="true"></i><p>Aucune compétence.</p></div>
+        } @else {
+          <div class="project-cards-grid">
+            @for (skill of skills(); track skill.id) {
+              <div class="project-card">
+                <button class="btn-delete-card" (click)="deleteSkill(skill.id)" title="Supprimer la compétence" aria-label="Supprimer la compétence"><i class="fas fa-times"></i></button>
+                <button class="btn-edit-card" (click)="editSkill(skill)" title="Modifier la compétence" aria-label="Modifier la compétence"><i class="fas fa-pen"></i></button>
+                <h4 class="project-card-title">{{ skill.name }} ({{ skill.level }}%)</h4>
+                <p class="project-card-desc">{{ skill.category }}</p>
+              </div>
+            }
+          </div>
+        }
+      }
+
+      <!-- ── EXPERIENCES TAB ── -->
+      @if (activeTab() === 'experiences') {
+        <div class="project-form-card">
+          <h4 class="project-form-title">
+            <i class="fas fa-edit" aria-hidden="true" *ngIf="editingExperienceId"></i>
+            <i class="fas fa-plus-circle" aria-hidden="true" *ngIf="!editingExperienceId"></i>
+            @if (editingExperienceId) { Modifier l'expérience } @else { Ajouter une expérience }
+          </h4>
+          <div class="project-form-grid">
+            <input type="text" [(ngModel)]="newExperience.title" placeholder="Titre du poste (ex: Dev Full Stack)" class="form-input" title="Titre">
+            <input type="text" [(ngModel)]="newExperience.company" placeholder="Entreprise" class="form-input" title="Entreprise">
+            <input type="date" [(ngModel)]="newExperience.start_date" class="form-input" title="Date de début">
+            <input type="date" [(ngModel)]="newExperience.end_date" class="form-input" title="Date de fin (laisser vide si actuel)">
+            <textarea [(ngModel)]="newExperience.description" placeholder="Description..." class="form-input span-2" rows="3" title="Description"></textarea>
+          </div>
+          @if (editingExperienceId) {
+            <button (click)="updateExperience()" class="btn-add"><i class="fas fa-save"></i> Mettre à jour</button>
+            <button (click)="cancelEditExperience()" class="btn-secondary ml-10">Annuler</button>
+          } @else {
+            <button (click)="createExperience()" class="btn-add"><i class="fas fa-plus"></i> Créer</button>
+          }
+        </div>
+
+        @if (experiences().length === 0) {
+          <div class="empty-state"><i class="fas fa-briefcase" aria-hidden="true"></i><p>Aucune expérience.</p></div>
+        } @else {
+          <div class="project-cards-grid">
+            @for (exp of experiences(); track exp.id) {
+              <div class="project-card">
+                <button class="btn-delete-card" (click)="deleteExperience(exp.id)" title="Supprimer l'expérience" aria-label="Supprimer l'expérience"><i class="fas fa-times"></i></button>
+                <button class="btn-edit-card" (click)="editExperience(exp)" title="Modifier l'expérience" aria-label="Modifier l'expérience"><i class="fas fa-pen"></i></button>
+                <h4 class="project-card-title">{{ exp.title }}</h4>
+                <p class="exp-card-header">{{ exp.company }} <span>| {{ exp.start_date | date:'yyyy' }} - {{ exp.end_date ? (exp.end_date | date:'yyyy') : 'Présent' }}</span></p>
+                <p class="project-card-desc">{{ exp.description }}</p>
+              </div>
+            }
+          </div>
+        }
+      }
+
+      <!-- ── BLOG TAB ── -->
+      @if (activeTab() === 'blog') {
+        <div class="project-form-card">
+          <h4 class="project-form-title">
+            <i class="fas fa-edit" aria-hidden="true" *ngIf="editingArticleId"></i>
+            <i class="fas fa-plus-circle" aria-hidden="true" *ngIf="!editingArticleId"></i>
+            @if (editingArticleId) { Modifier l'article } @else { Rédiger un nouvel article }
+          </h4>
+          <div class="project-form-grid">
+            <input type="text" [(ngModel)]="newArticle.title" placeholder="Titre de l'article" class="form-input span-2" title="Titre">
+            <div class="form-input-group span-2">
+              <input type="text" [(ngModel)]="newArticle.image" placeholder="URL de l'image de couverture" class="form-input" title="Image">
+              <button class="btn-secondary" (click)="openMediaSelector('article')">
+                <i class="fas fa-folder-open"></i> Parcourir
+              </button>
+            </div>
+            
+            <div class="markdown-editor span-2">
+              <div class="markdown-tabs">
+                <button type="button" class="md-tab" [class.active]="editorMode === 'edit'" (click)="setEditorMode('edit')">Éditeur</button>
+                <button type="button" class="md-tab" [class.active]="editorMode === 'preview'" (click)="setEditorMode('preview')">Aperçu</button>
+              </div>
+              
+              @if (editorMode === 'edit') {
+                <div class="markdown-toolbar">
+                  <button type="button" class="btn-toolbar" (click)="insertMarkdown('**', '**')" title="Gras"><i class="fas fa-bold"></i></button>
+                  <button type="button" class="btn-toolbar" (click)="insertMarkdown('*', '*')" title="Italique"><i class="fas fa-italic"></i></button>
+                  <button type="button" class="btn-toolbar" (click)="insertMarkdown('### ', '')" title="Titre"><i class="fas fa-heading"></i></button>
+                  <button type="button" class="btn-toolbar" (click)="insertMarkdown('[', '](url)')" title="Lien"><i class="fas fa-link"></i></button>
+                  <button type="button" class="btn-toolbar" (click)="insertMarkdown('![alt](', ')')" title="Image"><i class="fas fa-image"></i></button>
+                  <button type="button" class="btn-toolbar" (click)="insertMarkdown('```\n', '\n```')" title="Code"><i class="fas fa-code"></i></button>
+                </div>
+                <textarea id="articleContentTextarea" [(ngModel)]="newArticle.content" placeholder="Contenu de l'article (Markdown supporté)..." class="form-input markdown-textarea" rows="12" title="Contenu"></textarea>
+              } @else {
+                <div class="markdown-preview-container" [innerHTML]="parsedMarkdown"></div>
+              }
+            </div>
+            
+            <label class="security-label span-2">
+              <input type="checkbox" [(ngModel)]="newArticle.is_published"> Publier immédiatement
+            </label>
+          </div>
+          @if (editingArticleId) {
+            <button (click)="updateArticle()" class="btn-add"><i class="fas fa-save"></i> Mettre à jour</button>
+            <button (click)="cancelEditArticle()" class="btn-secondary ml-10">Annuler</button>
+          } @else {
+            <button (click)="createArticle()" class="btn-add"><i class="fas fa-plus"></i> Publier</button>
+          }
+        </div>
+
+        <div class="admin-search-wrapper">
+          <i class="fas fa-search admin-search-icon" aria-hidden="true"></i>
+          <input type="text" [ngModel]="searchQuery()" (ngModelChange)="searchQuery.set($event)" placeholder="Rechercher un article..." class="form-input admin-search-input-padded">
+        </div>
+
+        @if (filteredArticles().length === 0) {
+          <div class="empty-state"><i class="fas fa-newspaper" aria-hidden="true"></i><p>Aucun article trouvé.</p></div>
+        } @else {
+          <div class="project-cards-grid">
+            @for (article of filteredArticles(); track article.id) {
+              <div class="project-card">
+                <button class="btn-delete-card" (click)="deleteArticle(article.id)" title="Supprimer l'article" aria-label="Supprimer l'article"><i class="fas fa-times"></i></button>
+                <button class="btn-edit-card" (click)="editArticle(article)" title="Modifier l'article" aria-label="Modifier l'article"><i class="fas fa-pen"></i></button>
+                <h4 class="project-card-title">{{ article.title }}</h4>
+                <p class="exp-card-header">{{ article.is_published ? 'Publié' : 'Brouillon' }} <span>| {{ article.created_at | date:'dd/MM/yyyy' }}</span></p>
+                <p class="project-card-desc">{{ article.content.substring(0, 100) }}...</p>
+              </div>
+            }
+          </div>
+        }
+      }
+
+      <!-- ── NEWSLETTER TAB ── -->
+      @if (activeTab() === 'newsletter') {
+        
+        <!-- Broadcast Form -->
+        <div class="project-form-card">
+          <h4 class="project-form-title"><i class="fas fa-paper-plane" aria-hidden="true"></i> Envoyer une Newsletter</h4>
+          <p class="empty-state-hint form-hint">Envoyez un e-mail à tous vos abonnés actifs ({{ subscribers().length }} abonnés).</p>
+          <div class="project-form-grid">
+            <input type="text" [(ngModel)]="newsletterForm.subject" placeholder="Sujet de l'e-mail" class="form-input span-2" title="Sujet de l'e-mail">
+            <textarea [(ngModel)]="newsletterForm.body" placeholder="Contenu de la newsletter..." class="form-input span-2" rows="5" title="Contenu de l'e-mail"></textarea>
+          </div>
+          <button (click)="sendNewsletter()" class="btn-add" [disabled]="isSendingNewsletter()">
+            @if (isSendingNewsletter()) {
+              <i class="fas fa-spinner fa-spin"></i> Envoi en cours...
+            } @else {
+              <i class="fas fa-paper-plane"></i> Envoyer à tous
+            }
+          </button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3 class="panel-title"><i class="fas fa-envelope-open-text" aria-hidden="true"></i> Abonnés Newsletter</h3>
+            <div>
+              <span class="analytics-panel-badge">{{ subscribers().length }} abonné{{ subscribers().length > 1 ? 's' : '' }}</span>
+              <button class="btn-secondary ml-10" (click)="exportSubscribersCSV()" title="Exporter en CSV"><i class="fas fa-download"></i> Exporter</button>
+            </div>
+          </div>
+          <div class="panel-body panel-body--flush">
+            @if (subscribers().length === 0) {
+              <div class="empty-state">
+                <i class="fas fa-envelope-open" aria-hidden="true"></i>
+                <p>Aucun abonné pour le moment.</p>
+              </div>
+            } @else {
+              <table class="message-table" role="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Email</th>
+                    <th scope="col">Date d'inscription</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (sub of paginatedSubscribers(); track sub.id) {
+                    <tr>
+                      <td><i class="fas fa-at icon-accent" aria-hidden="true"></i>{{ sub.email }}</td>
+                      <td>{{ sub.created_at | date:'dd/MM/yyyy' }}</td>
+                      <td>
+                        <button class="btn-delete-sm" (click)="deleteSubscriber(sub.id)" title="Désinscrire">
+                          <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+
+              <!-- Subscribers Pagination -->
+              @if (subscribersTotalPages() > 1) {
+                <div class="pagination-controls">
+                  <button class="btn-secondary" [disabled]="subscribersPage() === 1" (click)="subscribersPage.set(subscribersPage() - 1)">Précédent</button>
+                  <span class="pagination-info">Page {{ subscribersPage() }} sur {{ subscribersTotalPages() }}</span>
+                  <button class="btn-secondary" [disabled]="subscribersPage() === subscribersTotalPages()" (click)="subscribersPage.set(subscribersPage() + 1)">Suivant</button>
+                </div>
+              }
+            }
+          </div>
+        </div>
+      }
+
+      <!-- ── TESTIMONIALS TAB ── -->
+      @if (activeTab() === 'testimonials') {
+        <div class="project-form-card">
+          <h4 class="project-form-title">
+            <i class="fas fa-star" aria-hidden="true"></i>
+            @if (editingTestimonialId) { Modifier le témoignage } @else { Ajouter un témoignage }
+          </h4>
+          <div class="project-form-grid">
+            <input type="text" [(ngModel)]="newTestimonial.author" placeholder="Nom de l'auteur" class="form-input" title="Auteur">
+            <input type="text" [(ngModel)]="newTestimonial.role" placeholder="Rôle / Entreprise" class="form-input" title="Rôle">
+            <div class="form-input-group span-2">
+              <input type="text" [(ngModel)]="newTestimonial.avatar" placeholder="URL de l'avatar (optionnel)" class="form-input" title="Avatar">
+              <button class="btn-secondary" (click)="openMediaSelector('article')" title="Choisir une image">
+                <i class="fas fa-folder-open"></i> Parcourir
+              </button>
+            </div>
+            <textarea [(ngModel)]="newTestimonial.content" placeholder="Contenu du témoignage..." class="form-input span-2" rows="4" title="Contenu"></textarea>
+            <div class="span-2">
+              <label class="security-label">Note (1-5)</label>
+              <input type="number" [(ngModel)]="newTestimonial.rating" min="1" max="5" class="form-input input-rating" title="Note">
+            </div>
+          </div>
+          @if (editingTestimonialId) {
+            <button (click)="saveTestimonial()" class="btn-add"><i class="fas fa-save"></i> Mettre à jour</button>
+            <button (click)="resetTestimonialForm()" class="btn-secondary ml-10">Annuler</button>
+          } @else {
+            <button (click)="saveTestimonial()" class="btn-add"><i class="fas fa-plus"></i> Ajouter</button>
+          }
+        </div>
+
+        @if (testimonials().length === 0) {
+          <div class="empty-state"><i class="fas fa-star" aria-hidden="true"></i><p>Aucun témoignage.</p></div>
+        } @else {
+          <div class="project-cards-grid">
+            @for (t of testimonials(); track t.id) {
+              <div class="project-card">
+                <button class="btn-delete-card" (click)="deleteTestimonial(t.id)" title="Supprimer" aria-label="Supprimer le témoignage"><i class="fas fa-times"></i></button>
+                <button class="btn-edit-card" (click)="editTestimonial(t)" title="Modifier" aria-label="Modifier le témoignage"><i class="fas fa-pen"></i></button>
+                @if (t.avatar) {
+                  <img [src]="t.avatar" alt="Avatar de {{t.author}}" class="testimonial-avatar">
+                }
+                <h4 class="project-card-title">{{ t.author }}</h4>
+                <p class="exp-card-header">{{ t.role }}</p>
+                @if (t.rating) {
+                  <div class="testimonial-stars">
+                    @for (star of [1,2,3,4,5]; track star) {
+                      <i class="fas fa-star" [style.color]="star <= t.rating ? '#f59e0b' : '#334155'"></i>
+                    }
+                  </div>
+                }
+                <p class="project-card-desc">{{ t.content }}</p>
+              </div>
+            }
+          </div>
+        }
+      }
+
+      <!-- ── COMMENTS TAB ── -->
+      @if (activeTab() === 'comments') {
+        <div class="panel">
+          <div class="panel-header">
+            <h3 class="panel-title"><i class="fas fa-comments" aria-hidden="true"></i> Modération des Commentaires</h3>
+            <span class="analytics-panel-badge">{{ comments().length }} commentaire{{ comments().length > 1 ? 's' : '' }}</span>
+          </div>
+          <div class="panel-body panel-body--flush">
+            @if (comments().length === 0) {
+              <div class="empty-state">
+                <i class="fas fa-comments" aria-hidden="true"></i>
+                <p>Aucun commentaire pour le moment.</p>
+              </div>
+            } @else {
+              <table class="message-table" role="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Auteur</th>
+                    <th scope="col">Commentaire</th>
+                    <th scope="col">Article</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (c of paginatedComments(); track c.id) {
+                    <tr>
+                      <td><strong>{{ c.author }}</strong></td>
+                      <td>{{ c.content }}</td>
+                      <td>{{ c.article?.title }}</td>
+                      <td>
+                        <span class="tag-pill" [class.tag-green]="c.status === 'approved'" [class.tag-yellow]="c.status === 'pending'">
+                          {{ c.status }}
+                        </span>
+                      </td>
+                      <td>
+                        @if (c.status === 'pending') {
+                          <button class="btn-icon btn-edit" (click)="updateCommentStatus(c.id, 'approved')" title="Approuver" aria-label="Approuver">
+                            <i class="fas fa-check" aria-hidden="true"></i>
+                          </button>
+                        }
+                        <button class="btn-icon btn-danger" (click)="deleteComment(c.id)" title="Supprimer" aria-label="Supprimer">
+                          <i class="fas fa-trash" aria-hidden="true"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+
+              <!-- Comments Pagination -->
+              @if (commentsTotalPages() > 1) {
+                <div class="pagination-controls">
+                  <button class="btn-secondary" [disabled]="commentsPage() === 1" (click)="commentsPage.set(commentsPage() - 1)">Précédent</button>
+                  <span class="pagination-info">Page {{ commentsPage() }} sur {{ commentsTotalPages() }}</span>
+                  <button class="btn-secondary" [disabled]="commentsPage() === commentsTotalPages()" (click)="commentsPage.set(commentsPage() + 1)">Suivant</button>
+                </div>
+              }
+            }
+          </div>
+        </div>
+      }
+
+      <!-- ── SEO TAB ── -->
+      @if (activeTab() === 'seo') {
+        <div class="project-form-card">
+          <h4 class="project-form-title">
+            <i class="fas fa-search-plus" aria-hidden="true"></i>
+            Gestionnaire SEO
+          </h4>
+          <p class="empty-state-hint form-hint">Définissez les balises Meta Title, Meta Description et les images OpenGraph pour chaque page principale de votre site web pour améliorer votre référencement.</p>
+          
+          <div class="project-cards-grid">
+            @for (seo of seos(); track seo.page) {
+              <div class="project-card seo-card">
+                <h4 class="project-card-title seo-card-title">Page : {{ seo.page }}</h4>
+                <div class="seo-input-group">
+                  <label class="security-label">Meta Title</label>
+                  <input type="text" [(ngModel)]="seo.title" placeholder="Titre SEO..." class="form-input">
+                </div>
+                <div class="seo-input-group">
+                  <label class="security-label">Meta Description</label>
+                  <textarea [(ngModel)]="seo.meta_description" placeholder="Description SEO..." class="form-input" rows="3"></textarea>
+                </div>
+                <div class="seo-input-group">
+                  <label class="security-label">Image OpenGraph (URL)</label>
+                  <input type="text" [(ngModel)]="seo.og_image" placeholder="https://..." class="form-input">
+                </div>
+              </div>
+            }
+          </div>
+          
+          <div class="seo-actions">
+            <button (click)="saveSeo()" class="btn-add"><i class="fas fa-save" aria-hidden="true"></i> Enregistrer les paramètres SEO</button>
+          </div>
+        </div>
+      }
+
+      <!-- ── SETTINGS TAB ── -->
+      @if (activeTab() === 'settings') {
+        <div class="project-form-card">
+          <h4 class="project-form-title"><i class="fas fa-cog" aria-hidden="true"></i> Paramètres Généraux</h4>
+          <div class="project-form-grid">
+            <input type="text" [(ngModel)]="settings().site_title" placeholder="Titre du site" class="form-input span-2" title="Titre du site">
+            <input type="text" [(ngModel)]="settings().site_description" placeholder="Description du site" class="form-input span-2" title="Description">
+            
+            <h4 class="span-2 settings-section-title">Section Entreprise</h4>
+            <input type="text" [(ngModel)]="settings().company_slogan" placeholder="Slogan de l'entreprise" class="form-input span-2" title="Slogan">
+            <textarea [(ngModel)]="settings().company_vision" placeholder="Vision de l'entreprise" class="form-input span-2" rows="3" title="Vision"></textarea>
+            
+            <input type="text" [(ngModel)]="settings().company_stat1_val" placeholder="Valeur Stat 1 (ex: +20)" class="form-input" title="Stat 1 Valeur">
+            <input type="text" [(ngModel)]="settings().company_stat1_lbl" placeholder="Label Stat 1 (ex: Projets livrés)" class="form-input" title="Stat 1 Label">
+            <input type="text" [(ngModel)]="settings().company_stat2_val" placeholder="Valeur Stat 2" class="form-input" title="Stat 2 Valeur">
+            <input type="text" [(ngModel)]="settings().company_stat2_lbl" placeholder="Label Stat 2" class="form-input" title="Stat 2 Label">
+            <input type="text" [(ngModel)]="settings().company_stat3_val" placeholder="Valeur Stat 3" class="form-input" title="Stat 3 Valeur">
+            <input type="text" [(ngModel)]="settings().company_stat3_lbl" placeholder="Label Stat 3" class="form-input" title="Stat 3 Label">
+            
+            <h4 class="span-2 settings-section-title">CV & Réseaux Sociaux</h4>
+            <input type="text" [(ngModel)]="settings().cv_url" placeholder="URL du CV (ex: cv/CV_Diarrassouba.pdf)" class="form-input span-2" title="URL du CV">
+            <input type="text" [(ngModel)]="settings().social_github" placeholder="Lien GitHub" class="form-input" title="GitHub">
+            <input type="text" [(ngModel)]="settings().social_linkedin" placeholder="Lien LinkedIn" class="form-input" title="LinkedIn">
+            <input type="text" [(ngModel)]="settings().social_twitter" placeholder="Lien Twitter / X" class="form-input" title="Twitter">
+            <input type="text" [(ngModel)]="settings().social_instagram" placeholder="Lien Instagram" class="form-input" title="Instagram">
+            
+            <h4 class="span-2 settings-section-title">Paramètres SEO</h4>
+            <input type="text" [(ngModel)]="settings().seo_title" placeholder="Titre SEO global" class="form-input span-2" title="SEO Titre">
+            <textarea [(ngModel)]="settings().seo_description" placeholder="Description SEO globale" class="form-input span-2" rows="2" title="SEO Description"></textarea>
+            <input type="text" [(ngModel)]="settings().seo_keywords" placeholder="Mots-clés (séparés par des virgules)" class="form-input span-2" title="SEO Mots-clés">
+            
+            <h4 class="span-2 settings-section-title">Personnalisation (Thème)</h4>
+            <input type="color" [(ngModel)]="settings().theme_primary" class="form-input" title="Couleur Primaire">
+            <input type="color" [(ngModel)]="settings().theme_secondary" class="form-input" title="Couleur Secondaire">
+            
+            <h4 class="span-2 settings-section-title">Mini-Jeu</h4>
+            <textarea [(ngModel)]="settings().game_words" placeholder="Mots du jeu (séparés par des virgules)" class="form-input span-2" rows="2" title="Mots du jeu"></textarea>
+            
+            <h4 class="span-2 settings-section-title">Sauvegarde des Données</h4>
+            <div class="span-2 backup-section">
+              <p class="backup-hint">
+                Téléchargez une copie complète de toutes les données du site au format JSON.
+              </p>
+              <button (click)="downloadBackup()" class="btn-secondary">
+                <i class="fas fa-download" aria-hidden="true"></i> Exporter la Base de Données (Backup)
+              </button>
+            </div>
+          </div>
+          <button (click)="saveSettings()" class="btn-add"><i class="fas fa-save" aria-hidden="true"></i> Sauvegarder les Paramètres</button>
+        </div>
+      }
+
+      <!-- ── COMPANY TAB ── -->
+      @if (activeTab() === 'company') {
+        <div class="project-form-card">
+          <h4 class="project-form-title">
+            <i class="fas fa-edit" aria-hidden="true" *ngIf="editingCompanyServiceId"></i>
+            <i class="fas fa-plus-circle" aria-hidden="true" *ngIf="!editingCompanyServiceId"></i>
+            @if (editingCompanyServiceId) { Modifier le service } @else { Ajouter un service }
+          </h4>
+          <div class="project-form-grid">
+            <input type="text" [(ngModel)]="newCompanyService.title" placeholder="Titre du service" class="form-input" title="Titre">
+            <input type="text" [(ngModel)]="newCompanyService.icon" placeholder="Classe Icone (ex: fas fa-laptop)" class="form-input" title="Icone">
+            <textarea [(ngModel)]="newCompanyService.description" placeholder="Description" class="form-input span-2" rows="3" title="Description"></textarea>
+            <input type="text" [(ngModel)]="serviceTagsString" placeholder="Tags (séparés par des virgules)" class="form-input span-2" title="Tags">
+          </div>
+          @if (editingCompanyServiceId) {
+            <button (click)="updateCompanyService()" class="btn-add"><i class="fas fa-save" aria-hidden="true"></i> Mettre à jour</button>
+            <button (click)="cancelEditCompanyService()" class="btn-secondary ml-10">Annuler</button>
+          } @else {
+            <button (click)="createCompanyService()" class="btn-add"><i class="fas fa-plus" aria-hidden="true"></i> Créer</button>
+          }
+        </div>
+        <div class="project-cards-grid">
+          @for (svc of companyServices(); track svc.id) {
+            <div class="project-card">
+              <button class="btn-delete-card" (click)="deleteCompanyService(svc.id)" title="Supprimer"><i class="fas fa-times" aria-hidden="true"></i></button>
+              <button class="btn-edit-card" (click)="editCompanyService(svc)" title="Modifier"><i class="fas fa-pen" aria-hidden="true"></i></button>
+              <h4 class="project-card-title"><i [class]="svc.icon" aria-hidden="true"></i> {{ svc.title }}</h4>
+              <p class="project-card-desc">{{ svc.description }}</p>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- ── MINIGAME TAB ── -->
+      @if (activeTab() === 'minigame') {
+        <div class="panel">
+          <div class="panel-header">
+            <h3 class="panel-title"><i class="fas fa-trophy" aria-hidden="true"></i> Scores du Mini-Jeu</h3>
+            <button class="btn-secondary" (click)="exportScoresCSV()" title="Exporter en CSV"><i class="fas fa-download"></i> Exporter CSV</button>
+          </div>
+          <div class="panel-body panel-body--flush">
+            <table class="message-table" role="table">
+              <thead>
+                <tr>
+                  <th scope="col">Joueur</th>
+                  <th scope="col">Score</th>
+                  <th scope="col">Temps</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (score of paginatedScores(); track score.id) {
+                  <tr>
+                    <td>{{ score.player_name }}</td>
+                    <td>{{ score.score }}</td>
+                    <td>{{ score.time_taken }}s</td>
+                    <td>{{ score.created_at | date:'dd/MM/yy HH:mm' }}</td>
+                    <td>
+                      <button class="btn-delete-sm" (click)="deleteScore(score.id)" title="Supprimer">
+                        <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+            
+            <!-- Scores Pagination -->
+            @if (scoresTotalPages() > 1) {
+              <div class="pagination-controls">
+                <button class="btn-secondary" [disabled]="scoresPage() === 1" (click)="scoresPage.set(scoresPage() - 1)">Précédent</button>
+                <span class="pagination-info">Page {{ scoresPage() }} sur {{ scoresTotalPages() }}</span>
+                <button class="btn-secondary" [disabled]="scoresPage() === scoresTotalPages()" (click)="scoresPage.set(scoresPage() + 1)">Suivant</button>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- ── MEDIA TAB ── -->
+      @if (activeTab() === 'media') {
+        <div class="panel">
+          <div class="panel-header">
+            <div class="fm-header">
+              <h3 class="panel-title"><i class="fas fa-folder-open" aria-hidden="true"></i> Gestionnaire de Fichiers</h3>
+              <div class="fm-header-actions">
+                <button class="btn-secondary" (click)="showNewFolderInput.set(!showNewFolderInput())" title="Nouveau dossier">
+                  <i class="fas fa-folder-plus"></i> Nouveau dossier
+                </button>
+              </div>
+            </div>
+
+            <!-- Breadcrumb -->
+            <nav class="fm-breadcrumb" aria-label="Navigation de dossiers">
+              <button class="fm-breadcrumb-item fm-breadcrumb-root" (click)="loadMedia('uploads')">
+                <i class="fas fa-home"></i> Médias
+              </button>
+              @for (part of currentFolder().split('/').slice(1); track part) {
+                <span class="fm-breadcrumb-sep"><i class="fas fa-chevron-right"></i></span>
+                <span class="fm-breadcrumb-item fm-breadcrumb-current">{{ part }}</span>
+              }
+            </nav>
+
+            <!-- New Folder Input -->
+            @if (showNewFolderInput()) {
+              <div class="fm-new-folder-bar">
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="Nom du nouveau dossier..."
+                  [ngModel]="newFolderName()"
+                  (ngModelChange)="newFolderName.set($event)"
+                  (keyup.enter)="createNewFolder()"
+                  title="Nom du dossier"
+                />
+                <button class="btn-add" (click)="createNewFolder()"><i class="fas fa-check"></i> Créer</button>
+                <button class="btn-secondary" (click)="showNewFolderInput.set(false)" title="Annuler" aria-label="Annuler la création du dossier"><i class="fas fa-times" aria-hidden="true"></i></button>
+              </div>
+            }
+          </div>
+
+          <div class="panel-body">
+            <!-- Upload Zone -->
+            <div class="media-upload-zone">
+              <label for="mediaUploadInput" class="media-upload-label"
+                     [class.uploading]="isUploadingMedia()"
+                     [class.drag-over]="isDragging()"
+                     (dragover)="onDragOver($event)"
+                     (dragleave)="onDragLeave($event)"
+                     (drop)="onDrop($event)">
+                @if (isUploadingMedia()) {
+                  <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                  <span>Upload en cours...</span>
+                } @else {
+                  <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                  <span>Cliquer ou glisser un fichier ici</span>
+                  <small>Images, PDF, etc. &mdash; max 10 Mo &mdash; Dossier actuel : {{ currentFolder() }}</small>
+                }
+              </label>
+              <input type="file" id="mediaUploadInput" (change)="onMediaFileSelected($event)" class="sr-only" [disabled]="isUploadingMedia()" />
+            </div>
+
+            <!-- Back button -->
+            @if (currentFolder() !== 'uploads') {
+              <button class="fm-back-btn" (click)="navigateUp()">
+                <i class="fas fa-arrow-left"></i> Dossier parent
+              </button>
+            }
+
+            <!-- Files & Folders Grid -->
+            @if (mediaFiles().length === 0) {
+              <div class="empty-state empty-state--spaced">
+                <i class="fas fa-folder-open" aria-hidden="true"></i>
+                <p>Ce dossier est vide.</p>
+                <p class="empty-state-hint">Uploadez un fichier ou créez un sous-dossier.</p>
+              </div>
+            } @else {
+              <div class="media-gallery-grid">
+                @for (item of mediaFiles(); track item.path) {
+                  <!-- Folder Card -->
+                  @if (item.type === 'folder') {
+                    <button class="media-card media-card--folder fm-folder-btn" (click)="navigateToFolder(item.path)" [title]="'Ouvrir le dossier ' + item.name" [attr.aria-label]="'Ouvrir le dossier ' + item.name">
+                      <div class="media-card-image media-card-folder-icon">
+                        <i class="fas fa-folder" aria-hidden="true"></i>
+                      </div>
+                      <div class="media-card-body">
+                        <p class="media-card-name" [title]="item.name">{{ item.name }}</p>
+                        <p class="media-card-size">Dossier</p>
+                        <div class="media-card-actions">
+                          <button class="btn-icon btn-danger" (click)="$event.stopPropagation(); deleteMediaFile(item)" title="Supprimer le dossier" aria-label="Supprimer le dossier">
+                            <i class="fas fa-trash" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </button>
+                  }
+                  <!-- File Card -->
+                  @if (item.type === 'file') {
+                    <div class="media-card">
+                      <div class="media-card-image">
+                        <img [src]="item.url" [alt]="item.name" title="{{ item.name }}" aria-label="{{ item.name }}" loading="lazy" />
+                      </div>
+                      <div class="media-card-body">
+                        <p class="media-card-name" [title]="item.name">{{ item.name }}</p>
+                        <p class="media-card-size">{{ formatFileSize(item.size) }}</p>
+                        <div class="media-card-actions">
+                          <button class="btn-icon btn-edit" (click)="copyMediaUrl(item.url)" title="Copier l'URL">
+                            <i class="fas fa-copy"></i>
+                          </button>
+                          <button class="btn-icon btn-danger" (click)="deleteMediaFile(item)" title="Supprimer">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                }
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+
+      <!-- ── ANALYTICS TAB ── -->
+      @if (activeTab() === 'analytics') {
+        <div class="analytics-wrapper">
+
+          <!-- Header hero -->
+          <div class="analytics-hero">
+            <div class="analytics-hero-left">
+              <div class="analytics-hero-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div>
+                <h2 class="analytics-hero-title">Trafic & Statistiques</h2>
+                <p class="analytics-hero-sub">Analyse des visites de votre portfolio en temps réel</p>
+              </div>
+            </div>
+            <button class="analytics-refresh-btn" (click)="loadAnalytics()">
+              <i class="fas fa-sync-alt"></i> Rafraîchir
+            </button>
+          </div>
+
+          <!-- KPI Row -->
+          <div class="analytics-kpi-row">
+            <div class="analytics-kpi-card kpi-blue">
+              <div class="kpi-glow kpi-glow-blue"></div>
+              <div class="kpi-icon-wrap"><i class="fas fa-eye"></i></div>
+              <div class="kpi-body">
+                <div class="kpi-number">{{ analyticsData()?.total_views ?? 0 }}</div>
+                <div class="kpi-label">Pages vues</div>
+                <div class="kpi-sub">Toutes périodes confondues</div>
+              </div>
+            </div>
+
+            <div class="analytics-kpi-card kpi-purple">
+              <div class="kpi-glow kpi-glow-purple"></div>
+              <div class="kpi-icon-wrap"><i class="fas fa-sitemap"></i></div>
+              <div class="kpi-body">
+                <div class="kpi-number">{{ analyticsData()?.views_by_page?.length ?? 0 }}</div>
+                <div class="kpi-label">Pages distinctes</div>
+                <div class="kpi-sub">URLs uniques trackées</div>
+              </div>
+            </div>
+
+            <div class="analytics-kpi-card kpi-green">
+              <div class="kpi-glow kpi-glow-green"></div>
+              <div class="kpi-icon-wrap"><i class="fas fa-bolt"></i></div>
+              <div class="kpi-body">
+                <div class="kpi-number">{{ analyticsData()?.recent_views?.length ?? 0 }}</div>
+                <div class="kpi-label">Événements récents</div>
+                <div class="kpi-sub">Derniers 50 enregistrés</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Two column layout -->
+          <div class="analytics-grid-2">
+
+            <!-- Top pages panel -->
+            <div class="analytics-panel">
+              <div class="analytics-panel-header">
+                <span class="analytics-panel-title">
+                  <i class="fas fa-trophy"></i> Top Pages
+                </span>
+                <span class="analytics-panel-badge">{{ analyticsData()?.views_by_page?.length ?? 0 }} pages</span>
+              </div>
+
+              @if (!analyticsData() || analyticsData()?.views_by_page?.length === 0) {
+                <div class="analytics-empty">
+                  <i class="fas fa-chart-bar"></i>
+                  <p>Aucune donnée disponible</p>
+                </div>
+              } @else {
+                <div class="analytics-top-list">
+                  @for (page of analyticsData()?.views_by_page; track page.page_url; let i = $index) {
+                    <div class="analytics-top-item">
+                      <div class="top-item-rank" [class.rank-gold]="i===0" [class.rank-silver]="i===1" [class.rank-bronze]="i===2">
+                        {{ i + 1 }}
+                      </div>
+                      <div class="top-item-info">
+                        <div class="top-item-url" [title]="page.page_url">
+                          {{ page.page_url === '/' ? '🏠 Accueil' : page.page_url }}
+                        </div>
+                        <div class="top-item-bar-wrap">
+                          <div class="top-item-bar">
+                            <div class="top-item-bar-inner"
+                              [style.width.%]="(page.total / maxPageViews()) * 100"
+                              [class.bar-gold]="i===0"
+                              [class.bar-purple]="i!==0">
+                            </div>
+                          </div>
+                          <span class="top-item-count">{{ page.total }} vues</span>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+
+            <!-- Recent visits panel -->
+            <div class="analytics-panel">
+              <div class="analytics-panel-header">
+                <span class="analytics-panel-title">
+                  <i class="fas fa-stream"></i> Flux en direct
+                </span>
+                <span class="analytics-panel-badge live">● LIVE</span>
+              </div>
+
+              @if (!analyticsData()?.recent_views?.length) {
+                <div class="analytics-empty">
+                  <i class="fas fa-history"></i>
+                  <p>Aucune visite enregistrée</p>
+                </div>
+              } @else {
+                <div class="analytics-feed">
+                  @for (visit of analyticsData()?.recent_views; track visit.id) {
+                    <div class="analytics-feed-item">
+                      <div class="feed-dot"></div>
+                      <div class="feed-info">
+                        <span class="feed-url">{{ visit.page_url }}</span>
+                        <span class="feed-ip">
+                          <i class="fas fa-map-marker-alt"></i> {{ visit.ip_address }}
+                        </span>
+                      </div>
+                      <div class="feed-time">{{ visit.created_at | date:'HH:mm' }}</div>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+
+          </div>
+        </div>
+      }
+
+      <!-- ── SECURITY TAB ── -->
+      @if (activeTab() === 'security') {
+
+        <div class="project-form-card security-card">
+          <h4 class="project-form-title">
+            <i class="fas fa-lock" aria-hidden="true"></i> Paramètres de sécurité
+          </h4>
+          
+          @if (securitySuccessMsg) {
+            <div class="security-msg success">
+              <i class="fas fa-check-circle"></i> {{ securitySuccessMsg }}
+            </div>
+          }
+          @if (securityErrorMsg) {
+            <div class="security-msg error">
+              <i class="fas fa-exclamation-triangle"></i> {{ securityErrorMsg }}
+            </div>
+          }
+
+          <div class="security-form-container">
+            <div>
+              <label class="security-label">Mot de passe actuel (Requis pour toute modification)</label>
+              <input type="password" [(ngModel)]="securityForm.current_password" placeholder="Saisissez le mot de passe actuel" class="form-input">
+            </div>
+            
+            <div class="security-divider"></div>
+            
+            <div>
+              <label class="security-label">Nouvel Email Administrateur</label>
+              <input type="email" [(ngModel)]="securityForm.email" placeholder="email@exemple.com" class="form-input">
+            </div>
+            
+            <div>
+              <label class="security-label">Nouveau mot de passe (Optionnel, min 6 caractères)</label>
+              <input type="password" [(ngModel)]="securityForm.new_password" placeholder="Laissez vide pour conserver l'actuel" class="form-input">
+            </div>
+          </div>
+          
+          <button (click)="updateSecurity()" class="btn-add btn-security-save">
+            <i class="fas fa-save" aria-hidden="true"></i> Enregistrer les modifications
+          </button>
+        </div>
+      }
+    </div>
+  </main>
+
+  <!-- TOAST NOTIFICATION -->
+  @if (toast()) {
+    <div class="admin-toast" [class.success]="toast()?.type === 'success'" [class.error]="toast()?.type === 'error'">
+      <i class="fas" [class.fa-check-circle]="toast()?.type === 'success'" [class.fa-exclamation-circle]="toast()?.type === 'error'"></i>
+      {{ toast()?.message }}
+    </div>
+  }
+
+  <!-- MODAL SELECTION MEDIA -->
+  @if (showMediaModal()) {
+    <div class="admin-modal-overlay" (click)="closeMediaModal()">
+      <div class="admin-modal-content" (click)="$event.stopPropagation()">
+        <div class="admin-modal-header">
+          <h3>Sélectionner un fichier média</h3>
+          <button class="btn-close-modal" (click)="closeMediaModal()" title="Fermer la sélection" aria-label="Fermer la fenêtre de sélection">
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="admin-modal-body">
+          @if (mediaFiles().length === 0) {
+            <p>Aucun média disponible. Veuillez en uploader dans l'onglet Médias.</p>
+          } @else {
+            <div class="media-gallery-grid modal-gallery">
+              @for (media of mediaFiles(); track media.name) {
+                <div class="media-card" (click)="selectMedia(media.url)">
+                  <div class="media-card-image">
+                    <img [src]="media.url" alt="{{media.name}}" title="{{media.name}}" loading="lazy">
+                  </div>
+                  <div class="media-card-body modal-card-body">
+                    <p class="media-card-name">{{ media.name }}</p>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+</div>

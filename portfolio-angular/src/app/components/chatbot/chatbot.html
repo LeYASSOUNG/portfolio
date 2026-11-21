@@ -1,0 +1,141 @@
+<!-- Proactive teaser bubble -->
+@if (showTeaser() && !isOpen()) {
+  <div class="chatbot-teaser">
+    <button class="chatbot-teaser__btn" (click)="toggle()">
+      <span>Une question sur mon profil ? Je suis là 👋</span>
+    </button>
+    <button class="chatbot-teaser__close" (click)="dismissTeaser($event)" aria-label="Masquer la suggestion">
+      <i class="fas fa-times" aria-hidden="true"></i>
+    </button>
+  </div>
+}
+
+<!-- Floating toggle button -->
+<button
+  id="chatbot-toggle"
+  class="chatbot-toggle"
+  (click)="toggle()"
+  [class.chatbot-toggle--open]="isOpen()"
+  [attr.aria-expanded]="isOpen()"
+  [attr.aria-label]="isOpen() ? 'Fermer l’assistant IA' : 'Ouvrir l’assistant IA'"
+>
+  @if (isOpen()) {
+    <i class="fas fa-times"></i>
+  } @else {
+    <i class="fas fa-robot"></i>
+    <span class="chatbot-toggle__badge"></span>
+  }
+</button>
+
+<!-- Chat window -->
+@if (isOpen()) {
+  <div class="chatbot-window glass-card" role="dialog" aria-label="Assistant IA">
+    <!-- Header -->
+    <div class="chatbot-header">
+      <div class="chatbot-header__info">
+        <div class="chatbot-avatar">
+          <i class="fas fa-robot"></i>
+          <span class="online-dot"></span>
+        </div>
+        <div>
+          <p class="chatbot-header__name">Yass-AI <span class="chatbot-header__tag">IA</span></p>
+          <p class="chatbot-header__status">
+            @if (isLoading()) { En train d'écrire… } @else { En ligne · Répond en quelques secondes }
+          </p>
+        </div>
+      </div>
+      <div class="chatbot-header__actions">
+        <button id="chatbot-reset" class="chatbot-icon-btn" (click)="resetConversation()" title="Nouvelle conversation" aria-label="Nouvelle conversation">
+          <i class="fas fa-sync-alt"></i>
+        </button>
+        <button class="chatbot-icon-btn" (click)="toggle()" title="Fermer" aria-label="Fermer">
+          <i class="fas fa-chevron-down"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="chatbot-messages" #messagesContainer aria-live="polite">
+      @for (msg of messages(); track $index; let i = $index) {
+        <div class="message" [class.message--user]="msg.role === 'user'" [class.message--bot]="msg.role === 'bot'">
+          @if (msg.role === 'bot') {
+            <div class="message__avatar"><i class="fas fa-robot"></i></div>
+          }
+          <div class="message__content">
+            <div class="message__bubble" [class.message__bubble--typing]="msg.typing" [class.message__bubble--error]="msg.error">
+              @if (msg.typing) {
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+              } @else if (msg.role === 'bot') {
+                <div class="message__md" [innerHTML]="render(msg.text)"></div>
+              } @else {
+                {{ msg.text }}
+              }
+            </div>
+
+            @if (!msg.typing) {
+              <div class="message__meta">
+                <span>{{ msg.time | date: 'HH:mm' }}</span>
+                @if (msg.role === 'bot' && !msg.error && i > 0) {
+                  <button class="message__action" (click)="copy(msg.text, i)" [attr.aria-label]="'Copier la réponse'">
+                    <i class="fas" [class.fa-check]="copiedIndex() === i" [class.fa-copy]="copiedIndex() !== i"></i>
+                    {{ copiedIndex() === i ? 'Copié' : 'Copier' }}
+                  </button>
+                }
+                @if (msg.error && msg.retryText) {
+                  <button class="message__action message__action--retry" (click)="retry(msg)">
+                    <i class="fas fa-redo"></i> Réessayer
+                  </button>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Quick suggestions -->
+      @if (showSuggestions() && !isLoading()) {
+        <div class="chatbot-suggestions">
+          @for (s of suggestions; track s.label) {
+            <button class="chatbot-chip" (click)="useSuggestion(s.label)">
+              <i class="fas {{ s.icon }}"></i> {{ s.label }}
+            </button>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Input -->
+    <div class="chatbot-input-area">
+      <div class="chatbot-input-wrap">
+        <textarea
+          #inputEl
+          id="chatbot-input"
+          class="chatbot-input"
+          placeholder="Posez votre question..."
+          [value]="inputMessage()"
+          (input)="onInput($event)"
+          (keydown)="handleKeydown($event)"
+          [attr.maxlength]="maxLength"
+          rows="1"
+          [disabled]="isLoading()"
+          aria-label="Votre message"
+        ></textarea>
+        @if (charCount() > maxLength * 0.8) {
+          <span class="chatbot-counter">{{ charCount() }}/{{ maxLength }}</span>
+        }
+      </div>
+      <button
+        id="chatbot-send"
+        class="chatbot-send"
+        (click)="sendMessage()"
+        [disabled]="isLoading() || !inputMessage().trim()"
+        aria-label="Envoyer"
+      >
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
+    <p class="chatbot-footer">Propulsé par Gemini · Les réponses peuvent contenir des erreurs</p>
+  </div>
+}

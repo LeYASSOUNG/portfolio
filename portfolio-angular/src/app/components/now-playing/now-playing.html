@@ -1,0 +1,61 @@
+<section class="now-section reveal" aria-label="En ce moment">
+  <div class="now-container">
+
+    <!-- GitHub Card -->
+    @if (!loading() && github()) {
+      <a [href]="github().url" target="_blank" rel="noopener noreferrer" class="now-card now-card--github glass-card magnetic" aria-label="Dernier commit GitHub">
+        <div class="now-card__icon">
+          <i class="fab fa-github"></i>
+        </div>
+        <div class="now-card__body">
+          <span class="now-card__label">
+            <span class="now-dot now-dot--green"></span>
+            Dernier commit
+          </span>
+          <p class="now-card__title">{{ github().message }}</p>
+          <span class="now-card__meta">
+            <i class="fas fa-code-branch"></i>
+            {{ github().repo }} &bull; {{ timeAgo(github().date) }}
+          </span>
+        </div>
+        <i class="fas fa-arrow-up-right-from-square now-card__arrow"></i>
+      </a>
+    }
+
+    <!-- Spotify Card -->
+    @if (!loading() && spotify()) {
+      <div class="now-card now-card--spotify glass-card" aria-label="En écoute sur Spotify">
+        <div class="now-card__icon now-card__icon--spotify">
+          <i class="fab fa-spotify"></i>
+        </div>
+        <div class="now-card__body">
+          <span class="now-card__label">
+            <span class="now-dot now-dot--spotify"></span>
+            En écoute
+          </span>
+          <p class="now-card__title">{{ spotify().title }}</p>
+          <span class="now-card__meta">{{ spotify().artist }}</span>
+        </div>
+        <div class="now-bars" aria-hidden="true">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    }
+
+    <!-- Skeleton while loading -->
+    @if (loading()) {
+      <div class="now-card now-card--skeleton glass-card">
+        <div class="skeleton-icon"></div>
+        <div class="skeleton-lines">
+          <div class="skeleton-line skeleton-line--short"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line skeleton-line--short"></div>
+        </div>
+      </div>
+    }
+
+  </div>
+</section>

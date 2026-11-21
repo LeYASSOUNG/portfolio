@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 export interface RepoStats {
   stars: number;
@@ -10,6 +11,11 @@ export interface RepoStats {
 })
 export class GithubService {
   private readonly API_URL = 'https://api.github.com/repos/';
+  private isBrowser: boolean;
+
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   async getRepoStats(repoPath: string): Promise<RepoStats> {
     const cacheKey = `gh_stats_${repoPath}`;
@@ -20,6 +26,7 @@ export class GithubService {
   }
 
   private getCachedStats(cacheKey: string): RepoStats | null {
+    if (!this.isBrowser) return null;
     const cached = localStorage.getItem(cacheKey);
     if (!cached) return null;
     const { data, timestamp } = JSON.parse(cached);
@@ -28,8 +35,12 @@ export class GithubService {
   }
 
   private async fetchLiveStats(repoPath: string, cacheKey: string): Promise<RepoStats> {
+    const fallback: RepoStats = { stars: 0, forks: 0 };
+
+    if (!this.isBrowser) return fallback;
+
     const cachedStr = localStorage.getItem(cacheKey);
-    const fallback = cachedStr ? JSON.parse(cachedStr).data : { stars: 0, forks: 0 };
+    const localFallback = cachedStr ? JSON.parse(cachedStr).data : fallback;
 
     try {
       const controller = new AbortController();
@@ -38,10 +49,10 @@ export class GithubService {
       const response = await fetch(`${this.API_URL}${repoPath}`, { signal: controller.signal });
       clearTimeout(timeoutId);
 
-      return await this.handleResponse(response, repoPath, cacheKey, fallback);
+      return await this.handleResponse(response, repoPath, cacheKey, localFallback);
     } catch (error: any) {
       this.handleFetchError(error, repoPath);
-      return fallback;
+      return localFallback;
     }
   }
 
@@ -66,7 +77,9 @@ export class GithubService {
 
     const data = await response.json();
     const stats = { stars: data.stargazers_count || 0, forks: data.forks_count || 0 };
-    localStorage.setItem(cacheKey, JSON.stringify({ data: stats, timestamp: Date.now() }));
+    if (this.isBrowser) {
+      localStorage.setItem(cacheKey, JSON.stringify({ data: stats, timestamp: Date.now() }));
+    }
     return stats;
   }
 

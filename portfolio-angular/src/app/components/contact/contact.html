@@ -30,59 +30,64 @@
             {{ formMessageText }}
           </div>
 
+          <!-- Champ Honeypot invisible pour piéger les bots de spam -->
+          <div class="hp-field" aria-hidden="true">
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+          </div>
+
           <div class="form-row">
-            <div class="form-group">
-              <label for="name">{{ translation.translate('contact.name') }}</label>
+            <div class="form-group floating">
               <input
                 type="text"
                 id="name"
                 name="name"
-                class="glass-input"
-                [placeholder]="translation.translate('contact.name')"
+                class="glass-input floating-input"
+                placeholder=" "
                 autocomplete="name"
                 required
                 [attr.aria-label]="translation.translate('contact.name')"
               />
+              <label for="name" class="floating-label">{{ translation.translate('contact.name') }}</label>
             </div>
-            <div class="form-group">
-              <label for="email">{{ translation.translate('contact.email') }}</label>
+            <div class="form-group floating">
               <input
                 type="email"
                 id="email"
                 name="email"
-                class="glass-input"
-                placeholder="votre@email.com"
+                class="glass-input floating-input"
+                placeholder=" "
                 autocomplete="email"
                 required
                 [attr.aria-label]="translation.translate('contact.email')"
               />
+              <label for="email" class="floating-label">{{ translation.translate('contact.email') }}</label>
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="subject">{{ translation.translate('contact.subject') }}</label>
+          <div class="form-group floating">
             <input
               type="text"
               id="subject"
               name="subject"
-              class="glass-input"
-              [placeholder]="translation.translate('contact.subject')"
+              class="glass-input floating-input"
+              placeholder=" "
               required
               [attr.aria-label]="translation.translate('contact.subject')"
             />
+            <label for="subject" class="floating-label">{{ translation.translate('contact.subject') }}</label>
           </div>
 
-          <div class="form-group">
-            <label for="message">{{ translation.translate('contact.message') }}</label>
+          <div class="form-group floating">
             <textarea
               id="message"
               name="message"
-              class="glass-input"
+              class="glass-input floating-input"
               rows="6"
-              [placeholder]="translation.translate('contact.message')"
+              placeholder=" "
               required
               [attr.aria-label]="translation.translate('contact.message')"
             ></textarea>
+            <label for="message" class="floating-label">{{ translation.translate('contact.message') }}</label>
           </div>
 
           <button

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { TranslationService } from '../../services/translation.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-contact',
@@ -20,39 +21,36 @@ export class Contact {
   emailCopied = false;
   phoneCopied = false;
 
-  constructor(public translation: TranslationService) {}
+  constructor(
+    public translation: TranslationService,
+    private apiService: ApiService
+  ) {}
 
   /**
    * Méthode déclenchée à la soumission du formulaire HTML.
    * Utilise l'API fetch pour envoyer les données au serveur distant (Formspree).
    */
-  async onSubmitContact(event: Event) {
+  onSubmitContact(event: Event) {
     event.preventDefault(); // Annule le rechargement de page par défaut du formulaire
     this.isSubmitting = true;
 
     const form = event.target as HTMLFormElement;
+    const formData = Object.fromEntries(new FormData(form));
 
-    try {
-      // Exécute la requête HTTP POST avec FormData formaté en JSON
-      const res = await fetch('https://formspree.io/f/xdapoaww', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(form))),
-      });
-
-      if (res.ok) {
+    this.apiService.sendMessage(formData).subscribe({
+      next: (res) => {
         this.formMessageClass = 'success';
         this.formMessageText = '✅ ' + this.translation.translate('contact.success');
         form.reset();
-      } else {
-        throw new Error('Server error');
+        this.isSubmitting = false;
+      },
+      error: (err) => {
+        console.error('Erreur API Contact', err);
+        this.formMessageClass = 'error';
+        this.formMessageText = '❌ ' + this.translation.translate('contact.error');
+        this.isSubmitting = false;
       }
-    } catch {
-      this.formMessageClass = 'error';
-      this.formMessageText = '❌ ' + this.translation.translate('contact.error');
-    } finally {
-      this.isSubmitting = false; // Restaure l'état d'interaction du bouton d'envoi
-    }
+    });
   }
 
   /**

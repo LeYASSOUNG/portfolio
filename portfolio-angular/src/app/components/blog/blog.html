@@ -1,0 +1,51 @@
+<app-navbar></app-navbar>
+
+<main class="page-container blog-main">
+  <header class="blog-header">
+    <h1 class="gradient-text blog-title">Le Blog Technique</h1>
+    <p class="blog-subtitle">Partage d'expertise, découvertes techniques et retours d'expérience.</p>
+  </header>
+
+  @if (articles().length === 0) {
+    <div class="blog-empty">
+      <i class="fas fa-newspaper"></i>
+      <p>Aucun article publié pour le moment.</p>
+    </div>
+  } @else {
+    <div class="blog-grid">
+      @for (article of paginatedArticles(); track article.id) {
+        <article class="glass-card blog-card">
+          @if (article.image) {
+            <img [src]="article.image" [alt]="article.title" title="{{ article.title }}" class="blog-card-image">
+          }
+          <div class="blog-card-content">
+            <p class="blog-card-date">
+              {{ article.created_at | date:'dd MMMM yyyy' }}
+            </p>
+            <h3 class="blog-card-title">{{ article.title }}</h3>
+            <p class="blog-card-excerpt">
+              {{ article.content.substring(0, 150) }}...
+            </p>
+            <a [routerLink]="['/blog', article.slug]" class="blog-card-link">
+              Lire la suite <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </article>
+      }
+    </div>
+  }
+  
+  @if (totalPages() > 1) {
+    <div class="blog-pagination">
+      <button class="btn-secondary" (click)="prevPage()" [disabled]="currentPage() === 1">
+        <i class="fas fa-chevron-left"></i> Précédent
+      </button>
+      <span class="pagination-info">Page {{ currentPage() }} sur {{ totalPages() }}</span>
+      <button class="btn-secondary" (click)="nextPage()" [disabled]="currentPage() === totalPages()">
+        Suivant <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  }
+</main>
+
+<app-footer></app-footer>
