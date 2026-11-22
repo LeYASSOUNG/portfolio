@@ -184,3 +184,14 @@
   50%  { opacity: 0.8; }
   100% { opacity: 0.4; }
 }
+
+@media (max-width: 640px) {
+  .now-section {
+    padding: 0.5rem 1rem 2rem;
+  }
+  .now-card {
+    min-width: 0;
+    flex: 1 1 100%;
+    padding: 0.85rem 1rem;
+  }
+}

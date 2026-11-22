@@ -29,7 +29,7 @@
 }
 .blog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 2rem;
 }
 .blog-card {
@@ -106,4 +106,26 @@
   opacity: 0.5;
   cursor: not-allowed;
   transform: none;
+}
+
+@media (max-width: 640px) {
+  .blog-main {
+    padding-top: 84px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .blog-title {
+    font-size: 2.1rem;
+  }
+  .blog-subtitle {
+    font-size: 1rem;
+  }
+  .blog-grid {
+    gap: 1.25rem;
+  }
+  .blog-pagination {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+  }
 }

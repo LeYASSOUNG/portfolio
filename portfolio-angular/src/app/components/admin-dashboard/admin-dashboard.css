@@ -1499,3 +1499,49 @@ button.btn-primary:hover {
 /* Utilities */
 .ml-10 { margin-left: 0.6rem; }
 .sr-only { display: none; }
+
+/* Responsive Admin Dashboard (tablette & mobile) */
+@media (max-width: 900px) {
+  .dashboard-wrapper {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0.75rem;
+    gap: 0.4rem;
+    border-right: none;
+    border-bottom: 1px solid var(--notion-border);
+  }
+  .sidebar-logo {
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
+  .sidebar-section-label {
+    display: none;
+  }
+  .dashboard-body {
+    padding: 1.5rem 1.25rem 3rem;
+  }
+  .topbar {
+    padding: 0.75rem 1.25rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-body {
+    padding: 1rem 0.75rem 2.5rem;
+  }
+  .topbar {
+    padding: 0.75rem;
+  }
+  .media-gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 130px), 1fr));
+  }
+}

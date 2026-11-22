@@ -124,7 +124,7 @@
 
 .entries-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 1.5rem;
   align-items: start;
 }
@@ -204,4 +204,21 @@
   border: 2px solid var(--accent-purple);
   vertical-align: middle;
   margin-right: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .guestbook-container {
+    padding: 6rem 1rem 3rem;
+  }
+  .auth-card {
+    padding: 2.5rem 1.25rem;
+  }
+  .compose-card {
+    padding: 1.25rem;
+  }
+  .compose-header,
+  .entry-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
 }
