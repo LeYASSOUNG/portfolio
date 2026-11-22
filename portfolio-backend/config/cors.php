@@ -21,7 +21,7 @@ return [
 
     'allowed_origins' => [
         env('FRONTEND_URL', 'http://localhost:4200'),
-        'https://leyassoung-portfolio.vercel.app',
+        'https://portfolio-27obwi1ew-diarra-dev.vercel.app',
     ],
 
     'allowed_origins_patterns' => [

@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /login
 
-Sitemap: https://leyassoung-portfolio.vercel.app/sitemap.xml
+Sitemap: https://portfolio-27obwi1ew-diarra-dev.vercel.app/sitemap.xml
