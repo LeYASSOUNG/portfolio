@@ -175,36 +175,44 @@ export class AdminDashboard implements OnInit {
     private router: Router
   ) {}
 
+  private loadedTabs = new Set<string>(['dashboard', 'messages', 'blog', 'comments']);
+
   ngOnInit() {
+    // Chargement initial léger : uniquement les données du tableau de bord et des badges sidebar
     this.loadStats();
     this.loadMessages();
-    this.loadProjects();
-    this.loadSkills();
-    this.loadExperiences();
     this.loadArticles();
-    this.loadSettings();
-    this.loadCompanyServices();
-    this.loadScores();
-    this.loadAnalytics();
-    this.loadSubscribers();
-    this.loadTestimonials();
     this.loadComments();
-    this.loadSeo();
   }
 
   setTab(tab: 'dashboard' | 'messages' | 'projects' | 'skills' | 'experiences' | 'blog' | 'security' | 'settings' | 'company' | 'minigame' | 'analytics' | 'newsletter' | 'testimonials' | 'comments' | 'media' | 'seo') {
     this.activeTab.set(tab);
     this.searchQuery.set('');
-    if (tab === 'security') {
-      this.loadCurrentUser();
-    }
+
     if (tab === 'media') {
       this.loadMedia();
+      return;
+    }
+
+    if (this.loadedTabs.has(tab)) return;
+    this.loadedTabs.add(tab);
+
+    switch (tab) {
+      case 'projects': this.loadProjects(); break;
+      case 'skills': this.loadSkills(); break;
+      case 'experiences': this.loadExperiences(); break;
+      case 'company': this.loadCompanyServices(); break;
+      case 'settings': this.loadSettings(); break;
+      case 'minigame': this.loadScores(); break;
+      case 'analytics': this.loadAnalytics(); break;
+      case 'newsletter': this.loadSubscribers(); break;
+      case 'testimonials': this.loadTestimonials(); break;
+      case 'seo': this.loadSeo(); break;
+      case 'security': this.loadCurrentUser(); break;
     }
   }
 
   loadCurrentUser() {
-    this.apiService.getProjects().subscribe();
     if (typeof window !== 'undefined') {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
       this.securityForm.email = user.email || '';

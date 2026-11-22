@@ -117,34 +117,40 @@ export class App implements AfterViewInit, OnInit, OnDestroy {
     const body = this.document.body;
     body.classList.add('js-ready');
 
-    this.initCursor();
-    this.setupInteractions();
+    const skipCustomCursor =
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(hover: none), (pointer: coarse), (prefers-reduced-motion: reduce)').matches;
+    if (!skipCustomCursor) {
+      this.initCursor();
+      this.setupInteractions();
+    }
     this.initObservers();
-    this.setupWindowListeners();
+    this.setupWindowListeners(!skipCustomCursor);
   }
+
+  private magneticX = 0;
+  private magneticY = 0;
 
   private initCursor() {
     const cur = this.document.getElementById('cursor');
     const dot = this.document.getElementById('cursorDot');
 
     const steps = () => {
-      let targetX = this.mx;
-      let targetY = this.my;
+      const targetX = this.isMagnetic ? this.magneticX : this.mx;
+      const targetY = this.isMagnetic ? this.magneticY : this.my;
+      const ease = this.isMagnetic ? 0.2 : 0.15;
 
-      if (this.isMagnetic && this.magneticTarget) {
-        const rect = this.magneticTarget.getBoundingClientRect();
-        targetX = rect.left + rect.width / 2;
-        targetY = rect.top + rect.height / 2;
-        this.cx += (targetX - this.cx) * 0.2;
-        this.cy += (targetY - this.cy) * 0.2;
-      } else {
-        this.cx += (targetX - this.cx) * 0.15;
-        this.cy += (targetY - this.cy) * 0.15;
-      }
+      const dx = targetX - this.cx;
+      const dy = targetY - this.cy;
 
-      if (cur) {
-        cur.style.left = this.cx + 'px';
-        cur.style.top = this.cy + 'px';
+      // Évite les écritures DOM inutiles quand le curseur est immobile
+      if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
+        this.cx += dx * ease;
+        this.cy += dy * ease;
+        if (cur) {
+          cur.style.left = this.cx + 'px';
+          cur.style.top = this.cy + 'px';
+        }
       }
       if (dot) {
         dot.style.left = this.mx + 'px';
@@ -182,6 +188,9 @@ export class App implements AfterViewInit, OnInit, OnDestroy {
       htmlEl.addEventListener('mouseenter', () => {
         cur?.classList.add('hovered');
         if (htmlEl.classList.contains('magnetic') || htmlEl.tagName === 'A' || htmlEl.tagName === 'BUTTON') {
+          const rect = htmlEl.getBoundingClientRect();
+          this.magneticX = rect.left + rect.width / 2;
+          this.magneticY = rect.top + rect.height / 2;
           this.isMagnetic = true;
           this.magneticTarget = htmlEl;
           cur?.classList.add('magnetic-active');
@@ -269,7 +278,7 @@ export class App implements AfterViewInit, OnInit, OnDestroy {
    * Enregistre les listeners haute fréquence (mousemove, scroll) en dehors de NgZone
    * pour éviter de déclencher le change detection à chaque événement.
    */
-  private setupWindowListeners() {
+  private setupWindowListeners(trackMouse = true) {
     if (!this.isBrowser) return;
 
     if (this.windowAbortController) {
@@ -278,19 +287,27 @@ export class App implements AfterViewInit, OnInit, OnDestroy {
     this.windowAbortController = new AbortController();
     const { signal } = this.windowAbortController;
 
+    const indicator = this.document.getElementById('scrollIndicator');
+    let scrollTicking = false;
+
     this.ngZone.runOutsideAngular(() => {
-      window.addEventListener('mousemove', (e: MouseEvent) => {
-        this.mx = e.clientX;
-        this.my = e.clientY;
-      }, { signal });
+      if (trackMouse) {
+        window.addEventListener('mousemove', (e: MouseEvent) => {
+          this.mx = e.clientX;
+          this.my = e.clientY;
+        }, { passive: true, signal });
+      }
 
       window.addEventListener('scroll', () => {
-        const indicator = this.document.getElementById('scrollIndicator');
-        const total = this.document.body.scrollHeight - window.innerHeight;
-
-        if (indicator && total > 0) {
-          indicator.style.transform = `scaleX(${window.scrollY / total})`;
-        }
+        if (!indicator || scrollTicking) return;
+        scrollTicking = true;
+        requestAnimationFrame(() => {
+          const total = this.document.body.scrollHeight - window.innerHeight;
+          if (total > 0) {
+            indicator.style.transform = `scaleX(${window.scrollY / total})`;
+          }
+          scrollTicking = false;
+        });
       }, { passive: true, signal });
     });
   }
