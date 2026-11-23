@@ -53,5 +53,19 @@ services:
         sync: false
       - key: RUN_SEED         # "true" au 1er démarrage pour charger projets/compétences, puis supprimer
         sync: false
-      - key: MAIL_MAILER
-        value: log
+      - key: MAIL_MAILER       # "smtp" pour envoyer de vrais emails (sinon "log")
+        sync: false
+      - key: MAIL_SCHEME       # "tls" (port 587) ou "smtps" (port 465)
+        sync: false
+      - key: MAIL_HOST         # ex: smtp.gmail.com ou smtp-relay.brevo.com
+        sync: false
+      - key: MAIL_PORT         # ex: 587
+        sync: false
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
+      - key: MAIL_FROM_ADDRESS # votre adresse email d'envoi
+        sync: false
+      - key: MAIL_FROM_NAME
+        value: Yassoungo Portfolio
